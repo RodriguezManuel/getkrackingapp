@@ -16,7 +16,12 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().hide();
         new Handler().postDelayed(() -> {
-            Intent homeIntent = new Intent(MainActivity.this, HomeActivity.class);
+            //Intent homeIntent = new Intent(MainActivity.this, HomeActivity.class);
+
+            // testing
+            Intent homeIntent = new Intent(MainActivity.this, WelcomeActivity.class);
+
+
             startActivity(homeIntent);
             finish();
         }, SPLASH_TIME_OUT);
