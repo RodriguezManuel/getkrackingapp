@@ -1,6 +1,5 @@
-package com.example.getkracking.ui.main;
+package com.example.getkracking.ui.welcomeTabs;
 
-import androidx.arch.core.util.Function;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;

@@ -7,7 +7,7 @@ import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.getkracking.ui.main.SectionsPagerAdapter;
+import com.example.getkracking.ui.welcomeTabs.SectionsPagerAdapter;
 
 public class WelcomeActivity extends AppCompatActivity {
 

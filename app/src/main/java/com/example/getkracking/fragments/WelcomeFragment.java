@@ -27,6 +27,7 @@ public class WelcomeFragment extends Fragment {
     private EditText passwordET;
     private TextView passwordToggle;
     private boolean passwordFlag = false;
+    private TextView link1TV, link2TV;
 
     public WelcomeFragment() {
         // Required empty public constructor
@@ -65,6 +66,14 @@ public class WelcomeFragment extends Fragment {
             }
             passwordFlag = !passwordFlag;
         });
+
+        link1TV = v.findViewById(R.id.welcomeLink);
+        link1TV.setText(R.string.welcome_link);
+        link2TV = v.findViewById(R.id.welcomeLoginLink);
+        if(type.equals("Ingresar")){
+            link2TV.setText(R.string.welcome_login_link);
+        }
+
         return v;
     }
 }

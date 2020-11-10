@@ -1,4 +1,4 @@
-package com.example.getkracking.ui.main;
+package com.example.getkracking.ui.welcomeTabs;
 
 import android.content.Context;
 
