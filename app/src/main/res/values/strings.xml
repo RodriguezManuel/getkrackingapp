@@ -20,4 +20,9 @@
     <string name="contrasenia_string">Contraseña</string>
     <string name="welcome_login_link"><u>¿Olvidaste tu contraseña?</u></string>
     <string name="welcome_link"><u>Continuar sin cuenta</u></string>
+    <string name="home_button_string">Home button</string>
+    <string name="bottombaricon_social_string">Social</string>
+    <string name="bottombaricon_search_string">Search</string>
+    <string name="bottombaricon_stats_string">Stats</string>
+    <string name="bottombaricon_perfil_string">Perfil</string>
 </resources>

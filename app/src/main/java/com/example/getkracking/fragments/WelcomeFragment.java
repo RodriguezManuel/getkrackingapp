@@ -1,6 +1,5 @@
 package com.example.getkracking.fragments;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,11 +14,6 @@ import android.widget.TextView;
 
 import com.example.getkracking.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link WelcomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class WelcomeFragment extends Fragment {
     private static final String ARG_PARAM = "param";
     private String type;
