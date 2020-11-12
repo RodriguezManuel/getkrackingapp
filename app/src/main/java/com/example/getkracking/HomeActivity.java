@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
-import android.view.SurfaceControl;
 import android.view.View;
 
 import com.example.getkracking.fragments.HomeFragment;
@@ -14,6 +13,7 @@ import com.example.getkracking.fragments.PerfilFragment;
 import com.example.getkracking.fragments.SearchFragment;
 import com.example.getkracking.fragments.SocialFragment;
 import com.example.getkracking.fragments.StatsFragment;
+
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -51,53 +51,98 @@ public class HomeActivity extends AppCompatActivity {
             switchFabHomeColor(false); //por si estaba prendido
             // no uso switch por un tema de retrocompatibilidad
             if (item.getItemId() == R.id.menu_social) {
-                showSelectedFragment(socialFragment);
+                showSelectedFragment(socialFragment, "Social");
             } else if (item.getItemId() == R.id.menu_search) {
-                showSelectedFragment(searchFragment);
+                showSelectedFragment(searchFragment, "Search");
             } else if (item.getItemId() == R.id.menu_stats) {
-                showSelectedFragment(statsFragment);
+                showSelectedFragment(statsFragment, "Stats");
             } else if (item.getItemId() == R.id.menu_perfil) {
-                showSelectedFragment(perfilFragment);
+                showSelectedFragment(perfilFragment, "Perfil");
             }
             return true;
         });
 
         bottomNavigationView.getMenu().getItem(2).setChecked(true);
         switchFabHomeColor(true);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new HomeFragment())
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit(); // no uso showSelectedFragment por que quiero evitar el addToBackStack
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragmentContainer, new HomeFragment())
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        transaction.addToBackStack("Home");
+        transaction.commit();
+//        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new HomeFragment())
+//                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit(); // no uso showSelectedFragment por que quiero evitar el addToBackStack
+//        showSelectedFragment(new HomeFragment(), "Home");
+
     }
 
     public void goToHome(View view) {
-        showSelectedFragment(homeFragment);
+        showSelectedFragment(homeFragment, "Home");
         bottomNavigationView.getMenu().getItem(2).setChecked(true);//desactivo todos los otros activando el placeholder
         switchFabHomeColor(true);
     }
 
-    private void showSelectedFragment(Fragment fragment) {
-        for (int index = 0; index < bottomNavigationView.getMenu().size(); index++) {
-            if (bottomNavigationView.getMenu().getItem(index).isChecked()) {
-                iconSelectedStack.push(index);
-            }
+    private void showSelectedFragment(Fragment fragment, String name) {
+        if(getSupportFragmentManager().getBackStackEntryAt(getSupportFragmentManager().getBackStackEntryCount() -1).getName().equals(name))
+            return;
+
+        boolean fragmentPopped = getSupportFragmentManager().popBackStackImmediate(name, 0);
+
+        if (!fragmentPopped) {
+            //fragment no en stack, se debe crear
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragmentContainer, fragment)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            transaction.addToBackStack(name);
+            transaction.commit();
         }
 
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragmentContainer, fragment)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        fragmentTransaction.addToBackStack(fragment.getTag());
-        fragmentTransaction.commit();
+        int newIconIndex;
+        switch (name) {
+            case "Social":
+                newIconIndex = 0;
+                break;
+            case "Search":
+                newIconIndex = 1;
+                break;
+            case "Stats":
+                newIconIndex = 3;
+                break;
+            case "Perfil":
+                newIconIndex = 4;
+                break;
+            default:
+                newIconIndex = 2;
+        }
+        //no es el mismo que se encontraba prendido antes, saco si se encontraba antes y lo pusheo
+        if (iconSelectedStack.contains(newIconIndex)) {
+            iconSelectedStack.remove((Object) newIconIndex);
+        }
+
+        //Busco cual es el icono que estaba prendido antes del cambio para ver si es necesario guardarlo
+        for (int i = 0; i < bottomNavigationView.getMenu().size(); i++) {
+            if (bottomNavigationView.getMenu().getItem(i).isChecked()) {
+                if (i != newIconIndex) {
+                    iconSelectedStack.push(i);
+                }
+                break;
+            }
+        }
     }
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        if (getSupportFragmentManager().getBackStackEntryCount() == 1)
+            finish();
+        else {
+            super.onBackPressed();
 
-        //agrego este codigo para que la bottomNavBar mantenga su comportamiento
-        if (!iconSelectedStack.isEmpty()) {
-            int selectedIcon = iconSelectedStack.pop();
-            bottomNavigationView.getMenu().getItem(selectedIcon).setChecked(true);
-            if (selectedIcon == 2)
-                switchFabHomeColor(true);
+            //agrego este codigo para que la bottomNavBar mantenga su comportamiento
+            if (!iconSelectedStack.isEmpty()) {
+                //Toast.makeText(getBaseContext(), String.valueOf(iconSelectedStack.size()), Toast.LENGTH_SHORT).show();
+                int selectedIcon = iconSelectedStack.pop();
+                bottomNavigationView.getMenu().getItem(selectedIcon).setChecked(true);
+                switchFabHomeColor(selectedIcon == 2);
+            }
         }
     }
 
