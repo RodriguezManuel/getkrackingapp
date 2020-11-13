@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.getkracking.fragments.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/perfilFragment"
+        android:name="com.example.getkracking.fragments.PerfilFragment"
+        android:label="fragment_perfil"
+        tools:layout="@layout/fragment_perfil" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.getkracking.fragments.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/socialFragment"
+        android:name="com.example.getkracking.fragments.SocialFragment"
+        android:label="fragment_social"
+        tools:layout="@layout/fragment_social" />
+    <fragment
+        android:id="@+id/statsFragment"
+        android:name="com.example.getkracking.fragments.StatsFragment"
+        android:label="fragment_stats"
+        tools:layout="@layout/fragment_stats" />
+</navigation>
