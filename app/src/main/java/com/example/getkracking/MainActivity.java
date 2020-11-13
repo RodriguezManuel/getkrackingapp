@@ -14,14 +14,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        getSupportActionBar().hide();
         new Handler().postDelayed(() -> {
-            Intent homeIntent = new Intent(MainActivity.this, HomeActivity.class);
+            Intent homeIntent = new Intent(this, HomeActivity.class);
 
             // testing
-//            Intent homeIntent = new Intent(MainActivity.this, WelcomeActivity.class);
-
-
+//            Intent homeIntent = new Intent(this, WelcomeActivity.class);
             startActivity(homeIntent);
             finish();
         }, SPLASH_TIME_OUT);

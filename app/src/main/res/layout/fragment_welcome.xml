@@ -65,7 +65,7 @@
         android:paddingTop="0dp"
         android:textAlignment="center"
         android:textAppearance="@style/customTextNoSpecificCaseLayout"
-        android:textColor="@color/gray"
+        android:textColor="@color/primary"
         app:backgroundTint="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rlpassword" />

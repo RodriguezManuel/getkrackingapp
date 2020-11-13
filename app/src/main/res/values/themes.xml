@@ -1,25 +1,20 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Getkracking" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.Getkracking" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/gray</item>
-        <item name="colorPrimaryVariant">@color/gray</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primary</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal</item>
-        <item name="colorSecondaryVariant">@color/teal</item>
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorSecondaryVariant">@color/secondary</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Theme.Getkracking.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="Theme.Getkracking.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.Getkracking.NoActionBar"/>
 
     <style name="Theme.Getkracking.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
@@ -28,7 +23,7 @@
         <item name="android:textAllCaps">false</item>
         <item name="font">@font/notosans_regular</item>
         <item name="android:textSize">18dp</item>
-        <item name="android:textColor">@color/gray</item>
+        <item name="android:textColor">@color/primary</item>
     </style>
 
     <style name="CustomTextLayout" parent="TextAppearance.Design.Tab">

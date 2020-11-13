@@ -2,13 +2,14 @@ package com.example.getkracking;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
 
@@ -16,11 +17,8 @@ import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.Iterator;
 import java.util.Objects;
 import java.util.Stack;
-
-import static java.sql.Types.NULL;
 
 public class HomeActivity extends AppCompatActivity {
     BottomAppBar bottomAppBar;
@@ -29,11 +27,21 @@ public class HomeActivity extends AppCompatActivity {
     Stack<Integer> iconSelectedStack;
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.clear();
+        getMenuInflater().inflate(R.menu.topbarmenu, menu);
+        return true;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         bottomAppBar = findViewById(R.id.bottomAppBar);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
+
+        Toolbar toolbar = findViewById(R.id.homeTopBar);
+        setSupportActionBar(toolbar);
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(R.id.socialFragment, R.id.searchFragment,
                 R.id.homeFragment, R.id.statsFragment, R.id.perfilFragment)
@@ -43,7 +51,7 @@ public class HomeActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
         homeButton = findViewById(R.id.fabBottomAppBar);
-        homeButton.setBackgroundTintList(AppCompatResources.getColorStateList(this, R.color.gray));
+        homeButton.setBackgroundTintList(AppCompatResources.getColorStateList(this, R.color.primary));
         iconSelectedStack = new Stack<>();
 
         bottomNavigationView.setBackground(null);   //saca la sombra que se previsualiza en la bottom bar
@@ -65,7 +73,7 @@ public class HomeActivity extends AppCompatActivity {
             return true;
         });
 
-        goToHome(findViewById(android.R.id.content).getRootView());
+        goToHome( findViewById(android.R.id.content).getRootView() );
     }
 
     public void goToHome(View view) {
@@ -128,6 +136,6 @@ public class HomeActivity extends AppCompatActivity {
         if (flag)
             homeButton.setBackgroundTintList(AppCompatResources.getColorStateList(this, R.color.orange));
         else
-            homeButton.setBackgroundTintList(AppCompatResources.getColorStateList(this, R.color.gray));
+            homeButton.setBackgroundTintList(AppCompatResources.getColorStateList(this, R.color.primary));
     }
 }
