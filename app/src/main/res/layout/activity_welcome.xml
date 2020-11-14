@@ -34,7 +34,7 @@
         android:layout_height="190dp"
         android:layout_marginStart="104dp"
         android:layout_marginTop="28dp"
-        android:contentDescription="@string/logo_get_krackin_string"
+        android:contentDescription="@string/logo_get_krackin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/pulpi_logo" />
@@ -46,7 +46,7 @@
         android:layout_marginStart="60dp"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/notosans_regular"
-        android:text="@string/welcome1_string"
+        android:text="@string/welcome1"
         android:textAlignment="center"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"

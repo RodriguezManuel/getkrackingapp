@@ -31,17 +31,12 @@ public class RoutinesAdapter extends RecyclerView.Adapter<RoutinesAdapter.Routin
 
     @Override
     public void onBindViewHolder(@NonNull RoutineViewHolder holder, int position) {
-        holder.name.setText(routinesList.get(position).getName());
-        holder.description.setText(routinesList.get(position).getDescription());
-        holder.duration.setText(String.valueOf(routinesList.get(position).getDuration()));
-
-        if(routinesList.get(position).isFavorited())
-            holder.favourite.setImageResource(R.drawable.ic_favorite);
-        else
-            holder.favourite.setImageResource(R.drawable.ic_favorite_border);
-
-        holder.category1.setRating(routinesList.get(position).getLevelCategory1());
-        holder.category2.setRating(routinesList.get(position).getLevelCategory2());
+        holder.setName(routinesList.get(position).getName());
+        holder.setDescription(routinesList.get(position).getDescription());
+        holder.setDuration(String.valueOf(routinesList.get(position).getDuration()));
+        holder.setFavourite(routinesList.get(position).isFavorited());
+        holder.setCategory1(routinesList.get(position).getLevelCategory1());
+        holder.setCategory2(routinesList.get(position).getLevelCategory2());
     }
 
     @Override
@@ -64,6 +59,32 @@ public class RoutinesAdapter extends RecyclerView.Adapter<RoutinesAdapter.Routin
             favourite = (ImageView) itemview.findViewById(R.id.ivFavIconRoutine);
         }
 
+        public void setName(String name) {
+            this.name.setText(name);
+        }
+
+        public void setDescription(String description) {
+            this.description.setText(description);
+        }
+
+        public void setDuration(String duration) {
+            this.duration.setText(duration);
+        }
+
+        public void setCategory1(float category1) {
+            this.category1.setRating(category1);
+        }
+
+        public void setCategory2(float category2) {
+            this.category2.setRating(category2);
+        }
+
+        public void setFavourite(boolean favourite) {
+            if (favourite)
+                this.favourite.setImageResource(R.drawable.ic_favorite);
+            else
+                this.favourite.setImageResource(R.drawable.ic_favorite_border);
+        }
     }
 }
 
