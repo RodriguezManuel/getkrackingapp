@@ -3,8 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/topbar_back"
         android:title="backButton"
-        app:showAsAction="always"
-        android:icon="@drawable/ic_chevron_left"
-        android:iconTint="@color/white"
-        />
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_chevron_left"/>
+
+    <item android:id="@+id/topbar_share"
+        android:title="shareButton"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_share"/>
+
+    <item android:id="@+id/topbar_fav"
+        android:title="favouritedButton"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_favorite"/>
 </menu>

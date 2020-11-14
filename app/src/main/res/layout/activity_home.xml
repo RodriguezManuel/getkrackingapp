@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/primary"
+        app:titleTextColor="@color/white"
         app:menu="@menu/topbarmenu"/>
 
     <!--    NO ARREGLAR ESTE WARNING QUE SI LO HACES ROMPES TODO, ANDROID STUDIO SOS UN ASCO-->
