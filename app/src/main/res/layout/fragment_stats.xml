@@ -6,10 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".fragments.StatsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <TextView
         android:id="@+id/RoutineNameInRoutine"
+        style="@style/customTextNoSpecificCaseLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="68dp"
@@ -22,6 +21,7 @@
 
     <TextView
         android:id="@+id/CreatorNameInRoutine"
+        style="@style/customTextNoSpecificCaseLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -52,12 +52,14 @@
 
     <Button
         android:id="@+id/ButtonEmpezarInRoutine"
+        style="@style/customTextNoSpecificCaseLayout"
+        android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:backgroundTint="#FBAC31"
         android:backgroundTintMode="src_in"
-        android:text="¡Empezar!"
+        android:text="@string/buttonstart_routine_string"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,6 +67,7 @@
 
     <TextView
         android:id="@+id/RoutineDescriptionInRoutine"
+        style="@style/customTextNoSpecificCaseLayout"
         android:layout_width="375dp"
         android:layout_height="42dp"
         android:layout_marginTop="16dp"
@@ -77,21 +80,23 @@
 
     <TextView
         android:id="@+id/RoutineCategory1InRoutine"
+        style="@style/customTextNoSpecificCaseLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Dificultad"
+        android:text="@string/category1rating_routine"
         app:layout_constraintStart_toStartOf="@+id/RoutineDescriptionInRoutine"
         app:layout_constraintTop_toBottomOf="@+id/RoutineDescriptionInRoutine" />
 
     <RatingBar
         android:id="@+id/rbCategory1InRoutine"
         style="@style/CustomRatingBarStyle"
+        android:progressTint="@color/secondary"
+        android:progressBackgroundTint="@color/secondary"
+        android:secondaryProgressTint="@color/secondary"
         android:layout_width="181dp"
         android:layout_height="39dp"
         android:layout_marginStart="20dp"
-        android:background="#2196F3"
-        android:backgroundTint="#9C27B0"
         android:isIndicator="true"
         android:rating="2.5"
         android:scaleX="0.4"
@@ -102,10 +107,11 @@
 
     <TextView
         android:id="@+id/RoutineCategory2InRoutine"
+        style="@style/customTextNoSpecificCaseLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Resistencia"
+        android:text="@string/category3rating_routine"
         app:layout_constraintStart_toStartOf="@+id/RoutineCategory1InRoutine"
         app:layout_constraintTop_toBottomOf="@+id/RoutineCategory1InRoutine" />
 
@@ -115,8 +121,9 @@
         android:layout_width="181dp"
         android:layout_height="39dp"
         android:layout_marginStart="20dp"
-        android:background="#2196F3"
-        android:backgroundTint="#9C27B0"
+        android:progressTint="@color/secondary"
+        android:progressBackgroundTint="@color/secondary"
+        android:secondaryProgressTint="@color/secondary"
         android:isIndicator="true"
         android:rating="2.5"
         android:scaleX="0.4"
@@ -127,11 +134,12 @@
 
     <TextView
         android:id="@+id/RoutineCategory3InRoutin"
+        style="@style/customTextNoSpecificCaseLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
 
-        android:text="Flexibilidad"
+        android:text="@string/category2rating_routine"
         app:layout_constraintStart_toStartOf="@+id/RoutineCategory2InRoutine"
         app:layout_constraintTop_toBottomOf="@+id/RoutineCategory2InRoutine" />
 
@@ -140,8 +148,9 @@
         style="@style/CustomRatingBarStyle"
         android:layout_width="181dp"
         android:layout_height="39dp"
-        android:background="#2196F3"
-        android:backgroundTint="#9C27B0"
+        android:progressTint="@color/secondary"
+        android:progressBackgroundTint="@color/secondary"
+        android:secondaryProgressTint="@color/secondary"
         android:isIndicator="true"
         android:rating="2.5"
         android:scaleX="0.4"
@@ -152,10 +161,11 @@
 
     <TextView
         android:id="@+id/RoutineCategory4InRoutine"
+        style="@style/customTextNoSpecificCaseLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Fuerza"
+        android:text="@string/category4rating_routine"
         app:layout_constraintStart_toStartOf="@+id/RoutineCategory3InRoutin"
         app:layout_constraintTop_toBottomOf="@+id/RoutineCategory3InRoutin" />
 
@@ -164,8 +174,9 @@
         style="@style/CustomRatingBarStyle"
         android:layout_width="181dp"
         android:layout_height="39dp"
-        android:background="#2196F3"
-        android:backgroundTint="#9C27B0"
+        android:progressTint="@color/secondary"
+        android:progressBackgroundTint="@color/secondary"
+        android:secondaryProgressTint="@color/secondary"
         android:isIndicator="true"
         android:rating="2.5"
         android:scaleX="0.4"
@@ -174,28 +185,43 @@
         app:layout_constraintStart_toStartOf="@+id/rbCategory3InRoutine"
         app:layout_constraintTop_toTopOf="@+id/RoutineCategory4InRoutine" />
 
-    <TextView
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/DurationInRoutine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
-        android:text="5 minutos"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toBottomOf="@+id/RoutineDescriptionInRoutine" />
+        app:layout_constraintTop_toBottomOf="@+id/RoutineDescriptionInRoutine">
 
-    <ImageView
-        android:id="@+id/ClockIconInRoutine"
-        android:layout_width="21dp"
-        android:layout_height="19dp"
-        android:layout_marginEnd="4dp"
-        android:contentDescription="Relojde duracion"
-        android:src="@drawable/ic_clock_time_five_outline"
-        app:layout_constraintEnd_toStartOf="@+id/DurationInRoutine"
-        app:layout_constraintTop_toTopOf="@+id/DurationInRoutine" />
+        <TextView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/ic_clock_time_five_outline"
+            android:backgroundTint="@color/primary" />
+
+        <TextView
+            android:id="@+id/tv_duration_routine"
+            style="@style/customTextNoSpecificCaseLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:text="5"/>
+
+        <TextView
+            style="@style/customTextNoSpecificCaseLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="@string/duration_routine_string"
+            android:textSize="14sp" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <TextView
         android:id="@+id/RequirementsInRoutine"
+        style="@style/customTextNoSpecificCaseLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -205,6 +231,7 @@
 
     <TextView
         android:id="@+id/Seccition1InRoutine"
+        style="@style/customTextNoSpecificCaseLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"

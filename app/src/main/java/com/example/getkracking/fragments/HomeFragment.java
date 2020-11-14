@@ -3,6 +3,7 @@ package com.example.getkracking.fragments;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
@@ -23,11 +24,11 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
-    public void onStart() {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         if (((HomeActivity) getActivity()).getSupportActionBar() != null)
-            ((HomeActivity) getActivity()).getSupportActionBar().setTitle("Home");
+            ((HomeActivity) getActivity()).getSupportActionBar().setTitle(R.string.home_button_string);
 
-        super.onStart();
+        super.onCreate(savedInstanceState);
     }
 
     @Override

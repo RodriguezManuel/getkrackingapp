@@ -74,6 +74,7 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         goToHome( findViewById(android.R.id.content).getRootView() );
+        Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.homeFragment);
     }
 
     public void goToHome(View view) {

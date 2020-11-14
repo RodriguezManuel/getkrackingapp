@@ -19,14 +19,10 @@ public class PerfilFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public void onStart() {
         if (((HomeActivity) getActivity()).getSupportActionBar() != null)
-            ((HomeActivity) getActivity()).getSupportActionBar().setTitle("Perfil");
-        super.onStart();
+            ((HomeActivity) getActivity()).getSupportActionBar().setTitle(R.string.bottombaricon_perfil_string);
+
+        super.onCreate(savedInstanceState);
     }
 
     @Override

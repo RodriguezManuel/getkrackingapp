@@ -15,15 +15,16 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
+<!--    Strings del resto de la app-->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="contrasenia_string">Contraseña</string>
     <string name="welcome_login_link"><u>¿Olvidaste tu contraseña?</u></string>
     <string name="welcome_link"><u>Continuar sin cuenta</u></string>
-    <string name="home_button_string">Home button</string>
+    <string name="home_button_string">Inicio</string>
     <string name="bottombaricon_social_string">Social</string>
-    <string name="bottombaricon_search_string">Search</string>
-    <string name="bottombaricon_stats_string">Stats</string>
+    <string name="bottombaricon_search_string">Busqueda</string>
+    <string name="bottombaricon_stats_string">Estadisticas</string>
     <string name="bottombaricon_perfil_string">Perfil</string>
     <string name="highlight_routine_string">Rutina destacada</string>
     <string name="fav_icon_string">Icono de favoritos</string>
@@ -31,6 +32,9 @@
     <string name="workout_image_string">Workout image</string>
     <string name="category1rating_routine">Dificultad</string>
     <string name="category2rating_routine">Flexibilidad</string>
+    <string name="category3rating_routine">Resistencia</string>
+    <string name="category4rating_routine">Fuerza</string>
     <string name="duration_routine_string"> minutos</string>
     <string name="imagen_descriptiva_de_la_rutina">Imagen descriptiva de la rutina</string>
+    <string name="buttonstart_routine_string">¡Empezar!</string>
 </resources>

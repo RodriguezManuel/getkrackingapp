@@ -19,7 +19,7 @@
         android:inputType="textEmailAddress"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
-        android:textAppearance="@style/CustomTextLayout"
+        android:textAppearance="@style/CustomTextUppercaseLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -44,7 +44,7 @@
             android:paddingStart="15dp"
             android:paddingTop="0dp"
             android:paddingEnd="15dp"
-            android:textAppearance="@style/CustomTextLayout" />
+            android:textAppearance="@style/CustomTextUppercaseLayout" />
 
         <TextView
             android:id="@+id/password_toggle"
