@@ -5,7 +5,8 @@
     android:id="@+id/welcome"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.WelcomeFragment">
+    tools:context=".fragments.WelcomeFragment"
+    android:background="@color/secondary">
 
     <EditText
         android:id="@+id/etEmail"

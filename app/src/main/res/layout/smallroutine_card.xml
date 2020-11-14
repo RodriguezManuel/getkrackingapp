@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="263dp"
+    android:layout_height="166dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="@color/secondary"
+    app:cardCornerRadius="25dp"
+    android:layout_marginTop="20dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_name_routine_small"
+            style="customTextNoSpecificCaseLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="72dp"
+            android:layout_marginTop="4dp"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/notosans_regular"
+            android:text="NOMBRE RUTINA"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ivFavIconRoutine_small"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="@string/fav_icon_string"
+            android:src="@drawable/ic_favorite"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/red" />
+
+        <ImageView
+            android:id="@+id/ivWeightIconRoutine_small"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="28dp"
+            android:contentDescription="@string/weight_icon_string"
+            android:src="@drawable/ic_fitness_center"
+            app:layout_constraintEnd_toEndOf="@+id/ivFavIconRoutine_small"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/ivFavIconRoutine_small"
+            app:layout_constraintTop_toBottomOf="@+id/ivFavIconRoutine_small" />
+
+        <ImageView
+            android:id="@+id/ivWorkout"
+            android:layout_width="100dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:contentDescription="@string/workout_image_string"
+            android:src="@drawable/workout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name_routine_small" />
+
+        <RatingBar
+            android:id="@+id/rb_category1_routine_small"
+            style="@style/CustomRatingBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="115dp"
+            android:layout_marginTop="24dp"
+            android:isIndicator="true"
+            android:rating="2.5"
+            android:scaleX="0.45"
+            android:scaleY="0.45"
+            android:transformPivotY="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name_routine_small" />
+
+        <TextView
+            style="customTextNoSpecificCaseLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@string/category1rating_routine"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/rb_category1_routine_small"
+            app:layout_constraintStart_toEndOf="@+id/ivWorkout" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linearLayoutCompat_small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivWorkout">
+
+            <TextView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/ic_clock_time_five_outline"
+                android:backgroundTint="@color/white" />
+
+            <TextView
+                android:id="@+id/tv_duration_routine_small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5"
+                style="customTextNoSpecificCaseLayout"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="@string/duration_routine_string"
+                style="customTextNoSpecificCaseLayout"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <TextView
+            android:id="@+id/tv_description_routine_small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:text="Esto es una descripcion de una tremenda rutina que nunca conoceras"
+            android:textAlignment="center"
+            style="customTextNoSpecificCaseLayout"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat_small" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
