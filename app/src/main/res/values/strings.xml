@@ -25,4 +25,5 @@
     <string name="bottombaricon_search_string">Search</string>
     <string name="bottombaricon_stats_string">Stats</string>
     <string name="bottombaricon_perfil_string">Perfil</string>
+    <string name="imagen_descriptiva_de_la_rutina">Imagen descriptiva de la rutina</string>
 </resources>

@@ -1,14 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.StatsFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text='"STATS FRAGMENT"' />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/RoutineNameInRoutine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="40dp"
+        android:text='"Nombre de Rutina"'
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.931"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/CreatorNameInRoutine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Creador: Anita 'Capa' Cruz"
+        app:layout_constraintEnd_toEndOf="@+id/RoutineNameInRoutine"
+        app:layout_constraintStart_toStartOf="@+id/RoutineNameInRoutine"
+        app:layout_constraintTop_toBottomOf="@+id/RoutineNameInRoutine" />
+
+
+    <ImageView
+        android:id="@+id/RoutineImageInRoutine"
+        android:layout_width="125dp"
+        android:layout_height="102dp"
+        android:layout_marginStart="40dp"
+        android:contentDescription="@string/imagen_descriptiva_de_la_rutina"
+        app:layout_constraintBottom_toBottomOf="@+id/CreatorNameInRoutine"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/RoutineNameInRoutine"
+        app:layout_constraintVertical_bias="0.51"
+        app:srcCompat="@drawable/workout" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="205dp" />
+
+    <Button
+        android:id="@+id/ButtonEmpezarInRoutine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#FBAC31"
+        android:backgroundTintMode="src_in"
+        android:text="¡Empezar!"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RoutineImageInRoutine" />
+
+    <TextView
+        android:id="@+id/RoutineDescriptionInRoutine"
+        android:layout_width="370dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="16dp"
+        android:text="Hola! soy la descripción de este workout. Ojala nos divirtamos mucho juntos y saquemos musculo."
+        android:textSize="7pt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ButtonEmpezarInRoutine" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Dificultad"
+        app:layout_constraintStart_toStartOf="@+id/RoutineDescriptionInRoutine"
+        app:layout_constraintTop_toBottomOf="@+id/RoutineDescriptionInRoutine" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
