@@ -25,5 +25,12 @@
     <string name="bottombaricon_search_string">Search</string>
     <string name="bottombaricon_stats_string">Stats</string>
     <string name="bottombaricon_perfil_string">Perfil</string>
+    <string name="highlight_routine_string">Rutina destacada</string>
+    <string name="fav_icon_string">Icono de favoritos</string>
+    <string name="weight_icon_string">Icono de mancuerna</string>
+    <string name="workout_image_string">Workout image</string>
+    <string name="category1rating_routine">Dificultad</string>
+    <string name="category2rating_routine">Flexibilidad</string>
+    <string name="duration_routine_string"> minutos</string>
     <string name="imagen_descriptiva_de_la_rutina">Imagen descriptiva de la rutina</string>
 </resources>
