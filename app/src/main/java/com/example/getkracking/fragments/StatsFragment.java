@@ -18,11 +18,11 @@ public class StatsFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onResume() {
         if (((HomeActivity) getActivity()).getSupportActionBar() != null)
             ((HomeActivity) getActivity()).getSupportActionBar().setTitle(R.string.bottombaricon_social_string);
 
-        super.onCreate(savedInstanceState);
+        super.onResume();
     }
 
     @Override

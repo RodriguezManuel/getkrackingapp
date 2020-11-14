@@ -17,6 +17,8 @@ import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Objects;
 import java.util.Stack;
 
@@ -25,6 +27,7 @@ public class HomeActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     FloatingActionButton homeButton;
     Stack<Integer> iconSelectedStack;
+    Deque<Integer> dequeSelection = new ArrayDeque<>(5);      //double ended queue
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -57,27 +60,33 @@ public class HomeActivity extends AppCompatActivity {
         bottomNavigationView.setBackground(null);   //saca la sombra que se previsualiza en la bottom bar
         bottomNavigationView.getMenu().getItem(2).setEnabled(false);    //desactiva el boton placeholder del medio que ayuda en la alineacion
 
+        goToHome( findViewById(android.R.id.content).getRootView() );   // home es el defaultfragment
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            int id = item.getItemId();
             switchFabHomeColor(false); //por si estaba prendido
 
+            if(!dequeSelection.isEmpty() && id == dequeSelection.peek())
+                return false;     // me encuentro en el mismo fragmento
+
             // no uso switch por un tema de retrocompatibilidad
-            if (item.getItemId() == R.id.menu_social) {
+            if (id == R.id.menu_social) {
                 showSelectedFragment(R.id.socialFragment, 0);
-            } else if (item.getItemId() == R.id.menu_search) {
+            } else if (id == R.id.menu_search) {
                 showSelectedFragment(R.id.searchFragment, 1);
-            } else if (item.getItemId() == R.id.menu_stats) {
+            } else if (id == R.id.menu_stats) {
                 showSelectedFragment(R.id.statsFragment, 3);
-            } else if (item.getItemId() == R.id.menu_perfil) {
+            } else if (id == R.id.menu_perfil) {
                 showSelectedFragment(R.id.perfilFragment, 4);
             }
             return true;
         });
-
-        goToHome( findViewById(android.R.id.content).getRootView() );
-        Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.homeFragment);
     }
 
     public void goToHome(View view) {
+        if(!iconSelectedStack.isEmpty() && iconSelectedStack.peek() == R.id.homeFragment)
+            //me encuentro en este fragment
+            return;
+
         showSelectedFragment(R.id.homeFragment, 2);
         bottomNavigationView.getMenu().getItem(2).setChecked(true); //desactivo todos los otros activando el placeholder
         switchFabHomeColor(true);
@@ -85,29 +94,21 @@ public class HomeActivity extends AppCompatActivity {
 
     private void showSelectedFragment(int id, int newIconIndex) {
         NavController controller = Navigation.findNavController(this, R.id.nav_host_fragment);
-        if (!Objects.isNull(controller.getCurrentDestination()) && controller.getCurrentDestination().getId() == id)
-            return;
-
-        //Busco cual es el icono que estaba prendido antes del cambio para ver si es necesario guardarlo
-        for (int i = 0; i < bottomNavigationView.getMenu().size(); i++) {
-            if (bottomNavigationView.getMenu().getItem(i).isChecked()) {
-                iconSelectedStack.push(i);
-                break;
-            }
-        }
         boolean poppedFragment = controller.popBackStack(id, true);
 
         if (!poppedFragment) {
             controller.navigate(id);    //lo creo por que no existe
-        } else {
-            int i = 0;
-            for (; i < iconSelectedStack.size(); i++)
-                if (iconSelectedStack.get(i) == newIconIndex)
-                    break;
-
-            iconSelectedStack.subList(i, iconSelectedStack.size()).clear();
-            Toast.makeText(getBaseContext(),iconSelectedStack.toString(),Toast.LENGTH_SHORT).show();
         }
+        if(dequeSelection.contains(id)){
+            //intente usar el poppedFragment pero anda mal
+            int aux;
+            for (int i = dequeSelection.size(); i > 0 ; i--) {
+                aux = dequeSelection.pop();
+                if (aux == id)
+                    break;
+            }
+        }
+        dequeSelection.push(id);    //nueva instancia
 
             /*
             VER SI SE PUEDE ARREGLAR LA SITUACION EN LA QUE TENGO
@@ -122,14 +123,25 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-
-        //agrego este codigo para que la bottomNavBar mantenga su comportamiento
-        if (!iconSelectedStack.isEmpty()) {
-            int selectedIcon = iconSelectedStack.pop();
-            bottomNavigationView.getMenu().getItem(selectedIcon).setChecked(true);
-            switchFabHomeColor(selectedIcon == 2);
-        }
+        //saco el fragment actual
+        dequeSelection.pop();
+        if (!dequeSelection.isEmpty()) {
+            int fragmentid = dequeSelection.peek();
+            int iconIndex = 2;  //default home
+            if (fragmentid == R.id.socialFragment) {
+                iconIndex = 0;
+            } else if (fragmentid == R.id.searchFragment) {
+                iconIndex = 1;
+            } else if (fragmentid == R.id.statsFragment) {
+                iconIndex = 3;
+            } else if (fragmentid == R.id.perfilFragment) {
+                iconIndex = 4;
+            }
+            switchFabHomeColor(fragmentid == R.id.homeFragment);
+            bottomNavigationView.getMenu().getItem(iconIndex).setChecked(true);
+            super.onBackPressed();
+        }else
+            finish();
 
     }
 
