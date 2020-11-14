@@ -33,15 +33,15 @@
 
     <ImageView
         android:id="@+id/RoutineImageInRoutine"
-        android:layout_width="125dp"
-        android:layout_height="102dp"
-        android:layout_marginStart="40dp"
+        android:layout_width="166dp"
+        android:layout_height="106dp"
+        android:layout_marginStart="16dp"
         android:contentDescription="@string/imagen_descriptiva_de_la_rutina"
         app:layout_constraintBottom_toBottomOf="@+id/CreatorNameInRoutine"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/RoutineNameInRoutine"
-        app:layout_constraintVertical_bias="0.51"
-        app:srcCompat="@drawable/workout" />
+        app:layout_constraintVertical_bias="0.508"
+        app:srcCompat="@drawable/workout2" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
@@ -65,17 +65,18 @@
 
     <TextView
         android:id="@+id/RoutineDescriptionInRoutine"
-        android:layout_width="370dp"
-        android:layout_height="62dp"
+        android:layout_width="375dp"
+        android:layout_height="42dp"
         android:layout_marginTop="16dp"
         android:text="Hola! soy la descripción de este workout. Ojala nos divirtamos mucho juntos y saquemos musculo."
-        android:textSize="7pt"
+        android:background="@drawable/text_border"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ButtonEmpezarInRoutine" />
 
     <TextView
+        android:id="@+id/RoutineCategory1InRoutine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -83,5 +84,131 @@
         app:layout_constraintStart_toStartOf="@+id/RoutineDescriptionInRoutine"
         app:layout_constraintTop_toBottomOf="@+id/RoutineDescriptionInRoutine" />
 
+    <RatingBar
+        android:id="@+id/rbCategory1InRoutine"
+        style="@style/CustomRatingBarStyle"
+        android:layout_width="181dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="20dp"
+        android:background="#2196F3"
+        android:backgroundTint="#9C27B0"
+        android:isIndicator="true"
+        android:rating="2.5"
+        android:scaleX="0.4"
+        android:scaleY="0.4"
+        android:transformPivotY="0dp"
+        app:layout_constraintStart_toEndOf="@+id/RoutineCategory1InRoutine"
+        app:layout_constraintTop_toTopOf="@+id/RoutineCategory1InRoutine" />
 
+    <TextView
+        android:id="@+id/RoutineCategory2InRoutine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Resistencia"
+        app:layout_constraintStart_toStartOf="@+id/RoutineCategory1InRoutine"
+        app:layout_constraintTop_toBottomOf="@+id/RoutineCategory1InRoutine" />
+
+    <RatingBar
+        android:id="@+id/rbCategory2InRoutine"
+        style="@style/CustomRatingBarStyle"
+        android:layout_width="181dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="20dp"
+        android:background="#2196F3"
+        android:backgroundTint="#9C27B0"
+        android:isIndicator="true"
+        android:rating="2.5"
+        android:scaleX="0.4"
+        android:scaleY="0.4"
+        android:transformPivotY="0dp"
+        app:layout_constraintStart_toEndOf="@+id/RoutineCategory1InRoutine"
+        app:layout_constraintTop_toTopOf="@+id/RoutineCategory2InRoutine" />
+
+    <TextView
+        android:id="@+id/RoutineCategory3InRoutin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+
+        android:text="Flexibilidad"
+        app:layout_constraintStart_toStartOf="@+id/RoutineCategory2InRoutine"
+        app:layout_constraintTop_toBottomOf="@+id/RoutineCategory2InRoutine" />
+
+    <RatingBar
+        android:id="@+id/rbCategory3InRoutine"
+        style="@style/CustomRatingBarStyle"
+        android:layout_width="181dp"
+        android:layout_height="39dp"
+        android:background="#2196F3"
+        android:backgroundTint="#9C27B0"
+        android:isIndicator="true"
+        android:rating="2.5"
+        android:scaleX="0.4"
+        android:scaleY="0.4"
+        android:transformPivotY="0dp"
+        app:layout_constraintStart_toStartOf="@+id/rbCategory2InRoutine"
+        app:layout_constraintTop_toTopOf="@+id/RoutineCategory3InRoutin" />
+
+    <TextView
+        android:id="@+id/RoutineCategory4InRoutine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Fuerza"
+        app:layout_constraintStart_toStartOf="@+id/RoutineCategory3InRoutin"
+        app:layout_constraintTop_toBottomOf="@+id/RoutineCategory3InRoutin" />
+
+    <RatingBar
+        android:id="@+id/rbCategory4InRoutine"
+        style="@style/CustomRatingBarStyle"
+        android:layout_width="181dp"
+        android:layout_height="39dp"
+        android:background="#2196F3"
+        android:backgroundTint="#9C27B0"
+        android:isIndicator="true"
+        android:rating="2.5"
+        android:scaleX="0.4"
+        android:scaleY="0.4"
+        android:transformPivotY="0dp"
+        app:layout_constraintStart_toStartOf="@+id/rbCategory3InRoutine"
+        app:layout_constraintTop_toTopOf="@+id/RoutineCategory4InRoutine" />
+
+    <TextView
+        android:id="@+id/DurationInRoutine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:text="5 minutos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toBottomOf="@+id/RoutineDescriptionInRoutine" />
+
+    <ImageView
+        android:id="@+id/ClockIconInRoutine"
+        android:layout_width="21dp"
+        android:layout_height="19dp"
+        android:layout_marginEnd="4dp"
+        android:contentDescription="Relojde duracion"
+        android:src="@drawable/ic_clock_time_five_outline"
+        app:layout_constraintEnd_toStartOf="@+id/DurationInRoutine"
+        app:layout_constraintTop_toTopOf="@+id/DurationInRoutine" />
+
+    <TextView
+        android:id="@+id/RequirementsInRoutine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Requerimientos: "
+        app:layout_constraintStart_toStartOf="@+id/RoutineCategory4InRoutine"
+        app:layout_constraintTop_toBottomOf="@+id/RoutineCategory4InRoutine" />
+
+    <TextView
+        android:id="@+id/Seccition1InRoutine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Precalentamiento: "
+        app:layout_constraintStart_toStartOf="@+id/RequirementsInRoutine"
+        app:layout_constraintTop_toBottomOf="@+id/RequirementsInRoutine" />
 </androidx.constraintlayout.widget.ConstraintLayout>
