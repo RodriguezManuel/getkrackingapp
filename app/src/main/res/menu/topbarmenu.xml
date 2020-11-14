@@ -5,5 +5,6 @@
         android:title="backButton"
         app:showAsAction="always"
         android:icon="@drawable/ic_chevron_left"
-        android:iconTint="@color/white"/>
+        android:iconTint="@color/white"
+        />
 </menu>

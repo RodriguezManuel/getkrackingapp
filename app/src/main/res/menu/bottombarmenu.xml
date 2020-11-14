@@ -2,12 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/menu_social"
-        android:title="@string/bottombaricon_social_string"
+        android:title="@string/bottombaricon_social"
         android:icon="@drawable/ic_persons"
         app:showAsAction="ifRoom"/>
 
     <item android:id="@+id/menu_search"
-        android:title="@string/bottombaricon_search_string"
+        android:title="@string/bottombaricon_search"
         android:icon="@drawable/ic_search"
         app:showAsAction="ifRoom"/>
 
@@ -15,12 +15,12 @@
         android:title="" />
 
     <item android:id="@+id/menu_stats"
-        android:title="@string/bottombaricon_stats_string"
+        android:title="@string/bottombaricon_stats"
         android:icon="@drawable/ic_graph"
         app:showAsAction="ifRoom"/>
 
     <item android:id="@+id/menu_perfil"
-        android:title="@string/bottombaricon_perfil_string"
+        android:title="@string/bottombaricon_perfil"
         android:icon="@drawable/ic_person"
         app:showAsAction="ifRoom"/>
 </menu>

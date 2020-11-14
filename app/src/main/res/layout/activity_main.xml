@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="196dp"
-        android:contentDescription="@string/logo_get_krackin_string"
+        android:contentDescription="@string/logo_get_krackin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/pulpi_logo" />

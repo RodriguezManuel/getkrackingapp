@@ -20,7 +20,7 @@ public class StatsFragment extends Fragment {
     @Override
     public void onResume() {
         if (((HomeActivity) getActivity()).getSupportActionBar() != null)
-            ((HomeActivity) getActivity()).getSupportActionBar().setTitle(R.string.bottombaricon_social_string);
+            ((HomeActivity) getActivity()).getSupportActionBar().setTitle(R.string.bottombaricon_social);
 
         super.onResume();
     }
