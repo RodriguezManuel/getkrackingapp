@@ -6,16 +6,110 @@
     android:layout_height="match_parent"
     tools:context=".fragments.HomeFragment">
 
-    <TextView
-        android:id="@+id/etHighlightRoutine"
-        style="@style/customTextNoSpecificCaseLayout"
-        android:layout_width="wrap_content"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollViewSearchHome"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/highlight_routine"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/customTextNoSpecificCaseLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/highlight_routine"
+                android:textSize="24sp" />
+
+            <include layout="@layout/bigroutine_card"
+                android:id="@+id/include_highlighted_routine"/>
+
+            <TextView
+                style="@style/customTextNoSpecificCaseLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/favourites_routines"
+                android:textSize="24sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerHomeFavouritesRoutines"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"/>
+
+            <TextView
+                style="@style/customTextNoSpecificCaseLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/recent_routines"
+                android:textSize="24sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerHomeRecentRoutines"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"/>
+
+            <TextView
+                style="@style/customTextNoSpecificCaseLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/recomended_routines"
+                android:textSize="24sp" />
+
+            <TextView
+                style="@style/customTextNoSpecificCaseLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/first_category_recomended_routines"
+                android:textSize="20sp" />
+
+            <include layout="@layout/bigroutine_card"
+                android:id="@+id/include_first_category_routine"/>
+
+            <TextView
+                style="@style/customTextNoSpecificCaseLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/second_category_recomended_routines"
+                android:textSize="20sp" />
+
+            <include layout="@layout/bigroutine_card"
+                android:id="@+id/include_second_category_routine"/>
+
+            <TextView
+                style="@style/customTextNoSpecificCaseLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/third_category_recomended_routines"
+                android:textSize="20sp" />
+
+            <include layout="@layout/bigroutine_card"
+                android:id="@+id/include_third_category_routine"/>
+
+            <!--            PLACEHOLDER PARA QUE NO SE TAPE LA ULTIMA RUTINA-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="60dp" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

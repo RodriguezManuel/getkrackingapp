@@ -36,4 +36,10 @@
     <string name="category4rating_routine">Fuerza</string>
     <string name="duration_routine_string"> minutos</string>
     <string name="buttonstart_routine">¡Empezar!</string>
+    <string name="favourites_routines">Favoritos</string>
+    <string name="recent_routines">Recientes</string>
+    <string name="recomended_routines">Recomendados</string>
+    <string name="first_category_recomended_routines">Cardio</string>
+    <string name="second_category_recomended_routines">HIIT</string>
+    <string name="third_category_recomended_routines">Elongacion</string>
 </resources>
