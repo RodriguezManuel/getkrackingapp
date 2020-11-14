@@ -30,13 +30,6 @@ public class HomeActivity extends AppCompatActivity {
     Deque<Integer> dequeSelection = new ArrayDeque<>(5);      //double ended queue
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        menu.clear();
-        getMenuInflater().inflate(R.menu.topbarmenu, menu);
-        return true;
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
@@ -70,13 +63,13 @@ public class HomeActivity extends AppCompatActivity {
 
             // no uso switch por un tema de retrocompatibilidad
             if (id == R.id.menu_social) {
-                showSelectedFragment(R.id.socialFragment, 0);
+                showSelectedFragment(R.id.socialFragment, R.id.menu_social);
             } else if (id == R.id.menu_search) {
-                showSelectedFragment(R.id.searchFragment, 1);
+                showSelectedFragment(R.id.searchFragment, R.id.menu_search);
             } else if (id == R.id.menu_stats) {
-                showSelectedFragment(R.id.statsFragment, 3);
+                showSelectedFragment(R.id.statsFragment, R.id.menu_stats);
             } else if (id == R.id.menu_perfil) {
-                showSelectedFragment(R.id.perfilFragment, 4);
+                showSelectedFragment(R.id.perfilFragment, R.id.menu_perfil);
             }
             return true;
         });
@@ -87,28 +80,30 @@ public class HomeActivity extends AppCompatActivity {
             //me encuentro en este fragment
             return;
 
-        showSelectedFragment(R.id.homeFragment, 2);
+        showSelectedFragment(R.id.homeFragment, R.id.menu_placeholder);
         bottomNavigationView.getMenu().getItem(2).setChecked(true); //desactivo todos los otros activando el placeholder
         switchFabHomeColor(true);
     }
 
-    private void showSelectedFragment(int id, int newIconIndex) {
+    private void showSelectedFragment(int id, int menuId) {
         NavController controller = Navigation.findNavController(this, R.id.nav_host_fragment);
-        boolean poppedFragment = controller.popBackStack(id, true);
+        boolean poppedFragment = controller.popBackStack(id, false);
 
         if (!poppedFragment) {
             controller.navigate(id);    //lo creo por que no existe
         }
-        if(dequeSelection.contains(id)){
+
+        if(dequeSelection.contains(menuId)){
             //intente usar el poppedFragment pero anda mal
             int aux;
             for (int i = dequeSelection.size(); i > 0 ; i--) {
                 aux = dequeSelection.pop();
-                if (aux == id)
+                if (aux == menuId)
                     break;
             }
         }
-        dequeSelection.push(id);    //nueva instancia
+
+        dequeSelection.push(menuId);    //nueva instancia
 
             /*
             VER SI SE PUEDE ARREGLAR LA SITUACION EN LA QUE TENGO
@@ -120,7 +115,6 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-
     @Override
     public void onBackPressed() {
         //saco el fragment actual
@@ -128,16 +122,16 @@ public class HomeActivity extends AppCompatActivity {
         if (!dequeSelection.isEmpty()) {
             int fragmentid = dequeSelection.peek();
             int iconIndex = 2;  //default home
-            if (fragmentid == R.id.socialFragment) {
+            if (fragmentid == R.id.menu_social) {
                 iconIndex = 0;
-            } else if (fragmentid == R.id.searchFragment) {
+            } else if (fragmentid == R.id.menu_search) {
                 iconIndex = 1;
-            } else if (fragmentid == R.id.statsFragment) {
+            } else if (fragmentid == R.id.menu_stats) {
                 iconIndex = 3;
-            } else if (fragmentid == R.id.perfilFragment) {
+            } else if (fragmentid == R.id.menu_perfil) {
                 iconIndex = 4;
             }
-            switchFabHomeColor(fragmentid == R.id.homeFragment);
+            switchFabHomeColor(fragmentid == R.id.menu_placeholder);
             bottomNavigationView.getMenu().getItem(iconIndex).setChecked(true);
             super.onBackPressed();
         }else

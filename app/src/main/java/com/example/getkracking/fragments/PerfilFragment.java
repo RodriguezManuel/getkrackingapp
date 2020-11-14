@@ -20,7 +20,7 @@ public class PerfilFragment extends Fragment {
     @Override
     public void onResume() {
         if (((HomeActivity) getActivity()).getSupportActionBar() != null)
-            ((HomeActivity) getActivity()).getSupportActionBar().setTitle(R.string.bottombaricon_perfil_string);
+            ((HomeActivity) getActivity()).getSupportActionBar().setTitle(R.string.bottombaricon_perfil);
 
         super.onResume();
     }

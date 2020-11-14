@@ -6,7 +6,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardBackgroundColor="@color/secondary"
     app:cardCornerRadius="25dp"
-    android:layout_marginTop="20dp">
+    android:layout_marginTop="20dp"
+    android:layout_marginEnd="20dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -47,7 +48,7 @@
             android:layout_height="33dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="28dp"
-            android:contentDescription="@string/weight_icon_string"
+            android:contentDescription="@string/weight_icon"
             android:src="@drawable/ic_fitness_center"
             app:layout_constraintEnd_toEndOf="@+id/ivFavIconRoutine_small"
             app:layout_constraintHorizontal_bias="0.0"
@@ -60,7 +61,7 @@
             android:layout_height="70dp"
             android:layout_marginStart="4dp"
             android:layout_marginTop="4dp"
-            android:contentDescription="@string/workout_image_string"
+            android:contentDescription="@string/workout_image"
             android:src="@drawable/workout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_name_routine_small" />

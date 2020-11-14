@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/primary"
+        app:titleTextColor="@color/white"
         app:menu="@menu/topbarmenu"/>
 
     <!--    NO ARREGLAR ESTE WARNING QUE SI LO HACES ROMPES TODO, ANDROID STUDIO SOS UN ASCO-->
@@ -51,7 +52,7 @@
         android:id="@+id/fabBottomAppBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/home_button_string"
+        android:contentDescription="@string/home_button"
         android:onClick="goToHome"
         android:src="@drawable/ic_home"
         app:layout_anchor="@id/bottomAppBar"

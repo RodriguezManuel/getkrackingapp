@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">getkracking</string>
-    <string name="logo_get_krackin_string">Logo Get Krackin</string>
+    <string name="logo_get_krackin">Logo Get Krackin</string>
     <string name="title_activity_welcome">WelcomeActivity</string>
     <string name="tab_text_1">Ingresar</string>
     <string name="tab_text_2">Registrarse</string>
-    <string name="welcome1_string">Para tener una experiencia mas personalizada, inicie sesión!</string>
+    <string name="welcome1">Para tener una experiencia mas personalizada, inicie sesión!</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -18,23 +18,33 @@
 
 <!--    Strings del resto de la app-->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="contrasenia_string">Contraseña</string>
+    <string name="contrasenia">Contraseña</string>
     <string name="welcome_login_link"><u>¿Olvidaste tu contraseña?</u></string>
     <string name="welcome_link"><u>Continuar sin cuenta</u></string>
-    <string name="home_button_string">Inicio</string>
-    <string name="bottombaricon_social_string">Social</string>
-    <string name="bottombaricon_search_string">Busqueda</string>
-    <string name="bottombaricon_stats_string">Estadisticas</string>
-    <string name="bottombaricon_perfil_string">Perfil</string>
-    <string name="highlight_routine_string">Rutina destacada</string>
+    <string name="home_button">Inicio</string>
+    <string name="bottombaricon_social">Social</string>
+    <string name="bottombaricon_search">Busqueda</string>
+    <string name="bottombaricon_stats">Estadisticas</string>
+    <string name="bottombaricon_perfil">Perfil</string>
+    <string name="highlight_routine">Rutina destacada</string>
     <string name="fav_icon_string">Icono de favoritos</string>
-    <string name="weight_icon_string">Icono de mancuerna</string>
-    <string name="workout_image_string">Workout image</string>
+    <string name="weight_icon">Icono de mancuerna</string>
+    <string name="workout_image">Workout image</string>
     <string name="category1rating_routine">Dificultad</string>
     <string name="category2rating_routine">Flexibilidad</string>
     <string name="category3rating_routine">Resistencia</string>
     <string name="category4rating_routine">Fuerza</string>
     <string name="duration_routine_string"> minutos</string>
+    <string name="buttonstart_routine">¡Empezar!</string>
+    <string name="favourites_routines">Favoritos</string>
+    <string name="recent_routines">Recientes</string>
+    <string name="recomended_routines">Recomendados</string>
+    <string name="first_category_recomended_routines">Cardio</string>
+    <string name="second_category_recomended_routines">HIIT</string>
+    <string name="third_category_recomended_routines">Elongacion</string>
     <string name="imagen_descriptiva_de_la_rutina">Imagen descriptiva de la rutina</string>
     <string name="buttonstart_routine_string">¡Empezar!</string>
+    <string name="Nombre_In_Excercise_card">Nombre:</string>
+    <string name="cantidad">Cantidad:</string>
+    <string name="imagen_ilustrativa_del_ejercicio">Imagen ilustrativa del ejercicio</string>
 </resources>
