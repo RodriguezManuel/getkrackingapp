@@ -60,7 +60,6 @@
         android:backgroundTintMode="src_in"
         android:text="@string/buttonstart_routine"
         android:textColor="@color/white"
-        android:text="@string/buttonstart_routine_string"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -243,12 +242,16 @@
         app:layout_constraintStart_toStartOf="@+id/RequirementsInRoutine"
         app:layout_constraintTop_toBottomOf="@+id/RequirementsInRoutine" />
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RoutineRecycler"
         android:layout_width="360dp"
         android:layout_height="192dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="501dp" />
+        app:layout_constraintTop_toBottomOf="@+id/Seccition1InRoutine" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
