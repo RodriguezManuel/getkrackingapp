@@ -37,4 +37,7 @@
     <string name="duration_routine_string"> minutos</string>
     <string name="imagen_descriptiva_de_la_rutina">Imagen descriptiva de la rutina</string>
     <string name="buttonstart_routine_string">¡Empezar!</string>
+    <string name="cantidad">Cantidad:</string>
+    <string name="Nombre_In_Excercise_card">Nombre:</string>
+    <string name="imagen_ilustrativa_del_ejercicio">Imagen ilustrativa del ejercicio</string>
 </resources>
