@@ -22,7 +22,6 @@ public class ExcercisesAdapter extends RecyclerView.Adapter<ExcercisesAdapter.Ex
         this.excerciseList = excerciseList;
     }
 
-
     public class ExcerciseViewHolder extends RecyclerView.ViewHolder {
 
         ImageView image;
@@ -37,8 +36,6 @@ public class ExcercisesAdapter extends RecyclerView.Adapter<ExcercisesAdapter.Ex
 
         }
     }
-
-
 
     @NonNull
     @Override

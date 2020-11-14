@@ -39,6 +39,9 @@ public class StatsFragment extends Fragment {
         excercisesList.add(new ExcerciseVO("Sentadillas", "40 repeticiones"));
         excercisesList.add(new ExcerciseVO("Abominables", "50 repeticiones"));
         excercisesList.add(new ExcerciseVO("Los de culo", "20 minutos"));
+        excercisesList.add(new ExcerciseVO("Los de culo", "20 minutos"));
+        excercisesList.add(new ExcerciseVO("Los de culo", "20 minutos"));
+        excercisesList.add(new ExcerciseVO("Los de culo", "20 minutos"));
     }
 
     @Override
@@ -47,7 +50,7 @@ public class StatsFragment extends Fragment {
 
         View vista = inflater.inflate(R.layout.fragment_stats, container, false);
         excercisesList = new ArrayList<>();
-        recyclerExcercise = vista.findViewById(R.id.RoutineRecycler);
+        recyclerExcercise = vista.findViewById(R.id.ExercisesRecycler);
         recyclerExcercise.setLayoutManager(new LinearLayoutManager(getContext()));
 
         fillList();
