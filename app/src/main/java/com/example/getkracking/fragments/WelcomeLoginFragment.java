@@ -39,10 +39,11 @@ public class WelcomeLoginFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_welcome_login, container, false);
+
         username = v.findViewById(R.id.etEmail_login);  //cambiar id a username xd
         password = v.findViewById(R.id.etPassword_login);
         ((Button) v.findViewById(R.id.welcomeButton_login)).setOnClickListener(v1 -> {
-            ApiUserService userService = ApiClient.create(ApiUserService.class);
+            ApiUserService userService = ApiClient.create(getActivity().getApplication(),ApiUserService.class);
             userService.login(new Credentials(username.getText().toString(), password.getText().toString())).observe(getViewLifecycleOwner(), r -> {
                 if (r.getError() == null) {
                     Log.d("UI", "Token: " + r.getData().getToken());
