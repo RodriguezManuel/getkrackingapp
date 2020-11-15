@@ -15,6 +15,7 @@ import com.example.getkracking.HomeActivity;
 import com.example.getkracking.R;
 import com.example.getkracking.adapters.RoutinesAdapter;
 import com.example.getkracking.entities.RoutineVO;
+import com.google.android.material.chip.ChipGroup;
 
 import java.util.ArrayList;
 
@@ -38,14 +39,31 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
     private void fillList() {
         //HARDCODEADO ADAPTAR A API
         routinesList.add(new RoutineVO("IRONMAN", "HMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMMHMH", "Octa1", "Piernas", 5, 5, 18, 1, true));
-        routinesList.add(new RoutineVO("CAPTAIN AMERICA", "VALCHARRRR SACA LA MANO DE AHI CARAJO", "Octa2","Brazos",1, 0, 180, 2, true));
-        routinesList.add(new RoutineVO("THOR NOT AGUSTIN", "wasaaaaaaaaaaaaaaaaaaaaaaaaaa", "Octa3","Piernas", 2, 0, 11,3, true));
+        routinesList.add(new RoutineVO("CAPTAIN AMERICA", "VALCHARRRR SACA LA MANO DE AHI CARAJO", "Octa2", "Brazos", 1, 0, 180, 2, true));
+        routinesList.add(new RoutineVO("THOR NOT AGUSTIN", "wasaaaaaaaaaaaaaaaaaaaaaaaaaa", "Octa3", "Piernas", 2, 0, 11, 3, true));
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View vista = inflater.inflate(R.layout.fragment_search, container, false);
+
+
+        //chip de filtros
+        ChipGroup filters = vista.findViewById(R.id.chipgroup_filterSearch);
+        filters.setOnCheckedChangeListener((group, id) -> {
+            if (id == R.id.filterchip_favourites) {
+                //completar
+            } else if (id == R.id.filterchip_highdifficulty) {
+                //completar
+            } else if (id == R.id.filterchip_mediumdifficulty) {
+                //completar
+            } else if (id == R.id.filterchip_lowdifficulty) {
+                //completar
+            }
+        });
+
+        //lista rutinas
         routinesList = new ArrayList<>();
         recyclerRoutines = vista.findViewById(R.id.recyclerSearchRoutines);
         recyclerRoutines.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -67,6 +85,6 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
         action.setNameRoutine(routinesList.get(position).getName());
         action.setDifficultyRoutine(routinesList.get(position).getLevelCategory1());
         //falta rating
-        Navigation.findNavController(getActivity(),R.id.nav_host_fragment).navigate(action);
+        Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(action);
     }
 }

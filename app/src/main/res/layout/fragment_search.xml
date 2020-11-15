@@ -18,6 +18,83 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="33dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/custominput"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etUsername_login">
+
+                <EditText
+                    android:id="@+id/etSearchRoutines"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/cumtominputnostroke"
+                    android:hint="@string/search_hint"
+                    android:importantForAutofill="no"
+                    android:inputType="textPassword"
+                    android:paddingStart="35dp"
+                    android:paddingTop="0dp"
+                    android:paddingEnd="15dp"
+                    android:textAppearance="@style/CustomTextUppercaseLayout" />
+
+                <TextView
+                    android:id="@+id/password_toggle_login"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="5dp"
+                    android:background="@drawable/ic_search" />
+            </RelativeLayout>
+
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scrollbars="none">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipgroup_filterSearch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:singleLine="true">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/filterchip_favourites"
+                        android:layout_width="110dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/chip_favourites"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/customTextNoSpecificCaseLayout" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/filterchip_lowdifficulty"
+                        android:layout_width="110dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/chip_lowdifficulty"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/customTextNoSpecificCaseLayout" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/filterchip_mediumdifficulty"
+                        android:layout_width="110dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/chip_mediumdifficulty"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/customTextNoSpecificCaseLayout" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/filterchip_highdifficulty"
+                        android:layout_width="110dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/chip_highdifficulty"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/customTextNoSpecificCaseLayout" />
+                </com.google.android.material.chip.ChipGroup>
+            </HorizontalScrollView>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerSearchRoutines"
                 android:layout_width="match_parent"

@@ -70,4 +70,9 @@
     <string name="username_missing">Falta el nombre de usuario</string>
     <string name="wrong_password_format">Formato de contrasenia invalido</string>
     <string name="login_error">Nombre o contrasenia incorrectos</string>
+    <string name="chip_favourites">Favoritos</string>
+    <string name="chip_lowdifficulty">Faciles</string>
+    <string name="chip_mediumdifficulty">Normales</string>
+    <string name="chip_highdifficulty">Dificiles</string>
+    <string name="search_hint">Buscar</string>
 </resources>
