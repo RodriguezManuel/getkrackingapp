@@ -9,7 +9,11 @@
         android:id="@+id/homeFragment"
         android:name="com.example.getkracking.fragments.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_routineInfoFragment"
+            app:destination="@id/routineInfoFragment" />
+    </fragment>
     <fragment
         android:id="@+id/perfilFragment"
         android:name="com.example.getkracking.fragments.PerfilFragment"
@@ -19,7 +23,11 @@
         android:id="@+id/searchFragment"
         android:name="com.example.getkracking.fragments.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_routineInfoFragment"
+            app:destination="@id/routineInfoFragment" />
+    </fragment>
     <fragment
         android:id="@+id/socialFragment"
         android:name="com.example.getkracking.fragments.SocialFragment"
@@ -30,4 +38,36 @@
         android:name="com.example.getkracking.fragments.StatsFragment"
         android:label="fragment_stats"
         tools:layout="@layout/fragment_stats" />
+    <fragment
+        android:id="@+id/routineInfoFragment"
+        android:name="com.example.getkracking.fragments.RoutineInfoFragment"
+        android:label="routine_info_fragment"
+        tools:layout="@layout/routine_info_fragment" >
+        <argument
+            android:name="idRoutine"
+            app:argType="integer" />
+        <argument
+            android:name="nameRoutine"
+            app:argType="string"
+            android:defaultValue='"NOMBRE RUTINA"' />
+        <argument
+            android:name="descRoutine"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="creatorRoutine"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="difficultyRoutine"
+            app:argType="integer"
+            android:defaultValue="3" />
+        <argument
+            android:name="ratingRoutine"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="categoryRoutine"
+            app:argType="string" />
+    </fragment>
 </navigation>

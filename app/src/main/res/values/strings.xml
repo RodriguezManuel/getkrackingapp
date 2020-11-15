@@ -44,7 +44,17 @@
     <string name="third_category_recomended_routines">Elongacion</string>
     <string name="imagen_descriptiva_de_la_rutina">Imagen descriptiva de la rutina</string>
     <string name="buttonstart_routine_string">¡Empezar!</string>
-    <string name="Nombre_In_Excercise_card">Nombre:</string>
+    <string name="name_in_excercise_card">Nombre:</string>
     <string name="cantidad">Cantidad:</string>
     <string name="imagen_ilustrativa_del_ejercicio">Imagen ilustrativa del ejercicio</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="terms_and_conditions">Términos y condiciones</string>
+    <string name="feedback">Feedback</string>
+    <string name="more_information">Más información</string>
+    <string name="privacy">Privacidad</string>
+    <string name="notifications">Notificaciones</string>
+    <string name="edit_profile">Editar perfil</string>
+    <string name="configuration">Configuración</string>
+    <string name="requirements">Requerimientos:</string>
+    <string name="sections">Secciones</string>
 </resources>

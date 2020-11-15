@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
             // testing
 //            Intent homeIntent = new Intent(this, WelcomeActivity.class);
             startActivity(homeIntent);
-            finish();
+            finish();   //para que no pueda volver a esta pantalla
         }, SPLASH_TIME_OUT);
     }
 }

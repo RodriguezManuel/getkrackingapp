@@ -3,6 +3,7 @@ package com.example.getkracking.fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,7 +18,7 @@ import com.example.getkracking.entities.RoutineVO;
 
 import java.util.ArrayList;
 
-public class SearchFragment extends Fragment {
+public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutineListener {
     RecyclerView recyclerRoutines;
     ArrayList<RoutineVO> routinesList;
 
@@ -36,9 +37,9 @@ public class SearchFragment extends Fragment {
 
     private void fillList() {
         //HARDCODEADO ADAPTAR A API
-        routinesList.add(new RoutineVO("IRONMAN","HMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMMHMH", 5, 5, 18, true));
-        routinesList.add(new RoutineVO("CAPTAIN AMERICA","VALCHARRRR SACA LA MANO DE AHI CARAJO", 1, 0, 180, false));
-        routinesList.add(new RoutineVO("THOR NOT AGUSTIN","wasaaaaaaaaaaaaaaaaaaaaaaaaaa", 2.5f, 0.5f, 11, true));
+        routinesList.add(new RoutineVO("IRONMAN", "HMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMMHMH", "Octa1", "Piernas", 5, 5, 18, 1, true));
+        routinesList.add(new RoutineVO("CAPTAIN AMERICA", "VALCHARRRR SACA LA MANO DE AHI CARAJO", "Octa2","Brazos",1, 0, 180, 2, true));
+        routinesList.add(new RoutineVO("THOR NOT AGUSTIN", "wasaaaaaaaaaaaaaaaaaaaaaaaaaa", "Octa3","Piernas", 2, 0, 11,3, true));
     }
 
     @Override
@@ -51,10 +52,21 @@ public class SearchFragment extends Fragment {
 
         fillList();
 
-        RoutinesAdapter adapter = new RoutinesAdapter(routinesList);
+        RoutinesAdapter adapter = new RoutinesAdapter(routinesList, this, null);
         recyclerRoutines.setAdapter(adapter);
         recyclerRoutines.setNestedScrollingEnabled(false);
 
         return vista;
+    }
+
+    @Override
+    public void onRoutineClick(int position, String type) {
+        SearchFragmentDirections.ActionSearchFragmentToRoutineInfoFragment action = SearchFragmentDirections.actionSearchFragmentToRoutineInfoFragment
+                (routinesList.get(position).getId(), routinesList.get(position).getDescription(), routinesList.get(position).getCreator(), routinesList.get(position).getCategory());
+        // LE PASO LOS ARGUMENTOS QUE NO TIENEN VALOR DEFAULT
+        action.setNameRoutine(routinesList.get(position).getName());
+        action.setDifficultyRoutine(routinesList.get(position).getLevelCategory1());
+        //falta rating
+        Navigation.findNavController(getActivity(),R.id.nav_host_fragment).navigate(action);
     }
 }
