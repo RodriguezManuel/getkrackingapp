@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -26,9 +27,9 @@
                 android:id="@+id/Picture"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:layout_marginTop="50dp"
                 app:cardBackgroundColor="@color/primary"
                 app:cardCornerRadius="250dp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -53,19 +54,222 @@
 
             </androidx.cardview.widget.CardView>
 
-            <TextView
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/editName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:text="PABLO LOPEZ"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/Picture"
+                app:layout_constraintHorizontal_bias="0.505"
+                app:layout_constraintStart_toStartOf="@+id/Picture"
+                app:layout_constraintTop_toBottomOf="@id/Picture">
+
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Nombre: "
+                    app:layout_constraintEnd_toEndOf="@+id/Picture"
+                    app:layout_constraintStart_toStartOf="@+id/Picture" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/nameCard"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="#DCDCDC">
+
+                    <TextView
+                        android:id="@+id/nameContent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:text="PLACEHOLDER"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:layout_editor_absoluteX="-1dp" />
+
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="12.5dp"
+                    android:background="@drawable/ic_edit"
+                    android:backgroundTint="@color/primary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/nameContent" />
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/editImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/editName"
+                app:layout_constraintTop_toBottomOf="@+id/editName">
+
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Nombre: "
+                    app:layout_constraintEnd_toEndOf="@+id/Picture"
+                    app:layout_constraintStart_toStartOf="@+id/Picture" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/imageCard"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="#DCDCDC">
+
+                    <TextView
+                        android:id="@+id/imageContent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:text="PLACEHOLDER"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="12.5dp"
+                    android:background="@drawable/ic_edit"
+                    android:backgroundTint="@color/primary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageContent" />
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/editUsername"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/editImage"
+                app:layout_constraintTop_toBottomOf="@+id/editImage">
+
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Nombre de usuario: "
+                    app:layout_constraintEnd_toEndOf="@+id/Picture"
+                    app:layout_constraintStart_toStartOf="@+id/Picture" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/usernameCard"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="#DCDCDC">
+
+                    <TextView
+                        android:id="@+id/usernameContent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:text="PLACEHOLDER"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/editEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/editUsername"
+                app:layout_constraintTop_toBottomOf="@+id/editUsername">
+
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Nombre: "
+                    app:layout_constraintEnd_toEndOf="@+id/Picture"
+                    app:layout_constraintStart_toStartOf="@+id/Picture" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/emailCard"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="#DCDCDC">
+
+                    <TextView
+                        android:id="@+id/emailContent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:text="PLACEHOLDER"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="@+id/Picture"
                 app:layout_constraintStart_toStartOf="@+id/Picture"
-                app:layout_constraintTop_toBottomOf="@+id/Picture" />
+                app:layout_constraintTop_toBottomOf="@+id/editEmail">
+
+                <Button
+                    android:id="@+id/saveButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:backgroundTint="#FBAC31"
+                    android:text="Guardar cambios"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/Picture"
+                    app:layout_constraintStart_toStartOf="@+id/Picture"
+                    app:layout_constraintTop_toBottomOf="@+id/editEmail" />
+
+                <Button
+                    android:id="@+id/returnButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Volver"
+                    android:layout_marginLeft="20dp"
+                    app:layout_constraintStart_toEndOf="@+id/saveButton"
+                    tools:layout_editor_absoluteY="324dp" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
