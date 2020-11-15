@@ -17,16 +17,17 @@ import java.util.ArrayList;
 
 public class RoutinesAdapter extends RecyclerView.Adapter<RoutinesAdapter.RoutineViewHolder> {
     ArrayList<RoutineVO> routinesList;
-
-    public RoutinesAdapter(ArrayList<RoutineVO> routinesList) {
+    OnRoutineListener onRoutineListener;
+    public RoutinesAdapter(ArrayList<RoutineVO> routinesList, OnRoutineListener onRoutineListener) {
         this.routinesList = routinesList;
+        this.onRoutineListener = onRoutineListener;
     }
 
     @NonNull
     @Override
     public RoutineViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.bigroutine_card, parent, false);
-        return new RoutineViewHolder(view);
+        return new RoutineViewHolder(view, onRoutineListener);
     }
 
     @Override
@@ -44,19 +45,27 @@ public class RoutinesAdapter extends RecyclerView.Adapter<RoutinesAdapter.Routin
         return routinesList.size();
     }
 
-    public static class RoutineViewHolder extends RecyclerView.ViewHolder {
+    public interface OnRoutineListener {
+        void onRoutineClick(int position);
+    }
+
+    public static class RoutineViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView name, description, duration;
         RatingBar category1, category2;
         ImageView favourite;        //FALTA LA OTRA IMAGEVIEW DE PESAS PERO NO LO SOPORTA LA API
+        OnRoutineListener onRoutineListener;
 
-        public RoutineViewHolder(View itemview) {
-            super(itemview);
-            name = (TextView) itemview.findViewById(R.id.tv_name_routine);
-            description = (TextView) itemview.findViewById(R.id.tv_description_routine);
-            duration = (TextView) itemview.findViewById(R.id.tv_duration_routine);
-            category1 = (RatingBar) itemview.findViewById(R.id.rb_category1_routine);
-            category2 = (RatingBar) itemview.findViewById(R.id.rb_category2_routine);
-            favourite = (ImageView) itemview.findViewById(R.id.ivFavIconRoutine);
+        public RoutineViewHolder(View itemView, OnRoutineListener onRoutineListener) {
+            super(itemView);
+            name = (TextView) itemView.findViewById(R.id.tv_name_routine);
+            description = (TextView) itemView.findViewById(R.id.tv_description_routine);
+            duration = (TextView) itemView.findViewById(R.id.tv_duration_routine);
+            category1 = (RatingBar) itemView.findViewById(R.id.rb_category1_routine);
+            category2 = (RatingBar) itemView.findViewById(R.id.rb_category2_routine);
+            favourite = (ImageView) itemView.findViewById(R.id.ivFavIconRoutine);
+
+            this.onRoutineListener = onRoutineListener;
+            itemView.setOnClickListener(this);
         }
 
         public void setName(String name) {
@@ -84,6 +93,11 @@ public class RoutinesAdapter extends RecyclerView.Adapter<RoutinesAdapter.Routin
                 this.favourite.setImageResource(R.drawable.ic_favorite);
             else
                 this.favourite.setImageResource(R.drawable.ic_favorite_border);
+        }
+
+        @Override
+        public void onClick(View v) {
+            onRoutineListener.onRoutineClick(getAdapterPosition());
         }
     }
 }

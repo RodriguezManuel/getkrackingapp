@@ -3,6 +3,7 @@ package com.example.getkracking.fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,7 +18,7 @@ import com.example.getkracking.entities.RoutineVO;
 
 import java.util.ArrayList;
 
-public class SearchFragment extends Fragment {
+public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutineListener {
     RecyclerView recyclerRoutines;
     ArrayList<RoutineVO> routinesList;
 
@@ -51,10 +52,15 @@ public class SearchFragment extends Fragment {
 
         fillList();
 
-        RoutinesAdapter adapter = new RoutinesAdapter(routinesList);
+        RoutinesAdapter adapter = new RoutinesAdapter(routinesList, this);
         recyclerRoutines.setAdapter(adapter);
         recyclerRoutines.setNestedScrollingEnabled(false);
 
         return vista;
+    }
+
+    @Override
+    public void onRoutineClick(int position) {
+        Navigation.findNavController(getActivity(),R.id.nav_host_fragment).navigate(R.id.action_searchFragment_to_routineInfoFragment);
     }
 }

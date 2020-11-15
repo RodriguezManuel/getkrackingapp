@@ -55,4 +55,6 @@
     <string name="notifications">Notificaciones</string>
     <string name="edit_profile">Editar perfil</string>
     <string name="configuration">Configuración</string>
+    <string name="requirements">Requerimientos:</string>
+    <string name="sections">Secciones</string>
 </resources>

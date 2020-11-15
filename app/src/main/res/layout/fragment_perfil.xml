@@ -68,6 +68,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
+                        style="@style/customTextNoSpecificCaseLayout"
                         android:text="PABLO LOPEZ"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/Picture"
@@ -86,7 +87,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/configuration"
-                android:textSize="15sp"
+                style="@style/customTextNoSpecificCaseLayout"
+                android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/PictureCard" />
 
@@ -123,7 +125,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="15dp"
-                            android:text="@string/edit_profile" />
+                            android:text="@string/edit_profile"
+                            style="@style/customTextNoSpecificCaseLayout" />
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -146,7 +149,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="15dp"
-                            android:text="@string/notifications" />
+                            android:text="@string/notifications"
+                            style="@style/customTextNoSpecificCaseLayout" />
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -170,7 +174,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="15dp"
-                            android:text="@string/privacy" />
+                            android:text="@string/privacy"
+                            style="@style/customTextNoSpecificCaseLayout" />
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -193,7 +198,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/more_information"
-                android:textSize="15sp"
+                style="@style/customTextNoSpecificCaseLayout"
+                android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ConfigCard" />
 
@@ -230,7 +236,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="15dp"
-                            android:text="@string/feedback" />
+                            android:text="@string/feedback"
+                            style="@style/customTextNoSpecificCaseLayout" />
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -254,7 +261,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="15dp"
-                            android:text="@string/terms_and_conditions" />
+                            android:text="@string/terms_and_conditions"
+                            style="@style/customTextNoSpecificCaseLayout" />
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -279,7 +287,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="15dp"
-                    android:text="@string/logout" />
+                    android:text="@string/logout"
+                    android:textSize="20sp"
+                    style="@style/customTextNoSpecificCaseLayout" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 

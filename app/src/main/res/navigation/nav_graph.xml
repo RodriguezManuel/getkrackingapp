@@ -9,7 +9,11 @@
         android:id="@+id/homeFragment"
         android:name="com.example.getkracking.fragments.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_routineInfoFragment"
+            app:destination="@id/routineInfoFragment" />
+    </fragment>
     <fragment
         android:id="@+id/perfilFragment"
         android:name="com.example.getkracking.fragments.PerfilFragment"
@@ -19,7 +23,11 @@
         android:id="@+id/searchFragment"
         android:name="com.example.getkracking.fragments.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_routineInfoFragment"
+            app:destination="@id/routineInfoFragment" />
+    </fragment>
     <fragment
         android:id="@+id/socialFragment"
         android:name="com.example.getkracking.fragments.SocialFragment"
@@ -30,4 +38,9 @@
         android:name="com.example.getkracking.fragments.StatsFragment"
         android:label="fragment_stats"
         tools:layout="@layout/fragment_stats" />
+    <fragment
+        android:id="@+id/routineInfoFragment"
+        android:name="com.example.getkracking.fragments.RoutineInfoFragment"
+        android:label="routine_info_fragment"
+        tools:layout="@layout/routine_info_fragment" />
 </navigation>

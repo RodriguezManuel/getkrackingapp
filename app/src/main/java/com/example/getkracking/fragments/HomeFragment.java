@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,7 +20,7 @@ import com.example.getkracking.entities.RoutineVO;
 
 import java.util.ArrayList;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements RoutinesAdapter.OnRoutineListener {
     RecyclerView recyclerFavouriteRoutines;
     ArrayList<RoutineVO> favouriteRoutinesList;
     RecyclerView recyclerRecentRoutines;
@@ -61,15 +62,15 @@ public class HomeFragment extends Fragment {
         recyclerRecentRoutines.setAdapter(adapterRecents);
         recyclerRecentRoutines.setNestedScrollingEnabled(false);
 
-        View aux1 = vista.findViewById(R.id.include_highlighted_routine);
-        View aux2 = vista.findViewById(R.id.include_first_category_routine);
-        View aux3 = vista.findViewById(R.id.include_second_category_routine);
-        View aux4 = vista.findViewById(R.id.include_third_category_routine);
-
-        fillBigRoutines(aux1);
-        fillBigRoutines(aux2);
-        fillBigRoutines(aux3);
-        fillBigRoutines(aux4);
+//        View aux1 = vista.findViewById(R.id.include_highlighted_routine);
+//        View aux2 = vista.findViewById(R.id.include_first_category_routine);
+//        View aux3 = vista.findViewById(R.id.include_second_category_routine);
+//        View aux4 = vista.findViewById(R.id.include_third_category_routine);
+//
+//        fillBigRoutines(aux1);
+//        fillBigRoutines(aux2);
+//        fillBigRoutines(aux3);
+//        fillBigRoutines(aux4);
 
         return vista;
     }
@@ -87,16 +88,20 @@ public class HomeFragment extends Fragment {
         recentRoutinesList.add(new RoutineVO("CAPTAIN AMERICA", "VALCHARRRR SACA LA MANO DE AHI CARAJO", 1, 0, 180, true));
         recentRoutinesList.add(new RoutineVO("THOR NOT AGUSTIN", "wasaaaaaaaaaaaaaaaaaaaaaaaaaa", 2.5f, 0.5f, 11, true));
     }
+//
+//    private void fillBigRoutines(View view) {
+//        //HARDCODEADO ADAPTAR A API
+//        RoutinesAdapter.RoutineViewHolder holder = new RoutinesAdapter.RoutineViewHolder(view);
+//        holder.setName("PEPE");
+//        holder.setDescription("Arroz con leche me quiero casar, con una seniorita de RADA TILLY");
+//        holder.setDuration(String.valueOf(69420));
+//        holder.setFavourite(true);
+//        holder.setCategory1(3);
+//        holder.setCategory2(1);
+//    }
 
-    private void fillBigRoutines(View view) {
-        //HARDCODEADO ADAPTAR A API
-        RoutinesAdapter.RoutineViewHolder holder = new RoutinesAdapter.RoutineViewHolder(view);
-        holder.setName("PEPE");
-        holder.setDescription("Arroz con leche me quiero casar, con una seniorita de RADA TILLY");
-        holder.setDuration(String.valueOf(69420));
-        holder.setFavourite(true);
-        holder.setCategory1(3);
-        holder.setCategory2(1);
+    @Override
+    public void onRoutineClick(int position) {
+        Navigation.findNavController(getActivity(),R.id.nav_host_fragment).navigate(R.id.action_homeFragment_to_routineInfoFragment);
     }
-
 }

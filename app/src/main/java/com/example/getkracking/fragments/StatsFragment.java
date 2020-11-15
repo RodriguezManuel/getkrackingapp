@@ -20,9 +20,6 @@ import java.util.ArrayList;
 
 public class StatsFragment extends Fragment {
 
-    RecyclerView recyclerExcercise;
-    ArrayList<ExcerciseVO> excercisesList;
-
     public StatsFragment() {
         // Required empty public constructor
     }
@@ -35,29 +32,11 @@ public class StatsFragment extends Fragment {
         super.onResume();
     }
 
-    private void fillList(){
-        excercisesList.add(new ExcerciseVO("Sentadillas", "40 repeticiones"));
-        excercisesList.add(new ExcerciseVO("Abominables", "50 repeticiones"));
-        excercisesList.add(new ExcerciseVO("Los de culo", "20 minutos"));
-        excercisesList.add(new ExcerciseVO("Los de culo", "20 minutos"));
-        excercisesList.add(new ExcerciseVO("Los de culo", "20 minutos"));
-        excercisesList.add(new ExcerciseVO("Los de culo", "20 minutos"));
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View vista = inflater.inflate(R.layout.fragment_stats, container, false);
-        excercisesList = new ArrayList<>();
-        recyclerExcercise = vista.findViewById(R.id.ExercisesRecycler);
-        recyclerExcercise.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        fillList();
-
-        ExcercisesAdapter adapter = new ExcercisesAdapter(excercisesList);
-        recyclerExcercise.setAdapter(adapter);
-        recyclerExcercise.setNestedScrollingEnabled(false);
         return vista;
     }
 }
