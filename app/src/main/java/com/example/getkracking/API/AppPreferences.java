@@ -9,7 +9,7 @@ public class AppPreferences {
     public final String AUTH_TOKEN = "auth_token";
     private SharedPreferences sharedPreferences;
     public AppPreferences(Context context){
-        context.getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE);
+       sharedPreferences =  context.getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE);
     }
     public void sethAuthToken(String token){
         SharedPreferences.Editor editor = sharedPreferences.edit();
