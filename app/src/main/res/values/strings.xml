@@ -16,7 +16,7 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
 
-<!--    Strings del resto de la app-->
+    <!--    Strings del resto de la app-->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="contrasenia">Contraseña</string>
     <string name="welcome_login_link"><u>¿Olvidaste tu contraseña?</u></string>
@@ -57,4 +57,7 @@
     <string name="configuration">Configuración</string>
     <string name="requirements">Requerimientos:</string>
     <string name="sections">Secciones</string>
+    <string name="login">Ingresar</string>
+    <string name="register">Registrarse</string>
+    <string name="username_hint">Nombre de usuario</string>
 </resources>

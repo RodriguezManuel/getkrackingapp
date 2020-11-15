@@ -1,16 +1,9 @@
 package com.example.getkracking;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 
-import com.example.getkracking.API.ApiClient;
-import com.example.getkracking.API.ApiUserService;
-import com.example.getkracking.API.model.Credentials;
-import com.example.getkracking.fragments.WelcomeFragment;
 import com.google.android.material.tabs.TabLayout;
 
-import androidx.compose.ui.text.input.TextFieldValue;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
