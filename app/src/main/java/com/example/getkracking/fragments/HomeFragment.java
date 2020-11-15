@@ -2,7 +2,6 @@ package com.example.getkracking.fragments;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -54,11 +53,11 @@ public class HomeFragment extends Fragment implements RoutinesAdapter.OnRoutineL
         fillFavouriteList();
         fillRecentList();
 
-        SmallRoutinesAdapter adapterFavourites = new SmallRoutinesAdapter(favouriteRoutinesList);
+        SmallRoutinesAdapter adapterFavourites = new SmallRoutinesAdapter(favouriteRoutinesList, this, "Favourites");
         recyclerFavouriteRoutines.setAdapter(adapterFavourites);
         recyclerFavouriteRoutines.setNestedScrollingEnabled(false);
 
-        SmallRoutinesAdapter adapterRecents = new SmallRoutinesAdapter(recentRoutinesList);
+        SmallRoutinesAdapter adapterRecents = new SmallRoutinesAdapter(recentRoutinesList, this, "Recents");
         recyclerRecentRoutines.setAdapter(adapterRecents);
         recyclerRecentRoutines.setNestedScrollingEnabled(false);
 
@@ -77,16 +76,16 @@ public class HomeFragment extends Fragment implements RoutinesAdapter.OnRoutineL
 
     private void fillFavouriteList() {
         //HARDCODEADO ADAPTAR A API
-        favouriteRoutinesList.add(new RoutineVO("IRONMAN", "HMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMMHMH", 5, 5, 18, true));
-        favouriteRoutinesList.add(new RoutineVO("CAPTAIN AMERICA", "VALCHARRRR SACA LA MANO DE AHI CARAJO", 1, 0, 180, true));
-        favouriteRoutinesList.add(new RoutineVO("THOR NOT AGUSTIN", "wasaaaaaaaaaaaaaaaaaaaaaaaaaa", 2.5f, 0.5f, 11, true));
+        favouriteRoutinesList.add(new RoutineVO("IRONMAN", "HMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMMHMH", "Octa1", "Piernas", 5, 5, 18, 1, true));
+        favouriteRoutinesList.add(new RoutineVO("CAPTAIN AMERICA", "VALCHARRRR SACA LA MANO DE AHI CARAJO", "Octa2","Brazos",1, 0, 180, 2, true));
+        favouriteRoutinesList.add(new RoutineVO("THOR NOT AGUSTIN", "wasaaaaaaaaaaaaaaaaaaaaaaaaaa", "Octa3","Piernas", 2, 0, 11,3, true));
     }
 
     private void fillRecentList() {
         //HARDCODEADO ADAPTAR A API
-        recentRoutinesList.add(new RoutineVO("IRONMAN", "HMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMMHMH", 5, 5, 18, true));
-        recentRoutinesList.add(new RoutineVO("CAPTAIN AMERICA", "VALCHARRRR SACA LA MANO DE AHI CARAJO", 1, 0, 180, true));
-        recentRoutinesList.add(new RoutineVO("THOR NOT AGUSTIN", "wasaaaaaaaaaaaaaaaaaaaaaaaaaa", 2.5f, 0.5f, 11, true));
+        recentRoutinesList.add(new RoutineVO("OCTA", "horacio", "Octa4", "Piernas", 5, 5, 18, 1, true));
+        recentRoutinesList.add(new RoutineVO("CAPTAIN AMERICA", "VALCHARRRR SACA LA MANO DE AHI CARAJO", "Octa2","Brazos",1, 0, 180, 2, true));
+        recentRoutinesList.add(new RoutineVO("THOR NOT AGUSTIN", "wasaaaaaaaaaaaaaaaaaaaaaaaaaa", "Octa3","Piernas", 2, 0, 11,3, true));
     }
 //
 //    private void fillBigRoutines(View view) {
@@ -101,7 +100,21 @@ public class HomeFragment extends Fragment implements RoutinesAdapter.OnRoutineL
 //    }
 
     @Override
-    public void onRoutineClick(int position) {
-        Navigation.findNavController(getActivity(),R.id.nav_host_fragment).navigate(R.id.action_homeFragment_to_routineInfoFragment);
+    public void onRoutineClick(int position, String type) {
+        ArrayList<RoutineVO> array;
+
+        if(type.equals("Favourites"))
+            array = favouriteRoutinesList;
+        else if(type.equals("Recents"))
+            array = recentRoutinesList;
+        else return;
+
+        HomeFragmentDirections.ActionHomeFragmentToRoutineInfoFragment action = HomeFragmentDirections.actionHomeFragmentToRoutineInfoFragment
+                (array.get(position).getId(), array.get(position).getDescription(), array.get(position).getCreator(), array.get(position).getCategory());
+        // LE PASO LOS ARGUMENTOS QUE NO TIENEN VALOR DEFAULT
+        action.setNameRoutine(array.get(position).getName());
+        action.setDifficultyRoutine(array.get(position).getLevelCategory1());
+        //falta rating
+        Navigation.findNavController(getActivity(),R.id.nav_host_fragment).navigate(action);
     }
 }

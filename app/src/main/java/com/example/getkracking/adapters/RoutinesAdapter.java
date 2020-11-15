@@ -18,26 +18,33 @@ import java.util.ArrayList;
 public class RoutinesAdapter extends RecyclerView.Adapter<RoutinesAdapter.RoutineViewHolder> {
     ArrayList<RoutineVO> routinesList;
     OnRoutineListener onRoutineListener;
-    public RoutinesAdapter(ArrayList<RoutineVO> routinesList, OnRoutineListener onRoutineListener) {
+    String type;        // para diferenciar entre distintos adapters
+    public RoutinesAdapter(ArrayList<RoutineVO> routinesList, OnRoutineListener onRoutineListener, String type) {
         this.routinesList = routinesList;
         this.onRoutineListener = onRoutineListener;
+        this.type = type;
     }
 
     @NonNull
     @Override
     public RoutineViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.bigroutine_card, parent, false);
-        return new RoutineViewHolder(view, onRoutineListener);
+        return new RoutineViewHolder(view, onRoutineListener, type);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RoutineViewHolder holder, int position) {
-        holder.setName(routinesList.get(position).getName());
-        holder.setDescription(routinesList.get(position).getDescription());
-        holder.setDuration(String.valueOf(routinesList.get(position).getDuration()));
-        holder.setFavourite(routinesList.get(position).isFavorited());
-        holder.setCategory1(routinesList.get(position).getLevelCategory1());
-        holder.setCategory2(routinesList.get(position).getLevelCategory2());
+        holder.name.setText(routinesList.get(position).getName());
+        holder.description.setText(routinesList.get(position).getDescription());
+        holder.duration.setText(String.valueOf(routinesList.get(position).getDuration()));
+
+        if(routinesList.get(position).isFavorited())
+            holder.favourite.setImageResource(R.drawable.ic_favorite);
+        else
+            holder.favourite.setImageResource(R.drawable.ic_favorite_border);
+
+        holder.category1.setRating(routinesList.get(position).getLevelCategory1());
+        holder.category2.setRating(routinesList.get(position).getLevelCategory2());
     }
 
     @Override
@@ -46,7 +53,7 @@ public class RoutinesAdapter extends RecyclerView.Adapter<RoutinesAdapter.Routin
     }
 
     public interface OnRoutineListener {
-        void onRoutineClick(int position);
+        void onRoutineClick(int position, String type);
     }
 
     public static class RoutineViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -54,8 +61,9 @@ public class RoutinesAdapter extends RecyclerView.Adapter<RoutinesAdapter.Routin
         RatingBar category1, category2;
         ImageView favourite;        //FALTA LA OTRA IMAGEVIEW DE PESAS PERO NO LO SOPORTA LA API
         OnRoutineListener onRoutineListener;
+        String type;
 
-        public RoutineViewHolder(View itemView, OnRoutineListener onRoutineListener) {
+        public RoutineViewHolder(View itemView, OnRoutineListener onRoutineListener, String type) {
             super(itemView);
             name = (TextView) itemView.findViewById(R.id.tv_name_routine);
             description = (TextView) itemView.findViewById(R.id.tv_description_routine);
@@ -66,38 +74,13 @@ public class RoutinesAdapter extends RecyclerView.Adapter<RoutinesAdapter.Routin
 
             this.onRoutineListener = onRoutineListener;
             itemView.setOnClickListener(this);
-        }
 
-        public void setName(String name) {
-            this.name.setText(name);
-        }
-
-        public void setDescription(String description) {
-            this.description.setText(description);
-        }
-
-        public void setDuration(String duration) {
-            this.duration.setText(duration);
-        }
-
-        public void setCategory1(float category1) {
-            this.category1.setRating(category1);
-        }
-
-        public void setCategory2(float category2) {
-            this.category2.setRating(category2);
-        }
-
-        public void setFavourite(boolean favourite) {
-            if (favourite)
-                this.favourite.setImageResource(R.drawable.ic_favorite);
-            else
-                this.favourite.setImageResource(R.drawable.ic_favorite_border);
+            this.type = type;
         }
 
         @Override
         public void onClick(View v) {
-            onRoutineListener.onRoutineClick(getAdapterPosition());
+            onRoutineListener.onRoutineClick(getAdapterPosition(), type);
         }
     }
 }

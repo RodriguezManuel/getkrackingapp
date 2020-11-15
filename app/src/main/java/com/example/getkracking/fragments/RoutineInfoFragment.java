@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModelProvider;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,6 +18,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 import com.example.getkracking.HomeActivity;
 import com.example.getkracking.R;
@@ -29,6 +31,7 @@ public class RoutineInfoFragment extends Fragment {
 
     RecyclerView recyclerExcercise;
     RoutineInfoViewModel viewModel;
+    int idRoutine;
 
     @Override
     public void onResume() {
@@ -72,8 +75,20 @@ public class RoutineInfoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        viewModel = new ViewModelProvider(this).get(RoutineInfoViewModel.class);
         View vista = inflater.inflate(R.layout.routine_info_fragment, container, false);
+        if(getArguments() != null) {
+            RoutineInfoFragmentArgs args = RoutineInfoFragmentArgs.fromBundle(getArguments());
+            //una vez q consegui los argumentos los seteo en la vista
+            ((TextView)vista.findViewById(R.id.RoutineNameInRoutine)).setText(args.getNameRoutine());
+            ((TextView)vista.findViewById(R.id.CreatorNameInRoutine)).setText(args.getCreatorRoutine());
+            ((TextView)vista.findViewById(R.id.RoutineDescriptionInRoutine)).setText(args.getDescRoutine());
+            ((RatingBar)vista.findViewById(R.id.rbCategory1InRoutine)).setRating(args.getDifficultyRoutine());
+            ((TextView)vista.findViewById(R.id.RoutineNameInRoutine)).setText(args.getNameRoutine());
+            idRoutine = args.getIdRoutine();    //PARA HACER EL REQUEST DE CICLOS
+            //category?? donde va????
+        }
+
+        viewModel = new ViewModelProvider(this).get(RoutineInfoViewModel.class);
         recyclerExcercise = vista.findViewById(R.id.ExercisesRecycler);
         recyclerExcercise.setLayoutManager(new LinearLayoutManager(getContext()));
         ExcercisesAdapter adapter = new ExcercisesAdapter(viewModel.getExcercisesList());

@@ -37,9 +37,9 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
 
     private void fillList() {
         //HARDCODEADO ADAPTAR A API
-        routinesList.add(new RoutineVO("IRONMAN","HMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMMHMH", 5, 5, 18, true));
-        routinesList.add(new RoutineVO("CAPTAIN AMERICA","VALCHARRRR SACA LA MANO DE AHI CARAJO", 1, 0, 180, false));
-        routinesList.add(new RoutineVO("THOR NOT AGUSTIN","wasaaaaaaaaaaaaaaaaaaaaaaaaaa", 2.5f, 0.5f, 11, true));
+        routinesList.add(new RoutineVO("IRONMAN", "HMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMMHMH", "Octa1", "Piernas", 5, 5, 18, 1, true));
+        routinesList.add(new RoutineVO("CAPTAIN AMERICA", "VALCHARRRR SACA LA MANO DE AHI CARAJO", "Octa2","Brazos",1, 0, 180, 2, true));
+        routinesList.add(new RoutineVO("THOR NOT AGUSTIN", "wasaaaaaaaaaaaaaaaaaaaaaaaaaa", "Octa3","Piernas", 2, 0, 11,3, true));
     }
 
     @Override
@@ -52,7 +52,7 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
 
         fillList();
 
-        RoutinesAdapter adapter = new RoutinesAdapter(routinesList, this);
+        RoutinesAdapter adapter = new RoutinesAdapter(routinesList, this, null);
         recyclerRoutines.setAdapter(adapter);
         recyclerRoutines.setNestedScrollingEnabled(false);
 
@@ -60,7 +60,13 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
     }
 
     @Override
-    public void onRoutineClick(int position) {
-        Navigation.findNavController(getActivity(),R.id.nav_host_fragment).navigate(R.id.action_searchFragment_to_routineInfoFragment);
+    public void onRoutineClick(int position, String type) {
+        SearchFragmentDirections.ActionSearchFragmentToRoutineInfoFragment action = SearchFragmentDirections.actionSearchFragmentToRoutineInfoFragment
+                (routinesList.get(position).getId(), routinesList.get(position).getDescription(), routinesList.get(position).getCreator(), routinesList.get(position).getCategory());
+        // LE PASO LOS ARGUMENTOS QUE NO TIENEN VALOR DEFAULT
+        action.setNameRoutine(routinesList.get(position).getName());
+        action.setDifficultyRoutine(routinesList.get(position).getLevelCategory1());
+        //falta rating
+        Navigation.findNavController(getActivity(),R.id.nav_host_fragment).navigate(action);
     }
 }
