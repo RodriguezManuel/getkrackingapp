@@ -51,21 +51,7 @@ public class User {
     public User() {
     }
 
-    /**
-     *
-     * @param dateLastActive
-     * @param birthdate
-     * @param dateCreated
-     * @param deleted
-     * @param gender
-     * @param phone
-     * @param avatarUrl
-     * @param verified
-     * @param fullName
-     * @param id
-     * @param email
-     * @param username
-     */
+
     public User(int id, String username, String fullName, String gender, int birthdate, String email, String phone, String avatarUrl, int dateCreated, int dateLastActive, boolean deleted, boolean verified) {
         super();
         this.id = id;

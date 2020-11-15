@@ -1,5 +1,6 @@
 package com.example.getkracking.API;
 
+import android.content.Context;
 import android.os.Build;
 
 import com.example.getkracking.BuildConfig;
@@ -22,11 +23,12 @@ public class ApiClient {
 
     }
 
-    public static <S> S create(Class<S> service) {
+    public static <S> S create(Context context, Class<S> service ) {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor().
             setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE );
 
         OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
+                .addInterceptor(new AuthInterceptor(context))
                 .addInterceptor(httpLoggingInterceptor)
                 .connectTimeout(CONNECT_TIMEOUT , TimeUnit.SECONDS)
                 .writeTimeout(WRITE_TIMEOUT , TimeUnit.SECONDS)

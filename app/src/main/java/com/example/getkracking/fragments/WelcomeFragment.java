@@ -16,7 +16,9 @@ import android.widget.TextView;
 
 import com.example.getkracking.API.ApiClient;
 import com.example.getkracking.API.ApiUserService;
+import com.example.getkracking.API.AppPreferences;
 import com.example.getkracking.API.model.Credentials;
+import com.example.getkracking.API.model.User;
 import com.example.getkracking.HomeActivity;
 import com.example.getkracking.R;
 import com.example.getkracking.WelcomeActivity;
@@ -52,19 +54,40 @@ public class WelcomeFragment extends Fragment {
 
         bt.setText(type);
         bt.setOnClickListener(v12 -> {
+            ApiUserService userService = ApiClient.create(getActivity().getApplicationContext() , ApiUserService.class);
             if(type.equals("Ingresar")){
-                ApiUserService userService = ApiClient.create(ApiUserService.class);
                 userService.login(new Credentials( usernameET.getText().toString() , passwordET.getText().toString())).observe(getViewLifecycleOwner(), r-> {
                     if ( r.getError() == null){
                         Log.d("UI" , "Token: " + r.getData().getToken() );
+                        AppPreferences preferences = new AppPreferences(getActivity().getApplication());
+                        preferences.sethAuthToken(r.getData().getToken());
                         Intent homeIntent = new Intent(getActivity(), HomeActivity.class);
                         startActivity(homeIntent);
                         getActivity().finish();
                     }else {
-                        Log.d("UI" , "error" );
+                        Log.d("UI" , "Error: " + r.getError().getDescription() + " (" + r.getError().getCode() + ")" );
                     }
                 });
-            }
+            }/*else{
+                userService.login(new User(
+                        usernameET.getText().toString() ,
+                        passwordET.getText().toString() ,
+                        ,
+                        ,
+                        ,
+
+                        )).observe(getViewLifecycleOwner(), r-> {
+                if ( r.getError() == null){
+                    Log.d("UI" , "Token: " + r.getData().getToken() );
+                    Intent homeIntent = new Intent(getActivity(), HomeActivity.class);
+                    startActivity(homeIntent);
+                    getActivity().finish();
+                }else {
+                    Log.d("UI" , "error" );
+                }
+            })
+
+            }*/
         });
         passwordET = v.findViewById(R.id.etPassword);
         usernameET = v.findViewById(R.id.etEmail);
