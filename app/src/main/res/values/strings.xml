@@ -67,4 +67,7 @@
     <string name="parameter_error">Error en parametros</string>
     <string name="invalid_email_format">Formato de mail invalido</string>
     <string name="invalid_confirmationcode_format">El codigo debe de ser de 6 caracteres</string>
+    <string name="username_missing">Falta el nombre de usuario</string>
+    <string name="wrong_password_format">Formato de contrasenia invalido</string>
+    <string name="login_error">Nombre o contrasenia incorrectos</string>
 </resources>

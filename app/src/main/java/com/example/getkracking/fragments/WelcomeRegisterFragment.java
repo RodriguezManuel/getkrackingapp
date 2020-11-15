@@ -7,12 +7,14 @@ import androidx.fragment.app.Fragment;
 
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.getkracking.API.ApiClient;
 import com.example.getkracking.API.ApiUserService;
@@ -44,6 +46,19 @@ public class WelcomeRegisterFragment extends Fragment {
         email = v.findViewById(R.id.etEmail_register);
         password = v.findViewById(R.id.etPassword_register);
         ((Button) v.findViewById(R.id.welcomeButton_register)).setOnClickListener(v1 -> {
+            if(username.getText().length() == 0){
+                Toast.makeText(getContext(), R.string.username_missing, Toast.LENGTH_LONG).show();
+                return;
+            }
+            if(email.getText().length() == 0 || !Patterns.EMAIL_ADDRESS.matcher(email.getText()).matches()) {
+                Toast.makeText(getContext(), R.string.invalid_email_format, Toast.LENGTH_LONG).show();
+                return;
+            }
+            if(password.getText().length() < 5){
+                Toast.makeText(getContext(), R.string.wrong_password_format, Toast.LENGTH_LONG).show();
+                return;
+            }
+
             //AGREGAR LO Q HACE AL REGISTRARSE
 
             openConfirmationDialog();
@@ -68,7 +83,7 @@ public class WelcomeRegisterFragment extends Fragment {
     }
 
     public void openConfirmationDialog() {
-        ConfirmationDialog confirmationDialog = new ConfirmationDialog();
-        confirmationDialog.show(getActivity().getSupportFragmentManager(), "Confirmacion popup");
+        ConfirmationDialog dialog = new ConfirmationDialog();
+        dialog.show(getActivity().getSupportFragmentManager(), "Confirmation popup");
     }
 }

@@ -7,18 +7,22 @@ import androidx.fragment.app.Fragment;
 
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.getkracking.API.ApiClient;
 import com.example.getkracking.API.ApiUserService;
 import com.example.getkracking.API.model.Credentials;
 import com.example.getkracking.HomeActivity;
 import com.example.getkracking.R;
+import com.example.getkracking.dialogs.ConfirmationDialog;
+import com.example.getkracking.dialogs.ErrorDialog;
 
 public class WelcomeLoginFragment extends Fragment {
     EditText username, password;
@@ -40,9 +44,18 @@ public class WelcomeLoginFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_welcome_login, container, false);
 
-        username = v.findViewById(R.id.etEmail_login);  //cambiar id a username xd
+        username = v.findViewById(R.id.etUsername_login);  //cambiar id a username xd
         password = v.findViewById(R.id.etPassword_login);
         ((Button) v.findViewById(R.id.welcomeButton_login)).setOnClickListener(v1 -> {
+            if(username.getText().length() == 0){
+                Toast.makeText(getContext(), R.string.username_missing, Toast.LENGTH_LONG).show();
+                return;
+            }
+            if(password.getText().length() < 5){
+                Toast.makeText(getContext(), R.string.wrong_password_format, Toast.LENGTH_LONG).show();
+                return;
+            }
+
             ApiUserService userService = ApiClient.create(getActivity().getApplication(),ApiUserService.class);
             userService.login(new Credentials(username.getText().toString(), password.getText().toString())).observe(getViewLifecycleOwner(), r -> {
                 if (r.getError() == null) {
@@ -52,6 +65,7 @@ public class WelcomeLoginFragment extends Fragment {
                     getActivity().finish();
                 } else {
                     Log.d("UI", "error");
+                    openErrorDialog();
                 }
             });
         });
@@ -72,5 +86,10 @@ public class WelcomeLoginFragment extends Fragment {
             passwordFlag = !passwordFlag;
         });
         return v;
+    }
+
+    public void openErrorDialog() {
+        ErrorDialog dialog = new ErrorDialog();
+        dialog.show(getActivity().getSupportFragmentManager(), "Error in login popup");
     }
 }

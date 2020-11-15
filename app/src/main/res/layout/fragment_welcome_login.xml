@@ -8,7 +8,7 @@
     android:background="@color/secondary">
 
     <EditText
-        android:id="@+id/etEmail_login"
+        android:id="@+id/etUsername_login"
         android:layout_width="275dp"
         android:layout_height="33dp"
         android:layout_marginStart="68dp"
@@ -31,7 +31,7 @@
         android:layout_marginTop="16dp"
         android:background="@drawable/custominput"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etEmail_login">
+        app:layout_constraintTop_toBottomOf="@+id/etUsername_login">
 
         <EditText
             android:id="@+id/etPassword_login"

@@ -39,12 +39,12 @@ public class ConfirmationDialog extends AppCompatDialogFragment {
         AlertDialog dialog = builder.create();
         dialog.show();
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
-            if(etEmail.getText().length() == 0 || Patterns.EMAIL_ADDRESS.matcher(etEmail.getText()).matches()) {
-                Toast.makeText(getContext(), R.string.invalid_email_format, Toast.LENGTH_SHORT).show();
+            if(etEmail.getText().length() == 0 || !Patterns.EMAIL_ADDRESS.matcher(etEmail.getText()).matches()) {
+                Toast.makeText(getContext(), R.string.invalid_email_format, Toast.LENGTH_LONG).show();
                 return;
             }
             if(etCode.getText().length() != 10) {
-                Toast.makeText(getContext(), R.string.invalid_confirmationcode_format, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.invalid_confirmationcode_format, Toast.LENGTH_LONG).show();
                 return;
             }
 
