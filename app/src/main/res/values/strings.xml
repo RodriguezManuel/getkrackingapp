@@ -60,4 +60,11 @@
     <string name="login">Ingresar</string>
     <string name="register">Registrarse</string>
     <string name="username_hint">Nombre de usuario</string>
+    <string name="verification_code">Codigo de verificacion</string>
+    <string name="email_confirmation">Confirmar email</string>
+    <string name="confirmation_close_dialog">Cancelar</string>
+    <string name="confirmation_done_dialog">Listo</string>
+    <string name="parameter_error">Error en parametros</string>
+    <string name="invalid_email_format">Formato de mail invalido</string>
+    <string name="invalid_confirmationcode_format">El codigo debe de ser de 6 caracteres</string>
 </resources>

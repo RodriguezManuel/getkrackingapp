@@ -19,6 +19,7 @@ import com.example.getkracking.API.ApiUserService;
 import com.example.getkracking.API.model.Credentials;
 import com.example.getkracking.HomeActivity;
 import com.example.getkracking.R;
+import com.example.getkracking.dialogs.ConfirmationDialog;
 
 public class WelcomeRegisterFragment extends Fragment {
     EditText username, email, password;
@@ -44,6 +45,8 @@ public class WelcomeRegisterFragment extends Fragment {
         password = v.findViewById(R.id.etPassword_register);
         ((Button) v.findViewById(R.id.welcomeButton_register)).setOnClickListener(v1 -> {
             //AGREGAR LO Q HACE AL REGISTRARSE
+
+            openConfirmationDialog();
         });
 
         passwordToggle = v.findViewById(R.id.password_toggle_register);
@@ -62,5 +65,10 @@ public class WelcomeRegisterFragment extends Fragment {
             passwordFlag = !passwordFlag;
         });
         return v;
+    }
+
+    public void openConfirmationDialog() {
+        ConfirmationDialog confirmationDialog = new ConfirmationDialog();
+        confirmationDialog.show(getActivity().getSupportFragmentManager(), "Confirmacion popup");
     }
 }
