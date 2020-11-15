@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.WelcomeLoginFragment"
+    android:background="@color/secondary">
+
+    <EditText
+        android:id="@+id/etUsername_login"
+        android:layout_width="275dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/custominput"
+        android:hint="@string/prompt_email"
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:textAppearance="@style/CustomTextUppercaseLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RelativeLayout
+        android:id="@+id/rlpassword_login"
+        android:layout_width="275dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/custominput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etUsername_login">
+
+        <EditText
+            android:id="@+id/etPassword_login"
+            android:layout_width="255dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/cumtominputnostroke"
+            android:hint="@string/contrasenia"
+            android:importantForAutofill="no"
+            android:inputType="textPassword"
+            android:paddingStart="15dp"
+            android:paddingTop="0dp"
+            android:paddingEnd="15dp"
+            android:textAppearance="@style/CustomTextUppercaseLayout" />
+
+        <TextView
+            android:id="@+id/password_toggle_login"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="240dp"
+            android:background="@drawable/ic_eye" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/welcome_login_link"
+        android:text="@string/welcome_login_link"
+        android:layout_width="match_parent"
+        android:layout_height="33dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal"
+        android:textAppearance="@style/customTextNoSpecificCaseLayout"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rlpassword_login" />
+
+    <Button
+        android:id="@+id/welcomeButton_login"
+        android:layout_width="135dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="136dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/roundedbutton"
+        android:paddingTop="0dp"
+        android:textAlignment="center"
+        android:textAppearance="@style/customTextNoSpecificCaseLayout"
+        android:textColor="@color/primary"
+        android:text="@string/login"
+        app:backgroundTint="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcome_login_link"/>
+
+    <TextView
+        android:id="@+id/iconFB"
+        android:layout_width="30dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/ic_facebook"
+        app:layout_constraintStart_toEndOf="@+id/iconGP"
+        app:layout_constraintTop_toBottomOf="@+id/welcomeButton_login" />
+
+    <TextView
+        android:id="@+id/iconIG"
+        android:layout_width="30dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/ic_instagram2"
+        app:layout_constraintStart_toEndOf="@+id/iconFB"
+        app:layout_constraintTop_toBottomOf="@+id/welcomeButton_login" />
+
+    <TextView
+        android:id="@+id/iconGP"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/ic_google_plus"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcomeButton_login" />
+
+    <TextView
+        android:id="@+id/welcomeLink"
+        android:text="@string/welcome_link"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center_horizontal"
+        android:textAppearance="@style/customTextNoSpecificCaseLayout"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iconFB" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

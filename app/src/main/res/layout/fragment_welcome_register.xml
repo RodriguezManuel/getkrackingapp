@@ -1,14 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/welcome"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.WelcomeFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.WelcomeRegisterFragment"
+    android:background="@color/secondary">
 
     <EditText
-        android:id="@+id/etEmail"
+        android:id="@+id/etUsername_register"
+        android:layout_width="275dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/custominput"
+        android:hint="@string/username_hint"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:textAppearance="@style/CustomTextUppercaseLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etEmail_register"
         android:layout_width="275dp"
         android:layout_height="33dp"
         android:layout_marginStart="68dp"
@@ -21,7 +37,7 @@
         android:paddingEnd="15dp"
         android:textAppearance="@style/CustomTextUppercaseLayout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/etUsername_register" />
 
     <RelativeLayout
         android:id="@+id/rlpassword"
@@ -31,10 +47,10 @@
         android:layout_marginTop="16dp"
         android:background="@drawable/custominput"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etEmail">
+        app:layout_constraintTop_toBottomOf="@+id/etEmail_register">
 
         <EditText
-            android:id="@+id/etPassword"
+            android:id="@+id/etPassword_register"
             android:layout_width="255dp"
             android:layout_height="match_parent"
             android:background="@drawable/cumtominputnostroke"
@@ -47,7 +63,7 @@
             android:textAppearance="@style/CustomTextUppercaseLayout" />
 
         <TextView
-            android:id="@+id/password_toggle"
+            android:id="@+id/password_toggle_register"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_centerVertical="true"
@@ -56,7 +72,7 @@
     </RelativeLayout>
 
     <Button
-        android:id="@+id/welcomeButton"
+        android:id="@+id/welcomeButton_register"
         android:layout_width="135dp"
         android:layout_height="38dp"
         android:layout_marginStart="136dp"
@@ -66,9 +82,10 @@
         android:textAlignment="center"
         android:textAppearance="@style/customTextNoSpecificCaseLayout"
         android:textColor="@color/primary"
+        android:text="@string/register"
         app:backgroundTint="@color/white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rlpassword" />
+        app:layout_constraintTop_toBottomOf="@+id/rlpassword"/>
 
     <TextView
         android:id="@+id/iconFB"
@@ -78,7 +95,7 @@
         android:layout_marginTop="18dp"
         android:background="@drawable/ic_facebook"
         app:layout_constraintStart_toEndOf="@+id/iconGP"
-        app:layout_constraintTop_toBottomOf="@+id/welcomeButton" />
+        app:layout_constraintTop_toBottomOf="@+id/welcomeButton_register" />
 
     <TextView
         android:id="@+id/iconIG"
@@ -88,7 +105,7 @@
         android:layout_marginTop="18dp"
         android:background="@drawable/ic_instagram2"
         app:layout_constraintStart_toEndOf="@+id/iconFB"
-        app:layout_constraintTop_toBottomOf="@+id/welcomeButton" />
+        app:layout_constraintTop_toBottomOf="@+id/welcomeButton_register" />
 
     <TextView
         android:id="@+id/iconGP"
@@ -98,7 +115,7 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/ic_google_plus"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcomeButton" />
+        app:layout_constraintTop_toBottomOf="@+id/welcomeButton_register" />
 
     <TextView
         android:id="@+id/welcomeLink"
@@ -110,17 +127,5 @@
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iconFB" />
-
-    <TextView
-        android:id="@+id/welcomeLoginLink"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
-        android:gravity="center_horizontal"
-        android:textAppearance="@style/customTextNoSpecificCaseLayout"
-        android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcomeLink" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

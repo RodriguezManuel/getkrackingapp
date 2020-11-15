@@ -16,7 +16,7 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
 
-<!--    Strings del resto de la app-->
+    <!--    Strings del resto de la app-->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="contrasenia">Contraseña</string>
     <string name="welcome_login_link"><u>¿Olvidaste tu contraseña?</u></string>
@@ -57,4 +57,17 @@
     <string name="configuration">Configuración</string>
     <string name="requirements">Requerimientos:</string>
     <string name="sections">Secciones</string>
+    <string name="login">Ingresar</string>
+    <string name="register">Registrarse</string>
+    <string name="username_hint">Nombre de usuario</string>
+    <string name="verification_code">Codigo de verificacion</string>
+    <string name="email_confirmation">Confirmar email</string>
+    <string name="confirmation_close_dialog">Cancelar</string>
+    <string name="confirmation_done_dialog">Listo</string>
+    <string name="parameter_error">Error en parametros</string>
+    <string name="invalid_email_format">Formato de mail invalido</string>
+    <string name="invalid_confirmationcode_format">El codigo debe de ser de 6 caracteres</string>
+    <string name="username_missing">Falta el nombre de usuario</string>
+    <string name="wrong_password_format">Formato de contrasenia invalido</string>
+    <string name="login_error">Nombre o contrasenia incorrectos</string>
 </resources>

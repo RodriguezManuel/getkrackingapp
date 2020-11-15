@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:padding="16dp">
+    <EditText
+        android:id="@+id/etEmail_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="33dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/custominput"
+        android:hint="@string/prompt_email"
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:textAppearance="@style/CustomTextUppercaseLayout" />
+
+    <EditText
+        android:id="@+id/etCode_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="33dp"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/etEmail_dialog"
+        android:background="@drawable/custominput"
+        android:hint="@string/verification_code"
+        android:maxLength="10"
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:textAppearance="@style/CustomTextUppercaseLayout" />
+
+    <TextView
+        android:id="@+id/wrong_code"
+        android:layout_width="match_parent"
+        android:layout_height="33dp"
+        android:layout_marginTop="16dp"
+        android:textAppearance="@style/customTextNoSpecificCaseLayout"
+        android:textColor="@color/red"
+        android:layout_below="@+id/etCode_dialog"
+        android:text="@string/parameter_error"
+        android:visibility="invisible"/>
+</RelativeLayout>
