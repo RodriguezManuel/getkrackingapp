@@ -18,6 +18,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -84,6 +85,7 @@ public class RoutineInfoFragment extends Fragment {
             ((TextView)vista.findViewById(R.id.RoutineDescriptionInRoutine)).setText(args.getDescRoutine());
             ((RatingBar)vista.findViewById(R.id.rbCategory1InRoutine)).setRating(args.getDifficultyRoutine());
             ((TextView)vista.findViewById(R.id.RoutineNameInRoutine)).setText(args.getNameRoutine());
+            ((Button) vista.findViewById(R.id.ButtonEmpezarInRoutine)).setOnClickListener(v1 -> Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.runRoutineFragment));
             idRoutine = args.getIdRoutine();    //PARA HACER EL REQUEST DE CICLOS
             //category?? donde va????
         }

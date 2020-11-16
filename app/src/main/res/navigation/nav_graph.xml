@@ -70,4 +70,10 @@
             android:name="categoryRoutine"
             app:argType="string" />
     </fragment>
+
+    <fragment
+        android:id="@+id/runRoutineFragment"
+        android:name="com.example.getkracking.fragments.RunRoutineFragment"
+        android:label="run_fragment"
+        tools:layout="@layout/fragment_run_routine" />
 </navigation>
