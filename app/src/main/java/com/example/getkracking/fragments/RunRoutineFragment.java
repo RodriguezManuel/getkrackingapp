@@ -3,8 +3,10 @@ package com.example.getkracking.fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.os.CountDownTimer;
+import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,6 +86,11 @@ public class RunRoutineFragment extends Fragment {
         });
 
         updateTimer();
+
+        View listChanger = vista.findViewById(R.id.ListToggleInRoutine);
+        listChanger.setOnClickListener(v1 -> {
+            Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.listRoutineFragment);
+        });
 
         return vista;
     }

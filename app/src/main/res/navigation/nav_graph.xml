@@ -76,4 +76,10 @@
         android:name="com.example.getkracking.fragments.RunRoutineFragment"
         android:label="run_fragment"
         tools:layout="@layout/fragment_run_routine" />
+
+    <fragment
+        android:id="@+id/listRoutineFragment"
+        android:name="com.example.getkracking.fragments.RoutineListFragment"
+        android:label="list_fragment"
+        tools:layout="@layout/fragment_routine_list_format" />
 </navigation>
