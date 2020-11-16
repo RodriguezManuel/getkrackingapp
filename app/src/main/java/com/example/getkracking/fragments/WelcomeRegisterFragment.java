@@ -65,7 +65,7 @@ public class WelcomeRegisterFragment extends Fragment {
             userService.register(new RegisterCredentials(
                 username.getText().toString(), //username
                 password.getText().toString(), //password
-                username.getText().toString(), //birthdate
+                username.getText().toString(), //Full name
                 "other",
                 28400760,
                 email.getText().toString(),
