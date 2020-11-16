@@ -36,7 +36,8 @@ public class RoutineInfoFragment extends Fragment {
 
     @Override
     public void onResume() {
-        super.onResume();setHasOptionsMenu(true);
+        super.onResume();
+        setHasOptionsMenu(true);
         Toolbar mToolBar =  ((HomeActivity) getActivity()).findViewById(R.id.homeTopBar);
         ActionBar actionBar = ((HomeActivity) getActivity()).getSupportActionBar();
         actionBar.setTitle("Rutina");
@@ -64,15 +65,6 @@ public class RoutineInfoFragment extends Fragment {
 
         return super.onOptionsItemSelected(item);
     }
-//
-//    @Override
-//    public void onResume() {
-//        if (((HomeActivity) getActivity()).getSupportActionBar() != null) {
-//        }
-//
-//        super.onResume();
-//    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

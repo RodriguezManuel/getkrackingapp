@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/primary"
-        app:titleTextColor="@color/white"
-        app:menu="@menu/topbarmenu"/>
+        app:menu="@menu/topbarmenu"
+        app:titleTextColor="@color/white" />
 
     <!--    NO ARREGLAR ESTE WARNING QUE SI LO HACES ROMPES TODO, ANDROID STUDIO SOS UN ASCO-->
     <fragment
@@ -45,7 +45,8 @@
             app:itemIconSize="40dp"
             app:itemIconTint="@drawable/bottombarmenuicon"
             app:labelVisibilityMode="unlabeled"
-            app:menu="@menu/bottombarmenu" />
+            app:menu="@menu/bottombarmenu"
+            />
     </com.google.android.material.bottomappbar.BottomAppBar>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
