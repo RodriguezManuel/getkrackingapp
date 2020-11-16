@@ -53,13 +53,16 @@
             <HorizontalScrollView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:scrollbars="none">
+                android:scrollbars="none"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp">
 
                 <com.google.android.material.chip.ChipGroup
                     android:id="@+id/chipgroup_filterSearch"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    app:singleLine="true">
+                    app:singleLine="true"
+                    app:singleSelection="true">
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/filterchip_favourites"
@@ -67,7 +70,12 @@
                         android:layout_height="wrap_content"
                         android:text="@string/chip_favourites"
                         android:textAlignment="center"
-                        android:textAppearance="@style/customTextNoSpecificCaseLayout" />
+                        android:textAppearance="@style/customTextNoSpecificCaseLayout"
+                        android:checkable="true"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:chipBackgroundColor="@drawable/selectedchip"
+                        style="@style/CustomChipNoCheck"/>
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/filterchip_lowdifficulty"
@@ -75,7 +83,12 @@
                         android:layout_height="wrap_content"
                         android:text="@string/chip_lowdifficulty"
                         android:textAlignment="center"
-                        android:textAppearance="@style/customTextNoSpecificCaseLayout" />
+                        android:textAppearance="@style/customTextNoSpecificCaseLayout"
+                        android:checkable="true"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:chipBackgroundColor="@drawable/selectedchip"
+                        style="@style/CustomChipNoCheck" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/filterchip_mediumdifficulty"
@@ -83,7 +96,12 @@
                         android:layout_height="wrap_content"
                         android:text="@string/chip_mediumdifficulty"
                         android:textAlignment="center"
-                        android:textAppearance="@style/customTextNoSpecificCaseLayout" />
+                        android:textAppearance="@style/customTextNoSpecificCaseLayout"
+                        android:checkable="true"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:chipBackgroundColor="@drawable/selectedchip"
+                        style="@style/CustomChipNoCheck" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/filterchip_highdifficulty"
@@ -91,7 +109,12 @@
                         android:layout_height="wrap_content"
                         android:text="@string/chip_highdifficulty"
                         android:textAlignment="center"
-                        android:textAppearance="@style/customTextNoSpecificCaseLayout" />
+                        android:textAppearance="@style/customTextNoSpecificCaseLayout"
+                        android:checkable="true"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:chipBackgroundColor="@drawable/selectedchip"
+                        style="@style/CustomChipNoCheck" />
                 </com.google.android.material.chip.ChipGroup>
             </HorizontalScrollView>
 

@@ -25,9 +25,11 @@ public class ApiResponse<T> {
     public ApiResponse( Response<T> response){
         parseResponse(response);
     }
+
     public ApiResponse(Throwable t) {
         parseError(t.getMessage());
     }
+
     private void parseResponse(Response<T> response){
         if( response.isSuccessful()){
             data = response.body();
@@ -54,6 +56,7 @@ public class ApiResponse<T> {
         List<String>  details = null;
         if ( message != null){
             //1:16:25
+            this.error = new MyError(MyError.LOCAL_UNEXPECTED_ERROR , "Unknown error" , details);
             details = new ArrayList<String>();
             details.add(message);
         }

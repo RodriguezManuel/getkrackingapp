@@ -120,7 +120,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    android:text="Nombre: "
+                    android:text="Imágen: "
                     app:layout_constraintEnd_toEndOf="@+id/Picture"
                     app:layout_constraintStart_toStartOf="@+id/Picture" />
 
@@ -171,7 +171,7 @@
                     android:layout_marginBottom="10dp"
                     android:text="Nombre de usuario: "
                     app:layout_constraintEnd_toEndOf="@+id/Picture"
-                    app:layout_constraintStart_toStartOf="@+id/Picture" />
+                    app:layout_constraintStart_toStartOf="@+id/Picture"/>
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/usernameCard"
@@ -208,7 +208,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    android:text="Nombre: "
+                    android:text="Email: "
                     app:layout_constraintEnd_toEndOf="@+id/Picture"
                     app:layout_constraintStart_toStartOf="@+id/Picture" />
 
@@ -241,25 +241,26 @@
                 app:layout_constraintTop_toBottomOf="@+id/editEmail">
 
                 <Button
+                    android:id="@+id/returnButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Volver"
+
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/Picture"
+                    app:layout_constraintStart_toStartOf="@+id/Picture"
+                    app:layout_constraintTop_toBottomOf="@+id/editEmail"/>
+
+                <Button
                     android:id="@+id/saveButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"
                     android:backgroundTint="#FBAC31"
                     android:text="Guardar cambios"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/Picture"
-                    app:layout_constraintStart_toStartOf="@+id/Picture"
-                    app:layout_constraintTop_toBottomOf="@+id/editEmail" />
-
-                <Button
-                    android:id="@+id/returnButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Volver"
                     android:layout_marginLeft="20dp"
-                    app:layout_constraintStart_toEndOf="@+id/saveButton"
-                    tools:layout_editor_absoluteY="324dp" />
+                    app:layout_constraintStart_toEndOf="@+id/returnButton" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
