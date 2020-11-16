@@ -5,6 +5,7 @@ import android.media.session.MediaSession;
 import androidx.lifecycle.LiveData;
 
 import com.example.getkracking.API.model.Credentials;
+import com.example.getkracking.API.model.RegisterCredentials;
 import com.example.getkracking.API.model.Token;
 import com.example.getkracking.API.model.User;
 
@@ -24,6 +25,9 @@ public interface ApiUserService {
 
     @GET("user/current")
     LiveData<ApiResponse<User>> getCurrentUser();
+
+    @POST("user")
+    LiveData<ApiResponse<User>> register(@Body RegisterCredentials registerCredentials);
 
 
 }

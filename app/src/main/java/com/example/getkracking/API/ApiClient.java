@@ -4,7 +4,11 @@ import android.content.Context;
 import android.os.Build;
 
 import com.example.getkracking.BuildConfig;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.internal.GsonBuildConfig;
 
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -34,11 +38,13 @@ public class ApiClient {
                 .writeTimeout(WRITE_TIMEOUT , TimeUnit.SECONDS)
                 .readTimeout(READ_TIMEOUT , TimeUnit.SECONDS)
                 .build();
-
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Date.class , new ApiDateTypeAdapater())
+                .create();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(okHttpClient)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(new LiveDataCallAdapterFactory())
                 .build();
 

@@ -19,9 +19,12 @@ import android.widget.Toast;
 import com.example.getkracking.API.ApiClient;
 import com.example.getkracking.API.ApiUserService;
 import com.example.getkracking.API.model.Credentials;
+import com.example.getkracking.API.model.RegisterCredentials;
 import com.example.getkracking.HomeActivity;
 import com.example.getkracking.R;
 import com.example.getkracking.dialogs.ConfirmationDialog;
+
+import java.util.Date;
 
 public class WelcomeRegisterFragment extends Fragment {
     EditText username, email, password;
@@ -58,10 +61,27 @@ public class WelcomeRegisterFragment extends Fragment {
                 Toast.makeText(getContext(), R.string.wrong_password_format, Toast.LENGTH_LONG).show();
                 return;
             }
+            ApiUserService userService = ApiClient.create(getActivity().getApplication(),ApiUserService.class);
+            userService.register(new RegisterCredentials(
+                username.getText().toString(), //username
+                password.getText().toString(), //password
+                username.getText().toString(), //birthdate
+                "other",
+                28400760,
+                email.getText().toString(),
+                "6969696969",
+                "https://pm1.narvii.com/6707/15da369aa5d200756c41d4de43683b0c3886c507_hq.jpg"
+            )).observe(getViewLifecycleOwner(), r -> {
+                if (r.getError() == null) {
+                    Log.d("UI", "id: " + r.getData().getId() + "name: " + r.getData().getFullName());
+                    Intent homeIntent = new Intent(getActivity(), HomeActivity.class);
 
+                } else {
+                    Log.d("UI", "error");
+                }
+            });
             //AGREGAR LO Q HACE AL REGISTRARSE
-
-            openConfirmationDialog();
+            openConfirmationDialog(email.getText().toString());
         });
 
         passwordToggle = v.findViewById(R.id.password_toggle_register);
@@ -82,8 +102,8 @@ public class WelcomeRegisterFragment extends Fragment {
         return v;
     }
 
-    public void openConfirmationDialog() {
-        ConfirmationDialog dialog = new ConfirmationDialog();
+    public void openConfirmationDialog( CharSequence email) {
+        ConfirmationDialog dialog = new ConfirmationDialog( email);
         dialog.show(getActivity().getSupportFragmentManager(), "Confirmation popup");
     }
 }

@@ -1,5 +1,3 @@
-//-----------------------------------com.example.getkracking.API.model.User.java-----------------------------------
-
 package com.example.getkracking.API.model;
 
 import com.google.gson.annotations.Expose;
@@ -7,14 +5,14 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 
-public class User {
+public class RegisterCredentials {
 
-    @SerializedName("id")
-    @Expose
-    private int id;
     @SerializedName("username")
     @Expose
     private String username;
+    @SerializedName("password")
+    @Expose
+    private String password;
     @SerializedName("fullName")
     @Expose
     private String fullName;
@@ -23,7 +21,7 @@ public class User {
     private String gender;
     @SerializedName("birthdate")
     @Expose
-    private Date birthdate;
+    private int birthdate;
     @SerializedName("email")
     @Expose
     private String email;
@@ -33,49 +31,35 @@ public class User {
     @SerializedName("avatarUrl")
     @Expose
     private String avatarUrl;
-    @SerializedName("dateCreated")
-    @Expose
-    private Date dateCreated;
-    @SerializedName("dateLastActive")
-    @Expose
-    private Date dateLastActive;
-    @SerializedName("deleted")
-    @Expose
-    private boolean deleted;
-    @SerializedName("verified")
-    @Expose
-    private boolean verified;
 
     /**
      * No args constructor for use in serialization
      *
      */
-    public User() {
+    public RegisterCredentials() {
     }
 
-
-    public User(int id, String username, String fullName, String gender, Date birthdate, String email, String phone, String avatarUrl, Date dateCreated, Date dateLastActive, boolean deleted, boolean verified) {
+    /**
+     *
+     * @param password
+     * @param birthdate
+     * @param gender
+     * @param phone
+     * @param avatarUrl
+     * @param fullName
+     * @param email
+     * @param username
+     */
+    public RegisterCredentials(String username, String password, String fullName, String gender, int birthdate, String email, String phone, String avatarUrl) {
         super();
-        this.id = id;
         this.username = username;
+        this.password = password;
         this.fullName = fullName;
         this.gender = gender;
         this.birthdate = birthdate;
         this.email = email;
         this.phone = phone;
         this.avatarUrl = avatarUrl;
-        this.dateCreated = dateCreated;
-        this.dateLastActive = dateLastActive;
-        this.deleted = deleted;
-        this.verified = verified;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getUsername() {
@@ -84,6 +68,14 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getFullName() {
@@ -102,11 +94,11 @@ public class User {
         this.gender = gender;
     }
 
-    public Date getBirthdate() {
+    public int getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(Date birthdate) {
+    public void setBirthdate(int birthdate) {
         this.birthdate = birthdate;
     }
 
@@ -132,38 +124,6 @@ public class User {
 
     public void setAvatarUrl(String avatarUrl) {
         this.avatarUrl = avatarUrl;
-    }
-
-    public Date getDateCreated() {
-        return dateCreated;
-    }
-
-    public void setDateCreateded( Date dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
-    public Date getDateLastActive() {
-        return dateLastActive;
-    }
-
-    public void setDateLastActive(Date dateLastActive) {
-        this.dateLastActive = dateLastActive;
-    }
-
-    public boolean isDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
-    }
-
-    public boolean isVerified() {
-        return verified;
-    }
-
-    public void setVerified(boolean verified) {
-        this.verified = verified;
     }
 
 }
