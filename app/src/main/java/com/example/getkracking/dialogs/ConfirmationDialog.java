@@ -21,6 +21,11 @@ import org.w3c.dom.Text;
 
 public class ConfirmationDialog extends AppCompatDialogFragment {
     private EditText etEmail, etCode;
+    private CharSequence mail;
+    public ConfirmationDialog(CharSequence mail){
+        super();
+        this.mail = mail;
+    }
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -34,6 +39,9 @@ public class ConfirmationDialog extends AppCompatDialogFragment {
             //nada por que despues se sobreescribe
         });
         etEmail = view.findViewById(R.id.etEmail_dialog);
+        if ( mail != null) {
+            etEmail.setText(mail);
+        }
         etCode = view.findViewById(R.id.etCode_dialog);
         TextView errorMsg = view.findViewById(R.id.wrong_code);
         AlertDialog dialog = builder.create();
