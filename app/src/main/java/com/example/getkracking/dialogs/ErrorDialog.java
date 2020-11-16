@@ -18,8 +18,8 @@ public class ErrorDialog extends AppCompatDialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_emailconfirmation, null);
-        builder.setView(view).setTitle(R.string.email_confirmation).setPositiveButton(R.string.confirmation_done_dialog, (dialog, which) -> {
+        View view = inflater.inflate(R.layout.dialog_errorlogin, null);
+        builder.setView(view).setTitle("Error en el inicio de sesión").setPositiveButton(R.string.confirmation_done_dialog, (dialog, which) -> {
             //se cierra el dialog
         });
         return builder.create();
