@@ -1,9 +1,11 @@
+//-----------------------------------com.example.getkracking.API.model.Sport.java-----------------------------------
+
 package com.example.getkracking.API.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Cycle {
+public class SportModel {
 
     @SerializedName("id")
     @Expose
@@ -14,21 +16,12 @@ public class Cycle {
     @SerializedName("detail")
     @Expose
     private String detail;
-    @SerializedName("type")
-    @Expose
-    private String type;
-    @SerializedName("order")
-    @Expose
-    private int order;
-    @SerializedName("repetitions")
-    @Expose
-    private int repetitions;
 
     /**
      * No args constructor for use in serialization
      *
      */
-    public Cycle() {
+    public SportModel() {
     }
 
     /**
@@ -36,18 +29,12 @@ public class Cycle {
      * @param name
      * @param id
      * @param detail
-     * @param type
-     * @param repetitions
-     * @param order
      */
-    public Cycle(int id, String name, String detail, String type, int order, int repetitions) {
+    public SportModel(int id, String name, String detail) {
         super();
         this.id = id;
         this.name = name;
         this.detail = detail;
-        this.type = type;
-        this.order = order;
-        this.repetitions = repetitions;
     }
 
     public int getId() {
@@ -72,30 +59,6 @@ public class Cycle {
 
     public void setDetail(String detail) {
         this.detail = detail;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public int getOrder() {
-        return order;
-    }
-
-    public void setOrder(int order) {
-        this.order = order;
-    }
-
-    public int getRepetitions() {
-        return repetitions;
-    }
-
-    public void setRepetitions(int repetitions) {
-        this.repetitions = repetitions;
     }
 
 }

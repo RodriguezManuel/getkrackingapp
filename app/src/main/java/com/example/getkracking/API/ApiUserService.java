@@ -1,15 +1,12 @@
 package com.example.getkracking.API;
 
-import android.media.session.MediaSession;
-
 import androidx.lifecycle.LiveData;
 
-import com.example.getkracking.API.model.Credentials;
-import com.example.getkracking.API.model.RegisterCredentials;
-import com.example.getkracking.API.model.Token;
-import com.example.getkracking.API.model.User;
+import com.example.getkracking.API.model.CredentialsModel;
+import com.example.getkracking.API.model.RegisterCredentialsModel;
+import com.example.getkracking.API.model.TokenModel;
+import com.example.getkracking.API.model.UserModel;
 
-import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -18,16 +15,16 @@ import retrofit2.http.POST;
 public interface ApiUserService {
 
     @POST("user/login")
-    LiveData<ApiResponse<Token>> login(@Body Credentials credentials);
+    LiveData<ApiResponse<TokenModel>> login(@Body CredentialsModel credentialsModel);
 
     @POST("user/logout")
     LiveData<ApiResponse<Void>> logout();
 
     @GET("user/current")
-    LiveData<ApiResponse<User>> getCurrentUser();
+    LiveData<ApiResponse<UserModel>> getCurrentUser();
 
     @POST("user")
-    LiveData<ApiResponse<User>> register(@Body RegisterCredentials registerCredentials);
+    LiveData<ApiResponse<UserModel>> register(@Body RegisterCredentialsModel registerCredentialsModel);
 
 
 }

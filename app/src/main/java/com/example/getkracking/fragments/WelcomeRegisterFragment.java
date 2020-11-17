@@ -18,13 +18,10 @@ import android.widget.Toast;
 
 import com.example.getkracking.API.ApiClient;
 import com.example.getkracking.API.ApiUserService;
-import com.example.getkracking.API.model.Credentials;
-import com.example.getkracking.API.model.RegisterCredentials;
+import com.example.getkracking.API.model.RegisterCredentialsModel;
 import com.example.getkracking.HomeActivity;
 import com.example.getkracking.R;
 import com.example.getkracking.dialogs.ConfirmationDialog;
-
-import java.util.Date;
 
 public class WelcomeRegisterFragment extends Fragment {
     EditText username, email, password;
@@ -62,7 +59,7 @@ public class WelcomeRegisterFragment extends Fragment {
                 return;
             }
             ApiUserService userService = ApiClient.create(getActivity().getApplication(),ApiUserService.class);
-            userService.register(new RegisterCredentials(
+            userService.register(new RegisterCredentialsModel(
                 username.getText().toString(), //username
                 password.getText().toString(), //password
                 username.getText().toString(), //Full name

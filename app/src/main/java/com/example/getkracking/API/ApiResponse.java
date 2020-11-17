@@ -1,6 +1,8 @@
 package com.example.getkracking.API;
 
-import com.example.getkracking.API.model.MyError;
+import android.util.Log;
+
+import com.example.getkracking.API.model.MyErrorModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -12,13 +14,13 @@ import retrofit2.Response;
 
 public class ApiResponse<T> {
     private T data;
-    private MyError error;
+    private MyErrorModel error;
 
     public T getData(){
         return data;
     }
 
-    public MyError getError(){
+    public MyErrorModel getError(){
         return error;
     }
 
@@ -43,17 +45,20 @@ public class ApiResponse<T> {
         try{
             message=response.errorBody().string();
         }catch (IOException e){
+            Log.e("api" , e.toString());
             parseError(e.getMessage());
+            return;
         }
         if ( message != null && message.trim().length() > 0 ){
             Gson gson = new Gson();
             //gson.fromJson(message , new TypeToken<Error>() {}.getType());
-            this.error =  gson.fromJson(message, new TypeToken<MyError>() {}.getType());
+            this.error =  gson.fromJson(message, new TypeToken<MyErrorModel>() {}.getType());
         }
+
         if ( error == null ) {
             List<String> details = new ArrayList<>();
             details.add("Null error");
-            error = new MyError(MyError.LOCAL_UNEXPECTED_ERROR, "Unkown error", details );
+            error = new MyErrorModel(MyErrorModel.LOCAL_UNEXPECTED_ERROR, "Unkown error", details );
         }
     }
 
@@ -61,11 +66,12 @@ public class ApiResponse<T> {
         List<String>  details = null;
         if ( message != null){
             //1:16:25
-            this.error = new MyError(MyError.LOCAL_UNEXPECTED_ERROR , "Unknown error" , details);
             details = new ArrayList<String>();
             details.add(message);
+            this.error = new MyErrorModel(MyErrorModel.LOCAL_UNEXPECTED_ERROR , "Unknown error" , details);
+
         }else {
-            this.error = new MyError(MyError.LOCAL_UNEXPECTED_ERROR, "Unexpected error", details);
+            this.error = new MyErrorModel(MyErrorModel.LOCAL_UNEXPECTED_ERROR, "Unexpected error", details);
         }
     }
 }

@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment;
 
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +17,9 @@ import android.widget.Toast;
 
 import com.example.getkracking.API.ApiClient;
 import com.example.getkracking.API.ApiUserService;
-import com.example.getkracking.API.model.Credentials;
+import com.example.getkracking.API.model.CredentialsModel;
 import com.example.getkracking.HomeActivity;
 import com.example.getkracking.R;
-import com.example.getkracking.dialogs.ConfirmationDialog;
 import com.example.getkracking.dialogs.ErrorDialog;
 
 public class WelcomeLoginFragment extends Fragment {
@@ -57,7 +55,7 @@ public class WelcomeLoginFragment extends Fragment {
             }
 
             ApiUserService userService = ApiClient.create(getActivity().getApplication(),ApiUserService.class);
-            userService.login(new Credentials(username.getText().toString(), password.getText().toString())).observe(getViewLifecycleOwner(), r -> {
+            userService.login(new CredentialsModel(username.getText().toString(), password.getText().toString())).observe(getViewLifecycleOwner(), r -> {
                 if (r.getError() == null) {
                     Log.d("UI", "Token: " + r.getData().getToken());
                     Intent homeIntent = new Intent(getActivity(), HomeActivity.class);
