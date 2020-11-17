@@ -20,22 +20,26 @@
                 style="@style/customTextNoSpecificCaseLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="48dp"
                 android:layout_marginEnd="40dp"
+                android:maxWidth="180dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintHorizontal_bias="0.542"
                 app:layout_constraintStart_toStartOf="@+id/guideline3"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:gravity="center"/>
 
             <TextView
                 android:id="@+id/CreatorNameInRoutine"
                 style="@style/customTextNoSpecificCaseLayout"
+                android:maxWidth="180dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="@+id/RoutineNameInRoutine"
                 app:layout_constraintStart_toStartOf="@+id/RoutineNameInRoutine"
-                app:layout_constraintTop_toBottomOf="@+id/RoutineNameInRoutine" />
+                app:layout_constraintTop_toBottomOf="@+id/RoutineNameInRoutine"
+                android:gravity="center" />
 
 
             <ImageView

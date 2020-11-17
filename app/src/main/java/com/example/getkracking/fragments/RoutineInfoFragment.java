@@ -95,13 +95,8 @@ public class RoutineInfoFragment extends Fragment {
         CyclesAdapter adapter = new CyclesAdapter(getActivity(), cycles);
         cyclesRoutine.setLayoutManager(new LinearLayoutManager(getContext()));
         cyclesRoutine.setAdapter(adapter);
+        cyclesRoutine.setNestedScrollingEnabled(false);
 
-
-//        cyclesRoutine = vista.findViewById(R.id.CyclesRoutine);
-//        cyclesRoutine.setLayoutManager(new LinearLayoutManager(getContext()));
-//        ExercisesAdapter adapter = new ExercisesAdapter(viewModel.getExcercisesList());
-//        cyclesRoutine.setAdapter(adapter);
-//        cyclesRoutine.setNestedScrollingEnabled(false);
         return vista;
     }
 

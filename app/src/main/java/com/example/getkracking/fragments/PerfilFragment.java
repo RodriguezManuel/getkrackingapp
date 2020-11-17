@@ -2,11 +2,16 @@ package com.example.getkracking.fragments;
 
 import android.os.Bundle;
 
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.getkracking.HomeActivity;
 import com.example.getkracking.R;
@@ -28,8 +33,22 @@ public class PerfilFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View vista = inflater.inflate(R.layout.fragment_perfil, container, false);
+        TextView tvName = vista.findViewById(R.id.name_perfil);
+        tvName.setText("FABIO SINAPELLIDO");    //HARDCODEADO
 
-        return inflater.inflate(R.layout.fragment_perfil, container, false);
+        LinearLayoutCompat editPerfil = vista.findViewById(R.id.EditProfileCompat);
+        editPerfil.setOnClickListener(v1 -> {
+             PerfilFragmentDirections.ActionPerfilFragmentToEditPerfilFragment action = PerfilFragmentDirections.actionPerfilFragmentToEditPerfilFragment(tvName.getText().toString(),
+                    "fabiopisculichi",  //HARDCODEADO
+                    "pepepe@lololo.com.uy");    //HARDCODEADO
+
+
+            //IMAGEN??????
+
+            Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(action);
+        });
+        return vista;
     }
 
 }

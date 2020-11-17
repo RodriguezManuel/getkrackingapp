@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/PictureCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/primary"
+        app:strokeWidth="1dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/Picture_edit_perfil"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="30dp"
+                app:cardBackgroundColor="@color/primary"
+                app:cardCornerRadius="250dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:contentDescription="@string/description_image_perfil"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/workout"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/editName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                app:layout_constraintEnd_toEndOf="@+id/Picture_edit_perfil"
+                app:layout_constraintHorizontal_bias="0.505"
+                app:layout_constraintStart_toStartOf="@+id/Picture_edit_perfil"
+                app:layout_constraintTop_toBottomOf="@id/Picture_edit_perfil">
+
+                <TextView
+                    style="@style/customTextNoSpecificCaseLayout"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/name_value_perfil"
+                    android:textAlignment="center"
+                    android:textAllCaps="false"
+                    app:layout_constraintEnd_toEndOf="@+id/Picture_edit_perfil"
+                    app:layout_constraintStart_toStartOf="@+id/Picture_edit_perfil" />
+
+
+                <EditText
+                    android:id="@+id/name_edit_perfil"
+                    style="@style/customTextNoSpecificCaseLayout"
+                    android:layout_width="200dp"
+                    android:layout_height="28dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="3dp"
+                    android:background="@drawable/custominput"
+                    android:importantForAutofill="no"
+                    android:inputType="none"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/name_edit_perfil_icon"
+                    style="@style/customTextNoSpecificCaseLayout"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="12.5dp"
+                    android:background="@drawable/ic_edit"
+                    android:backgroundTint="@color/primary"
+                    android:inputType="none"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/nameContent" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/editImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/editName"
+                app:layout_constraintTop_toBottomOf="@+id/editName">
+
+
+                <TextView
+                    style="@style/customTextNoSpecificCaseLayout"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/image_value_perfil"
+                    android:textAlignment="center"
+                    app:layout_constraintEnd_toEndOf="@+id/Picture_edit_perfil"
+                    app:layout_constraintStart_toStartOf="@+id/Picture_edit_perfil" />
+
+
+                <EditText
+                    android:id="@+id/image_edit_perfil"
+                    style="@style/customTextNoSpecificCaseLayout"
+                    android:layout_width="200dp"
+                    android:layout_height="28dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="3dp"
+                    android:background="@drawable/custominput"
+                    android:importantForAutofill="no"
+                    android:inputType="none"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/image_edit_perfil_icon"
+                    style="@style/customTextNoSpecificCaseLayout"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="12.5dp"
+                    android:background="@drawable/ic_edit"
+                    android:backgroundTint="@color/primary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageContent" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/editUsername"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/editImage"
+                app:layout_constraintTop_toBottomOf="@+id/editImage">
+
+                <TextView
+                    style="@style/customTextNoSpecificCaseLayout"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/username_value"
+                    android:textAlignment="center"
+                    app:layout_constraintEnd_toEndOf="@+id/Picture_edit_perfil"
+                    app:layout_constraintStart_toStartOf="@+id/Picture_edit_perfil" />
+
+
+                <EditText
+                    android:id="@+id/username_edit_perfil"
+                    style="@style/customTextNoSpecificCaseLayout"
+                    android:layout_width="200dp"
+                    android:layout_height="28dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="3dp"
+                    android:background="@drawable/custominput"
+                    android:importantForAutofill="no"
+                    android:inputType="none"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/editEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/editUsername"
+                app:layout_constraintTop_toBottomOf="@+id/editUsername">
+
+
+                <TextView
+                    style="@style/customTextNoSpecificCaseLayout"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/email_value_perfil"
+                    android:textAlignment="center"
+                    app:layout_constraintEnd_toEndOf="@+id/Picture_edit_perfil"
+                    app:layout_constraintStart_toStartOf="@+id/Picture_edit_perfil" />
+
+
+                <EditText
+                    android:id="@+id/email_edit_perfil"
+                    style="@style/customTextNoSpecificCaseLayout"
+                    android:layout_width="200dp"
+                    android:layout_height="28dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="3dp"
+                    android:background="@drawable/custominput"
+                    android:importantForAutofill="no"
+                    android:inputType="none"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:gravity="center_vertical"
+                app:layout_constraintEnd_toEndOf="@+id/Picture_edit_perfil"
+                app:layout_constraintStart_toStartOf="@+id/Picture_edit_perfil"
+                app:layout_constraintTop_toBottomOf="@+id/editEmail">
+
+                <Button
+                    android:id="@+id/returnButton_edit_perfil"
+                    style="@style/customTextNoSpecificCaseLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/back_button"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/Picture_edit_perfil"
+                    app:layout_constraintStart_toStartOf="@+id/Picture_edit_perfil"
+                    app:layout_constraintTop_toBottomOf="@+id/editEmail" />
+
+                <Button
+                    android:id="@+id/saveButton_edit_perfil"
+                    style="@style/customTextNoSpecificCaseLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:backgroundTint="#FBAC31"
+                    android:text="@string/save_changes_button"
+                    android:textColor="@color/white"
+                    app:layout_constraintStart_toEndOf="@+id/returnButton" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
