@@ -20,11 +20,24 @@ public class RoutineTable {
     public String detail;
 
     @ColumnInfo(name = "Creator")
-    public int creator;
+    public String creator;
 
     @ColumnInfo(name = "Favourite")
     public int favourite;
 
     @ColumnInfo(name = "Rating")
     public int rating;
+
+    @ColumnInfo(name = "Difficulty")
+    public int difficulty;
+
+    public RoutineTable( int id , String name , String detail , String creator , int favourite , int rating , int difficulty){
+        this.id = id;
+        this.name = name;
+        this.detail = detail;
+        this.creator = creator;
+        this.favourite = favourite;
+        this.rating = rating;
+        this.difficulty = difficulty;
+    }
 }
