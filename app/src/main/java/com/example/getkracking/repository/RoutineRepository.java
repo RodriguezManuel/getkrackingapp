@@ -33,16 +33,18 @@ public class RoutineRepository {
     private AppDatabase database;
     private List<String> difficultyList;
     private RateLimiter<String> rateLimit = new RateLimiter<>(10, TimeUnit.MINUTES);
-    String[] difficultyVector = {"rookie", "beginner", "intermediate" , "advanced", "expert" };
+    String[] difficultyVector = {"rookie", "beginner", "intermediate", "advanced", "expert"};
+
     public RoutineRepository(AppExecutors executors, ApiRoutineService service, AppDatabase database) {
         difficultyList = new ArrayList<String>();
-        for ( String aux: difficultyVector ) {
+        for (String aux : difficultyVector) {
             difficultyList.add(aux);
         }
         this.executors = executors;
         this.service = service;
         this.database = database;
     }
+
     /*
        public RoutineVO(String name, String description, String creator, String category, int levelCategory1, int levelCategory2, int duration, int id, boolean favorited) {
         this.name = name;
@@ -58,24 +60,24 @@ public class RoutineRepository {
      */
     public LiveData<Resource<List<RoutineVO>>> getRoutines() {
 
-        return new NetworkBoundResource<List<RoutineVO>, List<RoutineTable>, PagedListModel<RoutineModel>> (executors,
-                                                                                                            entities -> {
+        return new NetworkBoundResource<List<RoutineVO>, List<RoutineTable>, PagedListModel<RoutineModel>>(executors,
+                entities -> {
                     return entities.stream()
-                            .map(routineEntity -> new RoutineVO(routineEntity.name, routineEntity.detail , routineEntity.detail ,
-                                                    routineEntity.creator , routineEntity.difficulty , 3 ,
-                                            69 , routineEntity.id , routineEntity.favourite != 0  ))
+                            .map(routineEntity -> new RoutineVO(routineEntity.name, routineEntity.detail, routineEntity.detail,
+                                    routineEntity.creator, routineEntity.difficulty, 3,
+                                    69, routineEntity.id, routineEntity.favourite != 0))
                             .collect(toList());
                 },
                 model -> {
                     return model.getResults().stream()
-                            .map(routineModel -> new RoutineTable(routineModel.getId(), routineModel.getName(), routineModel.getDetail() , routineModel.getCreatorModel().getUsername() , 0 , routineModel.getAverageRating() , castDifficulty(routineModel.getDifficulty()))
+                            .map(routineModel -> new RoutineTable(routineModel.getId(), routineModel.getName(), routineModel.getDetail(), routineModel.getCreatorModel().getUsername(), 0, routineModel.getAverageRating(), castDifficulty(routineModel.getDifficulty()))
                             ).collect(toList());
                 },
                 model -> {
                     return model.getResults().stream()
                             .map(routineModel -> new RoutineVO(routineModel.getName(), routineModel.getDetail(), routineModel.getDetail(),
-                                    routineModel.getCreatorModel().getUsername() , castDifficulty(routineModel.getDifficulty()) , 3,
-                            69 , routineModel.getId() , false))
+                                    routineModel.getCreatorModel().getUsername(), castDifficulty(routineModel.getDifficulty()), 3,
+                                    69, routineModel.getId(), false))
                             .collect(toList());
                 }) {
             @Override
@@ -107,7 +109,8 @@ public class RoutineRepository {
             }
         }.asLiveData();
     }
-    private int castDifficulty( String difficulty){
+
+    private int castDifficulty(String difficulty) {
         return difficultyList.indexOf(difficulty);
     }
 }
