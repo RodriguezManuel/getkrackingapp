@@ -34,7 +34,6 @@ public class WelcomeLoginFragment extends Fragment {
 
 
     private MyApplication application;
-    private WelcomeActivity activity;
     private UserRepository userRepository;
 
 
@@ -66,7 +65,6 @@ public class WelcomeLoginFragment extends Fragment {
             }
             ApiUserService userService = ApiClient.create(getActivity().getApplication(), ApiUserService.class);
             application = (MyApplication) getActivity().getApplication();
-            activity = (WelcomeActivity) getActivity();
             userRepository = application.getUserRepository();
             userRepository.login(username.getText().toString(), password.getText().toString())
                 .observe(getViewLifecycleOwner(), resource -> {

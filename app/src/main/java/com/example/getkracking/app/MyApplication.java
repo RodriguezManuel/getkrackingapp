@@ -30,6 +30,7 @@ public class MyApplication extends Application {
         return userRepository;
     }
 
+    public RoutineRepository getRoutineRepository(){ return routineRepository; }
 
     @Override
     public void onCreate() {
@@ -49,4 +50,6 @@ public class MyApplication extends Application {
         routineRepository = new RoutineRepository(appExecutors, routineService, database);
 
     }
+
+
 }

@@ -65,7 +65,7 @@ public class RoutineRepository {
                     return entities.stream()
                             .map(routineEntity -> new RoutineVO(routineEntity.name, routineEntity.detail, routineEntity.detail,
                                     routineEntity.creator, routineEntity.difficulty, 3,
-                                    69, routineEntity.id, routineEntity.favourite != 0))
+                                    69, routineEntity.id, routineEntity.favourite != 0, routineEntity.rating))
                             .collect(toList());
                 },
                 model -> {
@@ -77,7 +77,7 @@ public class RoutineRepository {
                     return model.getResults().stream()
                             .map(routineModel -> new RoutineVO(routineModel.getName(), routineModel.getDetail(), routineModel.getDetail(),
                                     routineModel.getCreatorModel().getUsername(), castDifficulty(routineModel.getDifficulty()), 3,
-                                    69, routineModel.getId(), false))
+                                    69, routineModel.getId(), false, routineModel.getAverageRating()))
                             .collect(toList());
                 }) {
             @Override
