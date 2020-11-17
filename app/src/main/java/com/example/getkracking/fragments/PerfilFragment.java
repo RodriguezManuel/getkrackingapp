@@ -1,5 +1,6 @@
 package com.example.getkracking.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.LinearLayoutCompat;
@@ -7,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +17,14 @@ import android.widget.TextView;
 
 import com.example.getkracking.HomeActivity;
 import com.example.getkracking.R;
+import com.example.getkracking.WelcomeActivity;
+import com.example.getkracking.app.MyApplication;
+import com.example.getkracking.repository.UserRepository;
 
 public class PerfilFragment extends Fragment {
+
+    private UserRepository userRepository;
+    private MyApplication application;
 
     public PerfilFragment() {
         // Required empty public constructor
@@ -51,15 +59,36 @@ public class PerfilFragment extends Fragment {
         });
 
         LinearLayoutCompat logout = vista.findViewById(R.id.LogoutCompat);
-        logout.setOnClickListener(v -> {
 
 
-            ///LOGOUT DE LA API
-
-
-        });
+        performLogout(logout);
 
         return vista;
+    }
+
+    private void performLogout(LinearLayoutCompat logout){
+
+        application = (MyApplication) getActivity().getApplication();
+        userRepository = application.getUserRepository();
+
+        logout.setOnClickListener(v -> {
+            userRepository.logout().observe(getViewLifecycleOwner(), resource ->{
+                switch (resource.status) {
+                    case LOADING:
+                        Log.d("UI", "awaiting");
+                        break;
+                    case SUCCESS:
+                        Log.d("UI", "ALL GOOD :) -- token = " + application.getPreferences().getAuthToken());
+                        Intent welcomeIntent = new Intent(getActivity(), WelcomeActivity.class);
+                        startActivity(welcomeIntent);
+                        getActivity().finish();
+                        break;
+                    case ERROR:
+                        Log.d("UI", "Error al cerrar sesión");
+                        break;
+                }
+            });
+        });
     }
 
 }

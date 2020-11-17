@@ -60,7 +60,7 @@ public class UserRepository {
     public LiveData<Resource<Void>> logout() {
 
         return new NetworkBoundResource<Void, Void, Void>
-                (executors, null, null, null) {
+                (executors, null, null, model -> model) {
 
             @Override
             protected void saveCallResult(@NonNull Void entity) {
