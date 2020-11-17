@@ -44,11 +44,15 @@ public class ApiResponse<T> {
             message=response.errorBody().string();
         }catch (IOException e){
             parseError(e.getMessage());
-            return;
         }
         if ( message != null && message.trim().length() > 0 ){
             Gson gson = new Gson();
             gson.fromJson(message , new TypeToken<Error>() {}.getType());
+        }
+        if ( error == null ) {
+            List<String> details = new ArrayList<>();
+            details.add("Null error");
+            error = new MyError(MyError.LOCAL_UNEXPECTED_ERROR, "Unkown error", details );
         }
     }
 
@@ -59,7 +63,8 @@ public class ApiResponse<T> {
             this.error = new MyError(MyError.LOCAL_UNEXPECTED_ERROR , "Unknown error" , details);
             details = new ArrayList<String>();
             details.add(message);
+        }else {
+            this.error = new MyError(MyError.LOCAL_UNEXPECTED_ERROR, "Unexpected error", details);
         }
-        this.error = new MyError(MyError.LOCAL_UNEXPECTED_ERROR , "Unexpected error" , details);
     }
 }

@@ -6,8 +6,6 @@ public class RoutineVO {
     private String name, description, creator, category;
     private int levelCategory1, levelCategory2, duration, id;   // en minutos
     private boolean favorited;
-//    private List<CycleVO> cycles;
-
     public RoutineVO(String name, String description, String creator, String category, int levelCategory1, int levelCategory2, int duration, int id, boolean favorited) {
         this.name = name;
         this.description = description;
