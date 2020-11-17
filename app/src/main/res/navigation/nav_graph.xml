@@ -68,14 +68,16 @@
             android:defaultValue="3" />
         <argument
             android:name="ratingRoutine"
-            app:argType="integer"
-            android:defaultValue="0" />
+            app:argType="float" />
         <argument
             android:name="categoryRoutine"
             app:argType="string" />
         <argument
             android:name="favoritedRoutine"
             app:argType="boolean" />
+        <action
+            android:id="@+id/action_routineInfoFragment_to_runRoutineFragment"
+            app:destination="@id/runRoutineFragment" />
     </fragment>
 
     <fragment

@@ -9,7 +9,7 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/ExcerciseVisualizationCard"
         android:layout_width="318dp"
-        android:layout_height="466dp"
+        android:layout_height="490dp"
         android:layout_marginTop="60dp"
         android:background="@drawable/text_border"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,15 +35,26 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
+                android:id="@+id/exercise_name_run_routine"
+                style="@style/customTextNoSpecificCaseLayout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="60dp"
-                android:text="Abdominales Cruzados"
+                android:layout_marginTop="52dp"
+                android:gravity="center"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/section_name_run_routine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.502"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/exercise_name_run_routine" />
 
             <ImageView
                 android:id="@+id/imageView2"
@@ -53,7 +64,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/section_name_run_routine"
                 app:srcCompat="@drawable/ejercicio_demo" />
 
             <TextView
@@ -61,7 +72,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
-                android:text="10:00"
                 android:textSize="50sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.502"
@@ -81,7 +91,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/timerInRunRoutine" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/exercise_desc_run_routine"
                 android:layout_width="259dp"
                 android:layout_height="66dp"
                 android:layout_marginTop="20dp"
@@ -96,16 +106,13 @@
                 android:id="@+id/ListToggleInRoutine"
                 android:layout_width="33dp"
                 android:layout_height="33dp"
+                android:layout_marginTop="156dp"
+                android:layout_marginEnd="20dp"
                 android:contentDescription="@string/fav_icon_string"
                 android:src="@drawable/ic_baseline_playlist_play_24"
-                app:layout_constraintBottom_toBottomOf="@+id/textView"
-                app:layout_constraintEnd_toEndOf="@+id/progressBar"
-                app:layout_constraintTop_toTopOf="@+id/textView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:tint="@color/primary" />
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </com.google.android.material.card.MaterialCardView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

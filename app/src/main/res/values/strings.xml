@@ -85,4 +85,5 @@
     <string name="routine_in_ejecution">Ejecucion de rutina</string>
     <string name="routine">Rutina</string>
     <string name="finish_routine_execution">Estas seguro de que queres finalizar la ejecucion?</string>
+    <string name="rating_value">Puntuacion:</string>
 </resources>

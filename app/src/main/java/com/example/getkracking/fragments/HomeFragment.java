@@ -77,21 +77,21 @@ public class HomeFragment extends Fragment implements RoutinesAdapter.OnRoutineL
 
     private void fillHighlightedList() {
         //solo un item necesitamos
-        highlightedRoutinesList.add(new RoutineVO("LA MEJOR RUTINA DE TODAS", "NDEAHHHHHHHHHHHH LA VECINDAD PADRE", "Roosevelt", "Pecho", 0, 1, 0, 0, false));
+        highlightedRoutinesList.add(new RoutineVO("LA MEJOR RUTINA DE TODAS", "NDEAHHHHHHHHHHHH LA VECINDAD PADRE", "Roosevelt", "Pecho", 0, 1, 0, 0, false, 1));
     }
 
     private void fillFavouriteList() {
         //HARDCODEADO ADAPTAR A API
-        favouriteRoutinesList.add(new RoutineVO("IRONMAN", "HMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMMHMH", "Octa1", "Piernas", 5, 5, 18, 1, true));
-        favouriteRoutinesList.add(new RoutineVO("CAPTAIN AMERICA", "VALCHARRRR SACA LA MANO DE AHI CARAJO", "Octa2", "Brazos", 1, 0, 180, 2, true));
-        favouriteRoutinesList.add(new RoutineVO("THOR NOT AGUSTIN", "wasaaaaaaaaaaaaaaaaaaaaaaaaaa", "Octa3", "Piernas", 2, 0, 11, 3, true));
+        favouriteRoutinesList.add(new RoutineVO("IRONMAN", "HMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMMHMH", "Octa1", "Piernas", 5, 5, 18, 1, true, 2));
+        favouriteRoutinesList.add(new RoutineVO("CAPTAIN AMERICA", "VALCHARRRR SACA LA MANO DE AHI CARAJO", "Octa2", "Brazos", 1, 0, 180, 2, true, 3));
+        favouriteRoutinesList.add(new RoutineVO("THOR NOT AGUSTIN", "wasaaaaaaaaaaaaaaaaaaaaaaaaaa", "Octa3", "Piernas", 2, 0, 11, 3, true, 3.3f));
     }
 
     private void fillRecentList() {
         //HARDCODEADO ADAPTAR A API
-        recentRoutinesList.add(new RoutineVO("OCTA", "horacio", "Octa4", "Piernas", 5, 5, 18, 1, true));
-        recentRoutinesList.add(new RoutineVO("CAPTAIN AMERICA", "VALCHARRRR SACA LA MANO DE AHI CARAJO", "Octa2", "Brazos", 1, 0, 180, 2, true));
-        recentRoutinesList.add(new RoutineVO("THOR NOT AGUSTIN", "wasaaaaaaaaaaaaaaaaaaaaaaaaaa", "Octa3", "Piernas", 2, 0, 11, 3, true));
+        recentRoutinesList.add(new RoutineVO("OCTA", "horacio", "Octa4", "Piernas", 5, 5, 18, 1, true,1.5f));
+        recentRoutinesList.add(new RoutineVO("CAPTAIN AMERICA", "VALCHARRRR SACA LA MANO DE AHI CARAJO", "Octa2", "Brazos", 1, 0, 180, 2, true, 0));
+        recentRoutinesList.add(new RoutineVO("THOR NOT AGUSTIN", "wasaaaaaaaaaaaaaaaaaaaaaaaaaa", "Octa3", "Piernas", 2, 0, 11, 3, true, 1));
     }
 
     @Override
@@ -107,7 +107,7 @@ public class HomeFragment extends Fragment implements RoutinesAdapter.OnRoutineL
         else return;
 
         HomeFragmentDirections.ActionHomeFragmentToRoutineInfoFragment action = HomeFragmentDirections.actionHomeFragmentToRoutineInfoFragment
-                (array.get(position).getId(), array.get(position).getDescription(), array.get(position).getCreator(),
+                (array.get(position).getId(), array.get(position).getDescription(), array.get(position).getCreator(), array.get(position).getRating(),
                         array.get(position).getCategory(), array.get(position).isFavorited());
         // LE PASO LOS ARGUMENTOS QUE NO TIENEN VALOR DEFAULT
         action.setNameRoutine(array.get(position).getName());

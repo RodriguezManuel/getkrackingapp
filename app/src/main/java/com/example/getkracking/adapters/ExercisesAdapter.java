@@ -47,7 +47,10 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.Exce
     public void onBindViewHolder(@NonNull ExcerciseViewHolder holder, int position) {
         //holder.image.setImageResource(excerciseList.get(position).getImage());
         holder.name.setText(excerciseList.get(position).getName());
-        holder.quantity.setText(excerciseList.get(position).getQuantity());
+        if(excerciseList.get(position).getQuantity() > 0){
+            holder.quantity.setText(String.valueOf(excerciseList.get(position).getQuantity()));
+        }else
+            holder.quantity.setText(String.valueOf(excerciseList.get(position).getDuration()));
     }
 
     @Override

@@ -65,12 +65,12 @@ public class RoutineInfoFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         //handle options selected
         int id = item.getItemId();
-
         if (id == R.id.topbar_share) {
 
         }
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -88,8 +88,10 @@ public class RoutineInfoFragment extends Fragment {
             //category?? donde va????
 
             //seteo de funcionalidades de botones
-            ((Button) vista.findViewById(R.id.ButtonEmpezarInRoutine)).setOnClickListener(v1 ->
-                    Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.runRoutineFragment));
+            ((Button) vista.findViewById(R.id.ButtonEmpezarInRoutine)).setOnClickListener(v1 -> {
+
+                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.runRoutineFragment);
+            });
 
             ImageView favIcon = vista.findViewById(R.id.favoriteIconInfoRoutine);
             favIcon.setOnClickListener((View.OnClickListener) v -> {
@@ -102,6 +104,9 @@ public class RoutineInfoFragment extends Fragment {
                 }
                 favorited = !favorited;
             });
+
+            TextView puntuacion = vista.findViewById(R.id.rating_value_info_routine);
+            puntuacion.setText(String.valueOf(args.getRatingRoutine()));
         }
 
         viewModel = new ViewModelProvider(this).get(RoutineInfoViewModel.class);
@@ -121,14 +126,14 @@ public class RoutineInfoFragment extends Fragment {
     public void fillCycles() {
         //HARDCODEADO ARREGLAR CON API PADREEEEEEEEEEEEEEEEEE Y MADREEEEEEEEE
         ArrayList<ExerciseVO> exercises = new ArrayList<>();
-        exercises.add(new ExerciseVO("SALtos", "16 minutos"));
-        exercises.add(new ExerciseVO("PATADAS", "12 minutos"));
-        exercises.add(new ExerciseVO("nada", "1 minutos"));
-        cycles.add(new CycleVO("CALENTAMIENTO", exercises));
+        exercises.add(new ExerciseVO("SALtos", 16, 0));
+        exercises.add(new ExerciseVO("PATADAS", 5, 0));
+        exercises.add(new ExerciseVO("nada", 0, 45));
+        cycles.add(new CycleVO("Calentamiento", exercises));
         ArrayList<ExerciseVO> exercises2 = new ArrayList<>();
-        exercises2.add(new ExerciseVO("beto", "16 repe"));
-        exercises2.add(new ExerciseVO("mbhertDAS", "12 pasamela"));
-        exercises2.add(new ExerciseVO("betaismo", "1 guido"));
+        exercises2.add(new ExerciseVO("beto", 5, 0));
+        exercises2.add(new ExerciseVO("mbhertDAS", 0, 60));
+        exercises2.add(new ExerciseVO("betaismo", 0, 24));
         cycles.add(new CycleVO("ENFRIAMIENTO", exercises2));
     }
 }

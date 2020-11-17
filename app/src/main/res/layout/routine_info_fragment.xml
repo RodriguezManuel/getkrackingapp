@@ -66,13 +66,13 @@
                 style="@style/customTextNoSpecificCaseLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 android:backgroundTint="#FBAC31"
                 android:backgroundTintMode="src_in"
                 android:text="@string/buttonstart_routine"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintHorizontal_bias="0.94"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/RoutineImageInRoutine" />
 
@@ -206,6 +206,34 @@
                 android:transformPivotY="0dp"
                 app:layout_constraintStart_toStartOf="@+id/rbCategory3InRoutine"
                 app:layout_constraintTop_toTopOf="@+id/RoutineCategory4InRoutine" />
+
+            <LinearLayout
+                android:layout_width="205dp"
+                android:layout_height="49dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/RoutineImageInRoutine">
+
+                <TextView
+                    style="@style/customTextNoSpecificCaseLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/rating_value" />
+
+                <TextView
+                    android:id="@+id/rating_value_info_routine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    style="@style/customTextNoSpecificCaseLayout"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="8dp"/>
+            </LinearLayout>
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/DurationInRoutine"

@@ -4,9 +4,11 @@ package com.example.getkracking.entities;
 
 public class RoutineVO {
     private String name, description, creator, category;
-    private int levelCategory1, levelCategory2, duration, id;   // en minutos
+    private int levelCategory1, levelCategory2, duration, id;
+    private float rating;
     private boolean favorited;
-    public RoutineVO(String name, String description, String creator, String category, int levelCategory1, int levelCategory2, int duration, int id, boolean favorited) {
+    public RoutineVO(String name, String description, String creator, String category, int levelCategory1, int levelCategory2,
+                     int duration, int id, boolean favorited, float rating) {
         this.name = name;
         this.description = description;
         this.creator = creator;
@@ -16,6 +18,15 @@ public class RoutineVO {
         this.duration = duration;
         this.id = id;
         this.favorited = favorited;
+        this.rating = rating;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 
     public String getName() {
