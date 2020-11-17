@@ -21,5 +21,10 @@ public class ExerciseTable {
 
 //    @ColumnInfo(name = "Media")
 //    public String[] media;
-
+    public ExerciseTable( int exerciseId , String exerciseName , String exerciseDetail , int cycleId){
+        this.exerciseId = exerciseId;
+        this.exerciseDetail = exerciseDetail;
+        this.exerciseName = exerciseName;
+        this.cycleId = cycleId;
+    }
 }

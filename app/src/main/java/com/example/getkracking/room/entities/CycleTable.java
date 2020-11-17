@@ -22,4 +22,11 @@ public class CycleTable {
 
     @ColumnInfo(name = "Order")
     public int order;
+
+    public CycleTable( int cycleId , int routineId , String detail , int order){
+        this.cycleId = cycleId;
+        this.routineId = routineId;
+        this.detail = detail;
+        this.order = order;
+    }
 }
