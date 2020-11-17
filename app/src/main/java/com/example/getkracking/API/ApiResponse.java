@@ -48,7 +48,8 @@ public class ApiResponse<T> {
         }
         if ( message != null && message.trim().length() > 0 ){
             Gson gson = new Gson();
-            gson.fromJson(message , new TypeToken<Error>() {}.getType());
+            //gson.fromJson(message , new TypeToken<Error>() {}.getType());
+            this.error =  gson.fromJson(message, new TypeToken<MyError>() {}.getType());
         }
     }
 

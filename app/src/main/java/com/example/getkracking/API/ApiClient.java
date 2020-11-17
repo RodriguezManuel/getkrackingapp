@@ -21,7 +21,7 @@ public class ApiClient {
     private static final int WRITE_TIMEOUT = 60;
     private static final int READ_TIMEOUT = 60;
 
-    private static final String BASE_URL = "http://192.168.0.11:8080/api/";
+    private static final String BASE_URL = Config.BASE_URL;
 
     private ApiClient(){
 
