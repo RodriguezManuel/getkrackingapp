@@ -11,7 +11,6 @@ import java.util.List;
 
 @Entity(tableName = "cycleTable")
 public class CycleTable {
-    private List<ExerciseTable> exercises;
     @PrimaryKey
     public int cycleId;
 
@@ -23,13 +22,4 @@ public class CycleTable {
 
     @ColumnInfo(name = "Order")
     public int order;
-
-    public void setExercises( List<ExerciseTable> exercises){
-        this.exercises =  exercises;
-    }
-
-    public List<ExerciseTable> getExercises(){
-        return exercises;
-    }
-
 }

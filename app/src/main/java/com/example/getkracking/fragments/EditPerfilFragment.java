@@ -2,6 +2,7 @@ package com.example.getkracking.fragments;
 
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,8 @@ import androidx.navigation.Navigation;
 
 import com.example.getkracking.HomeActivity;
 import com.example.getkracking.R;
+import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class EditPerfilFragment extends Fragment {
     EditText name, image;
@@ -60,14 +63,18 @@ public class EditPerfilFragment extends Fragment {
             Navigation.findNavController(getActivity(), R.id.nav_host_fragment).popBackStack();
         });
         vista.findViewById(R.id.saveButton_edit_perfil).setOnClickListener(v -> {
+
+
             //POST A API CON NUEVA INFORMACION
+
+
         });
 
         name = vista.findViewById(R.id.name_edit_perfil);
         image = vista.findViewById(R.id.image_edit_perfil);
 
         TextView nameEdit = vista.findViewById(R.id.name_edit_perfil_icon);
-        nameEdit.setInputType(InputType.TYPE_NULL);
+        name.setInputType(InputType.TYPE_NULL);
         name.setTextColor(ContextCompat.getColor(getContext(),R.color.primary));    //arranca disabled
         nameEdit.setOnClickListener(v12 -> {
             if (name.getInputType() == InputType.TYPE_NULL) {
@@ -78,10 +85,11 @@ public class EditPerfilFragment extends Fragment {
                 name.setTextColor(ContextCompat.getColor(getContext(),R.color.primary));
             }
         });
-        TextView emailEdit = vista.findViewById(R.id.image_edit_perfil_icon);
-        emailEdit.setInputType(InputType.TYPE_NULL);
+
+        TextView imageEdit = vista.findViewById(R.id.image_edit_perfil_icon);
+        image.setInputType(InputType.TYPE_NULL);
         name.setTextColor(ContextCompat.getColor(getContext(),R.color.primary));
-        emailEdit.setOnClickListener(v13 -> {
+        imageEdit.setOnClickListener(v13 -> {
             if (image.getInputType() == InputType.TYPE_NULL){
                 image.setInputType(InputType.TYPE_CLASS_TEXT);
                 name.setTextColor(ContextCompat.getColor(getContext(),R.color.black));

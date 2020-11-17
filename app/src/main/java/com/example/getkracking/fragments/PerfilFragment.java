@@ -35,6 +35,7 @@ public class PerfilFragment extends Fragment {
                              Bundle savedInstanceState) {
         View vista = inflater.inflate(R.layout.fragment_perfil, container, false);
         TextView tvName = vista.findViewById(R.id.name_perfil);
+
         tvName.setText("FABIO SINAPELLIDO");    //HARDCODEADO
 
         LinearLayoutCompat editPerfil = vista.findViewById(R.id.EditProfileCompat);
@@ -48,6 +49,16 @@ public class PerfilFragment extends Fragment {
 
             Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(action);
         });
+
+        LinearLayoutCompat logout = vista.findViewById(R.id.LogoutCompat);
+        logout.setOnClickListener(v -> {
+
+
+            ///LOGOUT DE LA API
+
+
+        });
+
         return vista;
     }
 

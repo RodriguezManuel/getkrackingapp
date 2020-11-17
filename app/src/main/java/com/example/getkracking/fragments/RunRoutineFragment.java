@@ -2,6 +2,8 @@ package com.example.getkracking.fragments;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -12,62 +14,44 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.getkracking.HomeActivity;
 import com.example.getkracking.R;
+import com.example.getkracking.dialogs.ErrorDialog;
+import com.example.getkracking.dialogs.ExitRoutineDialog;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link RunRoutineFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class RunRoutineFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     private TextView countDownText;
     private Button countDownButton;
 
     //Variables para el timer
     private CountDownTimer countDownTimer;
-    private long timeLeftInMiliseconds = 600000; //10 mins
+    private long timeLeftInMiliseconds = 6000; //10 mins
     private boolean timerRunning;
 
     public RunRoutineFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RunRoutineFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static RunRoutineFragment newInstance(String param1, String param2) {
-        RunRoutineFragment fragment = new RunRoutineFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    @Override
+    public void onResume() {
+        super.onResume();
+        setHasOptionsMenu(false);
+        Toolbar mToolBar =  ((HomeActivity) getActivity()).findViewById(R.id.homeTopBar);
+        ActionBar actionBar = ((HomeActivity) getActivity()).getSupportActionBar();
+        actionBar.setTitle(R.string.routine_in_ejecution);
+
+        //CUSTOMIZAR BACK BUTTON
+        ((HomeActivity) getActivity()).setSupportActionBar(mToolBar);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        mToolBar.setNavigationIcon(R.drawable.ic_chevron_left);
+        mToolBar.setNavigationOnClickListener(v -> openExitDialog());
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -95,13 +79,12 @@ public class RunRoutineFragment extends Fragment {
         return vista;
     }
 
-
-
-
-
+    public void openExitDialog() {
+        ExitRoutineDialog dialog = new ExitRoutineDialog();
+        dialog.show(getActivity().getSupportFragmentManager(), "Exit routine execution");
+    }
 
     //METODOS PARA EL TIMER
-
     public void startStop(){
         if(timerRunning){
             stopTimer();
@@ -121,7 +104,7 @@ public class RunRoutineFragment extends Fragment {
 
             @Override
             public void onFinish() {
-
+                Toast.makeText(getContext(), "MBEHH",Toast.LENGTH_LONG).show();
             }
         }.start(); //lo empieza de inmediato
         countDownButton.setText("Pausar");

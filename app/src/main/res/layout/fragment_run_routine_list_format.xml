@@ -6,10 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--            PLACEHOLDER PARA QUE NO SE TAPE LA ULTIMA RUTINA-->
-
-
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -48,8 +44,5 @@
                 app:layout_constraintTop_toBottomOf="@+id/ExercisesRecyclerForList" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.core.widget.NestedScrollView>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

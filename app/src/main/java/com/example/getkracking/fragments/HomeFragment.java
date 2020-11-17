@@ -107,7 +107,8 @@ public class HomeFragment extends Fragment implements RoutinesAdapter.OnRoutineL
         else return;
 
         HomeFragmentDirections.ActionHomeFragmentToRoutineInfoFragment action = HomeFragmentDirections.actionHomeFragmentToRoutineInfoFragment
-                (array.get(position).getId(), array.get(position).getDescription(), array.get(position).getCreator(), array.get(position).getCategory());
+                (array.get(position).getId(), array.get(position).getDescription(), array.get(position).getCreator(),
+                        array.get(position).getCategory(), array.get(position).isFavorited());
         // LE PASO LOS ARGUMENTOS QUE NO TIENEN VALOR DEFAULT
         action.setNameRoutine(array.get(position).getName());
         action.setDifficultyRoutine(array.get(position).getLevelCategory1());

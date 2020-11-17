@@ -68,7 +68,7 @@ public class RoutineListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View vista =  inflater.inflate(R.layout.fragment_routine_list_format, container, false);
+        View vista =  inflater.inflate(R.layout.fragment_run_routine_list_format, container, false);
 
         // Inflate the layout for this fragment
         viewModel = new ViewModelProvider(this).get(RoutineInfoViewModel.class);

@@ -6,8 +6,4 @@
         app:showAsAction="ifRoom"
         android:icon="@drawable/ic_share"/>
 
-    <item android:id="@+id/topbar_fav"
-        android:title="favouritedButton"
-        app:showAsAction="ifRoom"
-        android:icon="@drawable/ic_favorite"/>
 </menu>

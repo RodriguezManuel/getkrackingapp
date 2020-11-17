@@ -10,9 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 @Entity(tableName = "routineTable")
 public class RoutineTable {
-    private List<CycleTable> cycles = null;
-    //sorting lambda (CycleTable r1 , CycleTable r2 ) -> r1.routineId < r2.routineId )
-
     @PrimaryKey
     public int id;
 
@@ -30,11 +27,4 @@ public class RoutineTable {
 
     @ColumnInfo(name = "Rating")
     public int rating;
-
-    public void setCycles( List<CycleTable> cycles){
-        this.cycles = cycles;
-    }
-    public List<CycleTable> getCycles(){
-        return cycles;
-    }
 }

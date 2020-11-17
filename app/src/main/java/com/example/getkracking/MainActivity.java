@@ -16,8 +16,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         new Handler().postDelayed(() -> {
-           //Intent homeIntent = new Intent(this, HomeActivity.class);
-            Intent homeIntent = new Intent(this, WelcomeActivity.class);
+           Intent homeIntent = new Intent(this, HomeActivity.class);
+//            Intent homeIntent = new Intent(this, WelcomeActivity.class);
             startActivity(homeIntent);
             finish();   //para que no pueda volver a esta pantalla
         }, SPLASH_TIME_OUT);

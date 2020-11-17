@@ -56,7 +56,6 @@ public class ConfirmationDialog extends AppCompatDialogFragment {
                 return;
             }
 
-
             //validar codigo y mail
 
             if(false)

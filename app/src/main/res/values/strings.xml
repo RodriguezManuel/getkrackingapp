@@ -69,7 +69,7 @@
     <string name="invalid_confirmationcode_format">El codigo debe de ser de 6 caracteres</string>
     <string name="username_missing">Falta el nombre de usuario</string>
     <string name="wrong_password_format">Formato de contrasenia invalido</string>
-    <string name="login_error">Nombre o contrasenia incorrectos</string>
+    <string name="login_error">Nombre o contraseña incorrectos</string>
     <string name="chip_favourites">Favoritos</string>
     <string name="chip_lowdifficulty">Faciles</string>
     <string name="chip_mediumdifficulty">Normales</string>
@@ -82,4 +82,7 @@
     <string name="back_button">Volver</string>
     <string name="save_changes_button">Guardar cambios</string>
     <string name="description_image_perfil">Imagen de perfil</string>
+    <string name="routine_in_ejecution">Ejecucion de rutina</string>
+    <string name="routine">Rutina</string>
+    <string name="finish_routine_execution">Estas seguro de que queres finalizar la ejecucion?</string>
 </resources>

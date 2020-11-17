@@ -184,12 +184,12 @@
                     android:background="@drawable/custominput"
                     android:importantForAutofill="no"
                     android:inputType="none"
+                    android:focusable="false"
                     android:paddingStart="5dp"
                     android:paddingEnd="5dp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/primary"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -199,7 +199,6 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@+id/editUsername"
                 app:layout_constraintTop_toBottomOf="@+id/editUsername">
-
 
                 <TextView
                     style="@style/customTextNoSpecificCaseLayout"
@@ -212,7 +211,6 @@
                     app:layout_constraintEnd_toEndOf="@+id/Picture_edit_perfil"
                     app:layout_constraintStart_toStartOf="@+id/Picture_edit_perfil" />
 
-
                 <EditText
                     android:id="@+id/email_edit_perfil"
                     style="@style/customTextNoSpecificCaseLayout"
@@ -223,12 +221,12 @@
                     android:background="@drawable/custominput"
                     android:importantForAutofill="no"
                     android:inputType="none"
+                    android:focusable="false"
                     android:paddingStart="5dp"
                     android:paddingEnd="5dp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/primary"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat

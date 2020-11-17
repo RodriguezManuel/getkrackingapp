@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.RoutineInfoFragment">
 
     <androidx.core.widget.NestedScrollView
@@ -22,24 +22,24 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="48dp"
                 android:layout_marginEnd="40dp"
+                android:gravity="center"
                 android:maxWidth="180dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.542"
                 app:layout_constraintStart_toStartOf="@+id/guideline3"
-                app:layout_constraintTop_toTopOf="parent"
-                android:gravity="center"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/CreatorNameInRoutine"
                 style="@style/customTextNoSpecificCaseLayout"
-                android:maxWidth="180dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:maxWidth="180dp"
                 app:layout_constraintEnd_toEndOf="@+id/RoutineNameInRoutine"
                 app:layout_constraintStart_toStartOf="@+id/RoutineNameInRoutine"
-                app:layout_constraintTop_toBottomOf="@+id/RoutineNameInRoutine"
-                android:gravity="center" />
+                app:layout_constraintTop_toBottomOf="@+id/RoutineNameInRoutine" />
 
 
             <ImageView
@@ -75,6 +75,17 @@
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/RoutineImageInRoutine" />
+
+            <ImageView
+                android:id="@+id/favoriteIconInfoRoutine"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/ic_favorite_border"
+                android:backgroundTint="@color/red"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/RoutineDescriptionInRoutine"
@@ -269,6 +280,4 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

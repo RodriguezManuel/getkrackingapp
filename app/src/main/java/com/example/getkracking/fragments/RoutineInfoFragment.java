@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -36,6 +37,7 @@ public class RoutineInfoFragment extends Fragment {
     RecyclerView cyclesRoutine;
     ArrayList<CycleVO> cycles;
     RoutineInfoViewModel viewModel;
+    boolean favorited = false;  //HARDCODEADO OBTENIDO DE API
     int idRoutine;
 
     @Override
@@ -44,7 +46,7 @@ public class RoutineInfoFragment extends Fragment {
         setHasOptionsMenu(true);
         Toolbar mToolBar =  ((HomeActivity) getActivity()).findViewById(R.id.homeTopBar);
         ActionBar actionBar = ((HomeActivity) getActivity()).getSupportActionBar();
-        actionBar.setTitle("Rutina");
+        actionBar.setTitle(R.string.routine);
 
         //CUSTOMIZAR BACK BUTTON
         ((HomeActivity) getActivity()).setSupportActionBar(mToolBar);
@@ -64,9 +66,9 @@ public class RoutineInfoFragment extends Fragment {
         //handle options selected
         int id = item.getItemId();
 
-        //if (id == R.id.topbar_fav)
-        //AGREGAR O DESAGREGAR RUTINA A FAVORITOS
+        if (id == R.id.topbar_share) {
 
+        }
         return super.onOptionsItemSelected(item);
     }
     @Override
@@ -81,9 +83,25 @@ public class RoutineInfoFragment extends Fragment {
             ((TextView)vista.findViewById(R.id.RoutineDescriptionInRoutine)).setText(args.getDescRoutine());
             ((RatingBar)vista.findViewById(R.id.rbCategory1InRoutine)).setRating(args.getDifficultyRoutine());
             ((TextView)vista.findViewById(R.id.RoutineNameInRoutine)).setText(args.getNameRoutine());
-            ((Button) vista.findViewById(R.id.ButtonEmpezarInRoutine)).setOnClickListener(v1 -> Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.runRoutineFragment));
+            favorited = args.getFavoritedRoutine();
             idRoutine = args.getIdRoutine();    //PARA HACER EL REQUEST DE CICLOS
             //category?? donde va????
+
+            //seteo de funcionalidades de botones
+            ((Button) vista.findViewById(R.id.ButtonEmpezarInRoutine)).setOnClickListener(v1 ->
+                    Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.runRoutineFragment));
+
+            ImageView favIcon = vista.findViewById(R.id.favoriteIconInfoRoutine);
+            favIcon.setOnClickListener((View.OnClickListener) v -> {
+                if(favorited) {
+                    favIcon.setBackgroundResource(R.drawable.ic_favorite_border);
+                    //SACAR DE FAVORITOS CON LA API
+                }else{
+                    favIcon.setBackgroundResource(R.drawable.ic_favorite);
+                    //AGREGAR A FAVORITOS CON LA API
+                }
+                favorited = !favorited;
+            });
         }
 
         viewModel = new ViewModelProvider(this).get(RoutineInfoViewModel.class);
