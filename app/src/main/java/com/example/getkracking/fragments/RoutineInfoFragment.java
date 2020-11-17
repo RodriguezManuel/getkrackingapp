@@ -19,18 +19,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.getkracking.HomeActivity;
 import com.example.getkracking.R;
-import com.example.getkracking.adapters.ExcercisesAdapter;
+import com.example.getkracking.adapters.CyclesAdapter;
+import com.example.getkracking.entities.CycleVO;
+import com.example.getkracking.entities.ExerciseVO;
 import com.example.getkracking.viewmodels.RoutineInfoViewModel;
+
+import java.util.ArrayList;
 
 public class RoutineInfoFragment extends Fragment {
 
-    RecyclerView recyclerExcercise;
+    RecyclerView cyclesRoutine;
+    ArrayList<CycleVO> cycles;
     RoutineInfoViewModel viewModel;
     int idRoutine;
 
@@ -83,11 +87,35 @@ public class RoutineInfoFragment extends Fragment {
         }
 
         viewModel = new ViewModelProvider(this).get(RoutineInfoViewModel.class);
-        recyclerExcercise = vista.findViewById(R.id.ExercisesRecycler);
-        recyclerExcercise.setLayoutManager(new LinearLayoutManager(getContext()));
-        ExcercisesAdapter adapter = new ExcercisesAdapter(viewModel.getExcercisesList());
-        recyclerExcercise.setAdapter(adapter);
-        recyclerExcercise.setNestedScrollingEnabled(false);
+        cyclesRoutine = vista.findViewById(R.id.CyclesRoutine);
+        cycles = new ArrayList<>();
+
+        fillCycles();
+
+        CyclesAdapter adapter = new CyclesAdapter(getActivity(), cycles);
+        cyclesRoutine.setLayoutManager(new LinearLayoutManager(getContext()));
+        cyclesRoutine.setAdapter(adapter);
+
+
+//        cyclesRoutine = vista.findViewById(R.id.CyclesRoutine);
+//        cyclesRoutine.setLayoutManager(new LinearLayoutManager(getContext()));
+//        ExercisesAdapter adapter = new ExercisesAdapter(viewModel.getExcercisesList());
+//        cyclesRoutine.setAdapter(adapter);
+//        cyclesRoutine.setNestedScrollingEnabled(false);
         return vista;
+    }
+
+    public void fillCycles() {
+        //HARDCODEADO ARREGLAR CON API PADREEEEEEEEEEEEEEEEEE Y MADREEEEEEEEE
+        ArrayList<ExerciseVO> exercises = new ArrayList<>();
+        exercises.add(new ExerciseVO("SALtos", "16 minutos"));
+        exercises.add(new ExerciseVO("PATADAS", "12 minutos"));
+        exercises.add(new ExerciseVO("nada", "1 minutos"));
+        cycles.add(new CycleVO("CALENTAMIENTO", exercises));
+        ArrayList<ExerciseVO> exercises2 = new ArrayList<>();
+        exercises2.add(new ExerciseVO("beto", "16 repe"));
+        exercises2.add(new ExerciseVO("mbhertDAS", "12 pasamela"));
+        exercises2.add(new ExerciseVO("betaismo", "1 guido"));
+        cycles.add(new CycleVO("ENFRIAMIENTO", exercises2));
     }
 }

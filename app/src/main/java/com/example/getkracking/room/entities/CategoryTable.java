@@ -1,5 +1,8 @@
 package com.example.getkracking.room.entities;
-
-public class CategoryTable {
-
-}
+//
+//import androidx.room.Entity;
+//
+//@Entity
+//public class CategoryTable {
+//
+//}

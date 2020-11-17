@@ -35,7 +35,6 @@
                     android:background="@drawable/cumtominputnostroke"
                     android:hint="@string/search_hint"
                     android:importantForAutofill="no"
-                    android:inputType="textPassword"
                     android:paddingStart="35dp"
                     android:paddingTop="0dp"
                     android:paddingEnd="15dp"

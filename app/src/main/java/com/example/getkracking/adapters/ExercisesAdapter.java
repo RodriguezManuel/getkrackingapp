@@ -10,20 +10,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.getkracking.R;
-import com.example.getkracking.entities.ExcerciseVO;
+import com.example.getkracking.entities.ExerciseVO;
 
 import java.util.ArrayList;
 
-public class ExcercisesAdapter extends RecyclerView.Adapter<ExcercisesAdapter.ExcerciseViewHolder> {
+public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.ExcerciseViewHolder> {
 
-    ArrayList<ExcerciseVO> excerciseList;
+    ArrayList<ExerciseVO> excerciseList;
 
-    public ExcercisesAdapter(ArrayList<ExcerciseVO> excerciseList) {
+    public ExercisesAdapter(ArrayList<ExerciseVO> excerciseList) {
         this.excerciseList = excerciseList;
     }
 
-    public class ExcerciseViewHolder extends RecyclerView.ViewHolder {
-
+    public static class ExcerciseViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
         TextView name;
         TextView quantity;
@@ -33,7 +32,6 @@ public class ExcercisesAdapter extends RecyclerView.Adapter<ExcercisesAdapter.Ex
             image = (ImageView) itemView.findViewById(R.id.ExcerciseImageInExcercise);
             name = (TextView) itemView.findViewById(R.id.NameValueInExcerciseCard);
             quantity = (TextView) itemView.findViewById(R.id.QuantityValueInExcerciseCard);
-
         }
     }
 

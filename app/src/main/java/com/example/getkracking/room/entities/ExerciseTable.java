@@ -19,7 +19,7 @@ public class ExerciseTable {
     @ForeignKey(entity = CycleTable.class , childColumns = "CycleId" , parentColumns = "CycleId")
     public int cycleId;
 
-    @ColumnInfo(name = "Media")
-    public String[] media;
+//    @ColumnInfo(name = "Media")
+//    public String[] media;
 
 }

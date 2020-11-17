@@ -1,10 +1,10 @@
 package com.example.getkracking.entities;
 
-public class ExcerciseVO {
+public class ExerciseVO {
 
     private String name, quantity;
 
-    public ExcerciseVO(String name, String quantity) {
+    public ExerciseVO(String name, String quantity) {
         this.name = name;
         this.quantity = quantity;
     }

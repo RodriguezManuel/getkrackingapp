@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.getkracking.R;
-import com.example.getkracking.adapters.ExcercisesAdapter;
+import com.example.getkracking.adapters.ExercisesAdapter;
 import com.example.getkracking.viewmodels.RoutineInfoViewModel;
 
 /**
@@ -74,7 +74,7 @@ public class RoutineListFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(RoutineInfoViewModel.class);
         recyclerExcercise = vista.findViewById(R.id.ExercisesRecyclerForList);
         recyclerExcercise.setLayoutManager(new LinearLayoutManager(getContext()));
-        ExcercisesAdapter adapter = new ExcercisesAdapter(viewModel.getExcercisesList());
+        ExercisesAdapter adapter = new ExercisesAdapter(viewModel.getExcercisesList());
         recyclerExcercise.setAdapter(adapter);
         recyclerExcercise.setNestedScrollingEnabled(false);
         return vista;

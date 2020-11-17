@@ -247,33 +247,21 @@
                 app:layout_constraintStart_toStartOf="@+id/RequirementsInRoutine"
                 app:layout_constraintTop_toBottomOf="@+id/RequirementsInRoutine" />
 
-            <TextView
-                android:id="@+id/Seccition1InRoutine"
-                style="@style/customTextNoSpecificCaseLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Precalentamiento: "
-                app:layout_constraintStart_toStartOf="@+id/SectionName"
-                app:layout_constraintTop_toBottomOf="@+id/SectionName" />
-
-
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/ExercisesRecycler"
+                android:id="@+id/CyclesRoutine"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.47"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Seccition1InRoutine" />
+                app:layout_constraintTop_toBottomOf="@+id/SectionName" />
 
             <!--            PLACEHOLDER PARA QUE NO SE TAPE LA ULTIMA RUTINA-->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ExercisesRecycler" />
+                app:layout_constraintTop_toBottomOf="@+id/CyclesRoutine" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
