@@ -23,7 +23,7 @@ public class UserModel {
     private String gender;
     @SerializedName("birthdate")
     @Expose
-    private Date birthdate;
+    private Long birthdate;
     @SerializedName("email")
     @Expose
     private String email;
@@ -35,10 +35,10 @@ public class UserModel {
     private String avatarUrl;
     @SerializedName("dateCreated")
     @Expose
-    private Date dateCreated;
+    private Long dateCreated;
     @SerializedName("dateLastActive")
     @Expose
-    private Date dateLastActive;
+    private Long dateLastActive;
     @SerializedName("deleted")
     @Expose
     private boolean deleted;
@@ -54,7 +54,7 @@ public class UserModel {
     }
 
 
-    public UserModel(int id, String username, String fullName, String gender, Date birthdate, String email, String phone, String avatarUrl, Date dateCreated, Date dateLastActive, boolean deleted, boolean verified) {
+    public UserModel(int id, String username, String fullName, String gender, Long birthdate, String email, String phone, String avatarUrl, Long dateCreated, Long dateLastActive, boolean deleted, boolean verified) {
         super();
         this.id = id;
         this.username = username;
@@ -102,11 +102,11 @@ public class UserModel {
         this.gender = gender;
     }
 
-    public Date getBirthdate() {
+    public Long getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(Date birthdate) {
+    public void setBirthdate(Long birthdate) {
         this.birthdate = birthdate;
     }
 
@@ -134,19 +134,19 @@ public class UserModel {
         this.avatarUrl = avatarUrl;
     }
 
-    public Date getDateCreated() {
+    public Long getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreateded( Date dateCreated) {
+    public void setDateCreateded( Long dateCreated) {
         this.dateCreated = dateCreated;
     }
 
-    public Date getDateLastActive() {
+    public Long getDateLastActive() {
         return dateLastActive;
     }
 
-    public void setDateLastActive(Date dateLastActive) {
+    public void setDateLastActive(Long dateLastActive) {
         this.dateLastActive = dateLastActive;
     }
 

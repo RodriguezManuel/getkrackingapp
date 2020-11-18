@@ -18,7 +18,7 @@ public class RoutineModel {
     private String detail;
     @SerializedName("dateCreated")
     @Expose
-    private Date dateCreated;
+    private Long dateCreated;
     @SerializedName("averageRating")
     @Expose
     private int averageRating;
@@ -54,7 +54,7 @@ public class RoutineModel {
      * @param detail
      * @param categoryModel
      */
-    public RoutineModel(int id, String name, String detail, Date dateCreated, int averageRating, boolean isPublic, String difficulty, CreatorModel creatorModel, CategoryModel categoryModel) {
+    public RoutineModel(int id, String name, String detail, Long dateCreated, int averageRating, boolean isPublic, String difficulty, CreatorModel creatorModel, CategoryModel categoryModel) {
         super();
         this.id = id;
         this.name = name;
@@ -91,11 +91,11 @@ public class RoutineModel {
         this.detail = detail;
     }
 
-    public Date getDateCreated() {
+    public Long getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(Date dateCreated) {
+    public void setDateCreated(Long dateCreated) {
         this.dateCreated = dateCreated;
     }
 

@@ -21,9 +21,7 @@ public class AuthInterceptor implements Interceptor {
     public Response intercept(Interceptor.Chain chain ) throws IOException{
         Request.Builder request = chain.request().newBuilder();
         if(preferences.getAuthToken() != null){
-            System.out.println("EN AUTHINTERCEPTOR");
             request.addHeader("Authorization", "Bearer " + preferences.getAuthToken() );
-            System.out.println("Salí de la zona crítica");
         }
         return chain.proceed(request.build());
     }

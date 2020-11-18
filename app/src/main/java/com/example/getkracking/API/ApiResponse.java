@@ -54,12 +54,6 @@ public class ApiResponse<T> {
             //gson.fromJson(message , new TypeToken<Error>() {}.getType());
             this.error =  gson.fromJson(message, new TypeToken<MyErrorModel>() {}.getType());
         }
-
-        if ( error == null ) {
-            List<String> details = new ArrayList<>();
-            details.add("Null error");
-            error = new MyErrorModel(MyErrorModel.LOCAL_UNEXPECTED_ERROR, "Unkown error", details );
-        }
     }
 
     private void parseError(String message){

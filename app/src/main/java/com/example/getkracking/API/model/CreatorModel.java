@@ -19,10 +19,10 @@ public class CreatorModel {
     private String avatarUrl;
     @SerializedName("dateCreated")
     @Expose
-    private int dateCreated;
+    private Long dateCreated;
     @SerializedName("dateLastActive")
     @Expose
-    private int dateLastActive;
+    private Long dateLastActive;
 
     /**
      * No args constructor for use in serialization
@@ -40,7 +40,7 @@ public class CreatorModel {
      * @param id
      * @param username
      */
-    public CreatorModel(int id, String username, String gender, String avatarUrl, int dateCreated, int dateLastActive) {
+    public CreatorModel(int id, String username, String gender, String avatarUrl, Long dateCreated, Long dateLastActive) {
         super();
         this.id = id;
         this.username = username;
@@ -82,19 +82,19 @@ public class CreatorModel {
         this.avatarUrl = avatarUrl;
     }
 
-    public int getDateCreated() {
+    public Long getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(int dateCreated) {
+    public void setDateCreated(Long dateCreated) {
         this.dateCreated = dateCreated;
     }
 
-    public int getDateLastActive() {
+    public Long getDateLastActive() {
         return dateLastActive;
     }
 
-    public void setDateLastActive(int dateLastActive) {
+    public void setDateLastActive(Long dateLastActive) {
         this.dateLastActive = dateLastActive;
     }
 

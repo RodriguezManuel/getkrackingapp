@@ -50,39 +50,25 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
     }
 
     private void fillList() {
-        //HARDCODEADO ADAPTAR A API
-        /*ApiRoutineService service = ApiClient.create(application.getApplicationContext(), ApiRoutineService.class);
-        service.getRoutines().observe(getViewLifecycleOwner(),response -> {
-            if(response.getError() == null){
-                Log.d("UI","Todo en orden");
-                Log.d("UI", response.getData().toString());
-            }
-        });*/
-
-        /*LiveData<Resource<List<RoutineVO>>> rutinas =  routineRepository.getRoutines();
-        System.out.println("Get routines: "+ rutinas.toString());
-        System.out.println("Get value: "+ rutinas.getValue().toString());
-        System.out.println("Data: "+ rutinas.getValue().message);
-        System.out.println("Status: "+ rutinas.getValue().status);*/
-
         routineRepository.getRoutines().observe(getViewLifecycleOwner(), resource -> {
             switch (resource.status) {
                 case LOADING:
                     Log.d("UI", "awaiting routines");
                     break;
                 case SUCCESS:
+                    Log.d("UI", "Éxito recuperando rutinas");
+
                     routinesList.addAll(resource.data);
+
+                    RoutinesAdapter adapter = new RoutinesAdapter(routinesList, this, null);
+                    recyclerRoutines.setAdapter(adapter);
+                    recyclerRoutines.setNestedScrollingEnabled(false);
                     break;
                 case ERROR:
                     Log.d("UI", "Error en get routines - " + resource.message);
                     break;
             }
         });
-
-        //routinesList.addAll(routineRepository.getRoutines().getValue().data);
-        //routinesList.add(new RoutineVO("IRONMAN", "HMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMMHMH", "Octa1", "Piernas", 5, 5, 18, 1, true, 3));
-        //routinesList.add(new RoutineVO("CAPTAIN AMERICA", "VALCHARRRR SACA LA MANO DE AHI CARAJO", "Octa2", "Brazos", 1, 0, 180, 2, true,4.5f));
-        //routinesList.add(new RoutineVO("THOR NOT AGUSTIN", "wasaaaaaaaaaaaaaaaaaaaaaaaaaa", "Octa3", "Piernas", 2, 0, 11, 3, true,5));
     }
 
     @Override
@@ -112,10 +98,6 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
         routineRepository = application.getRoutineRepository();
 
         fillList();
-
-        RoutinesAdapter adapter = new RoutinesAdapter(routinesList, this, null);
-        recyclerRoutines.setAdapter(adapter);
-        recyclerRoutines.setNestedScrollingEnabled(false);
 
         return vista;
     }
