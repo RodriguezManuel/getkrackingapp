@@ -102,12 +102,12 @@ public class RunRoutineListFragment extends Fragment {
         exercises.add(new ExerciseVO("SALtos", "PEREPREPREPRperperpeprepr", 16, 0,"A"));
         exercises.add(new ExerciseVO("PATADAS", "pasdoeokqokpapsdapwda", 5, 0,"A"));
         exercises.add(new ExerciseVO("nada", "awoelko129ekos;la,dam wadmaw amp   ", 0, 5,"A"));
-        cycles.add(new CycleVO("Calentamiento", exercises));
+        cycles.add(new CycleVO( 1 , "Calentamiento", exercises , 1));
         ArrayList<ExerciseVO> exercises2 = new ArrayList<>();
         exercises2.add(new ExerciseVO("beto", "aowdlqowdkpqsl,apld,pasl dpaw ", 0, 3,"A"));
         exercises2.add(new ExerciseVO("mbhertDAS", "dopwk,ospakdmapskdqw", 7, 0,"A"));
         exercises2.add(new ExerciseVO("betaismo", "dawokdpqwkdpo,asld,aw", 0, 12,"A"));
-        cycles.add(new CycleVO("ENFRIAMIENTO", exercises2));
+        cycles.add(new CycleVO(2 ,"ENFRIAMIENTO", exercises2 , 2));
 
         viewModel.setCycles(cycles);
         return vista;
