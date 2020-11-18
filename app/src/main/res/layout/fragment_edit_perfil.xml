@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/PictureCard"
@@ -10,56 +12,32 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         app:cardCornerRadius="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:strokeColor="@color/primary"
         app:strokeWidth="1dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/Picture_edit_perfil"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/picture_edit_perfil"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_marginTop="30dp"
-                app:cardBackgroundColor="@color/primary"
-                app:cardCornerRadius="250dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:contentDescription="@string/description_image_perfil"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/workout"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.0" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
+                android:layout_gravity="center"
+                android:layout_marginTop="25dp"
+                android:contentDescription="@string/description_image_perfil"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_profile_picture"
+                app:civ_border_color="@color/primary"
+                app:civ_border_width="3dp" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/editName"
-                android:layout_width="wrap_content"
+                android:layout_width="330dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                app:layout_constraintEnd_toEndOf="@+id/Picture_edit_perfil"
-                app:layout_constraintHorizontal_bias="0.505"
-                app:layout_constraintStart_toStartOf="@+id/Picture_edit_perfil"
-                app:layout_constraintTop_toBottomOf="@id/Picture_edit_perfil">
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp">
 
                 <TextView
                     style="@style/customTextNoSpecificCaseLayout"
@@ -107,10 +85,9 @@
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/editImage"
-                android:layout_width="wrap_content"
+                android:layout_width="330dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@+id/editName"
-                app:layout_constraintTop_toBottomOf="@+id/editName">
+                android:layout_gravity="center">
 
 
                 <TextView
@@ -157,10 +134,9 @@
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/editUsername"
-                android:layout_width="wrap_content"
+                android:layout_width="330dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@+id/editImage"
-                app:layout_constraintTop_toBottomOf="@+id/editImage">
+                android:layout_gravity="center">
 
                 <TextView
                     style="@style/customTextNoSpecificCaseLayout"
@@ -182,9 +158,9 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginHorizontal="3dp"
                     android:background="@drawable/custominput"
+                    android:focusable="false"
                     android:importantForAutofill="no"
                     android:inputType="none"
-                    android:focusable="false"
                     android:paddingStart="5dp"
                     android:paddingEnd="5dp"
                     android:textColor="@color/primary"
@@ -195,10 +171,9 @@
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/editEmail"
-                android:layout_width="wrap_content"
+                android:layout_width="330dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@+id/editUsername"
-                app:layout_constraintTop_toBottomOf="@+id/editUsername">
+                android:layout_gravity="center">
 
                 <TextView
                     style="@style/customTextNoSpecificCaseLayout"
@@ -219,23 +194,21 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginHorizontal="3dp"
                     android:background="@drawable/custominput"
+                    android:focusable="false"
                     android:importantForAutofill="no"
                     android:inputType="none"
-                    android:focusable="false"
                     android:paddingStart="5dp"
                     android:paddingEnd="5dp"
                     android:textColor="@color/primary"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="TextFields" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"
                 android:layout_height="80dp"
-                android:gravity="center_vertical"
-                app:layout_constraintEnd_toEndOf="@+id/Picture_edit_perfil"
-                app:layout_constraintStart_toStartOf="@+id/Picture_edit_perfil"
-                app:layout_constraintTop_toBottomOf="@+id/editEmail">
+                android:layout_gravity="center">
 
                 <Button
                     android:id="@+id/returnButton_edit_perfil"
@@ -261,6 +234,6 @@
                     app:layout_constraintStart_toEndOf="@+id/returnButton" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

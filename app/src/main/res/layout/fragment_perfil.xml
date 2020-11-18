@@ -28,67 +28,44 @@
                 app:strokeColor="@color/primary"
                 app:strokeWidth="1dp">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/Picture"
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/picture_perfil"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
-                        app:cardBackgroundColor="@color/primary"
-                        app:cardCornerRadius="250dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                            <ImageView
-                                android:id="@+id/picture_perfil"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:scaleType="centerCrop"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="0.0"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintVertical_bias="0.0"
-                                android:contentDescription="@string/description_image_perfil" />
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    </androidx.cardview.widget.CardView>
+                        android:layout_gravity="center"
+                        android:layout_marginTop="25dp"
+                        android:contentDescription="@string/description_image_perfil"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/default_profile_picture"
+                        app:civ_border_color="@color/primary"
+                        app:civ_border_width="3dp" />
 
                     <TextView
                         android:id="@+id/name_perfil"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
                         style="@style/customTextNoSpecificCaseLayout"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/Picture"
-                        app:layout_constraintStart_toStartOf="@+id/Picture"
-                        app:layout_constraintTop_toBottomOf="@+id/Picture" />
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="20dp"
+                        android:gravity="center" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
+                </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
 
             <TextView
                 android:id="@+id/Configuracion"
+                style="@style/customTextNoSpecificCaseLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/configuration"
-                style="@style/customTextNoSpecificCaseLayout"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/PictureCard" />
@@ -120,15 +97,15 @@
                             android:layout_marginStart="20dp"
                             android:layout_marginTop="10dp"
                             android:background="@drawable/ic_edit"
-                            android:backgroundTint="@color/primary"/>
+                            android:backgroundTint="@color/primary" />
 
                         <TextView
+                            style="@style/customTextNoSpecificCaseLayout"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="15dp"
-                            android:text="@string/edit_profile"
-                            style="@style/customTextNoSpecificCaseLayout" />
+                            android:text="@string/edit_profile" />
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -147,12 +124,12 @@
                             android:background="@drawable/ic_baseline_notifications_24" />
 
                         <TextView
+                            style="@style/customTextNoSpecificCaseLayout"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="15dp"
-                            android:text="@string/notifications"
-                            style="@style/customTextNoSpecificCaseLayout" />
+                            android:text="@string/notifications" />
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -172,12 +149,12 @@
                             android:background="@drawable/ic_key" />
 
                         <TextView
+                            style="@style/customTextNoSpecificCaseLayout"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="15dp"
-                            android:text="@string/privacy"
-                            style="@style/customTextNoSpecificCaseLayout" />
+                            android:text="@string/privacy" />
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -195,12 +172,12 @@
 
             <TextView
                 android:id="@+id/MoreInfo"
+                style="@style/customTextNoSpecificCaseLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/more_information"
-                style="@style/customTextNoSpecificCaseLayout"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ConfigCard" />
@@ -234,12 +211,12 @@
                             android:background="@drawable/ic_feedback" />
 
                         <TextView
+                            style="@style/customTextNoSpecificCaseLayout"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="15dp"
-                            android:text="@string/feedback"
-                            style="@style/customTextNoSpecificCaseLayout" />
+                            android:text="@string/feedback" />
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -259,12 +236,12 @@
                             android:background="@drawable/pen_nib" />
 
                         <TextView
+                            style="@style/customTextNoSpecificCaseLayout"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="15dp"
-                            android:text="@string/terms_and_conditions"
-                            style="@style/customTextNoSpecificCaseLayout" />
+                            android:text="@string/terms_and_conditions" />
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -285,13 +262,13 @@
                     android:background="@drawable/ic_exit" />
 
                 <TextView
+                    style="@style/customTextNoSpecificCaseLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="15dp"
                     android:text="@string/logout"
-                    android:textSize="20sp"
-                    style="@style/customTextNoSpecificCaseLayout" />
+                    android:textSize="20sp" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 

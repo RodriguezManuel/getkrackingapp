@@ -68,7 +68,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void goToHome(View view) {
-        if (!showSelectedFragment(R.id.homeFragment)) {
+        if (showSelectedFragment(R.id.homeFragment)) {
             bottomNavigationView.getMenu().getItem(2).setChecked(true); //desactivo todos los otros activando el placeholder
             switchFabHomeColor(true);
         }

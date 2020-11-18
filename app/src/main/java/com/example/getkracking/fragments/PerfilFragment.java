@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.getkracking.HomeActivity;
 import com.example.getkracking.R;
@@ -26,6 +27,8 @@ import com.example.getkracking.app.MyApplication;
 import com.example.getkracking.repository.UserRepository;
 
 import java.net.URL;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PerfilFragment extends Fragment {
 
@@ -41,23 +44,6 @@ public class PerfilFragment extends Fragment {
         if (((HomeActivity) getActivity()).getSupportActionBar() != null)
             ((HomeActivity) getActivity()).getSupportActionBar().setTitle(R.string.bottombaricon_perfil);
 
-        ImageView ivPerfil = getView().findViewById(R.id.picture_perfil);
-        TextView tvName = getView().findViewById(R.id.name_perfil);
-        Thread loadImage = new Thread(() -> {
-            try {
-                URL newurl = new URL("https://image.flaticon.com/icons/png/512/147/147144.png");
-                Bitmap bm = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
-                this.getActivity().runOnUiThread(() -> {
-                    ivPerfil.setImageBitmap(bm);
-                    ivPerfil.refreshDrawableState();
-                    tvName.setText("MANAOS MANADIAN");
-                });
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-        loadImage.start();
         super.onResume();
     }
 
@@ -66,23 +52,21 @@ public class PerfilFragment extends Fragment {
                              Bundle savedInstanceState) {
         View vista = inflater.inflate(R.layout.fragment_perfil, container, false);
         TextView tvName = vista.findViewById(R.id.name_perfil);
-        ImageView ivPerfil = vista.findViewById(R.id.picture_perfil);
 
         tvName.setText("JERUSA JERUSALISNKY");    //HARDCODEADO
-//        Thread loadImage = new Thread(() -> {
-//            try {
-//                URL newurl = new URL("https://image.flaticon.com/icons/png/512/147/147144.png");
-//                Bitmap bm = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
-//                this.getActivity().runOnUiThread(() -> {
-//                    ivPerfil.setImageBitmap(bm);
-//                    ivPerfil.requestLayout();
-//                });
-//
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        });
-//        loadImage.start();
+        Thread loadImage = new Thread(() -> {
+            try {
+                URL newurl = new URL("https://as01.epimg.net/argentina/imagenes/2019/09/17/futbol/1568751635_589606_1568752933_noticia_normal.jpg");
+                Bitmap bm = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
+                ((Activity) getContext()).runOnUiThread(() -> {
+                    ((CircleImageView) vista.findViewById(R.id.picture_perfil)).setImageBitmap(bm);
+                });
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        loadImage.start();
 
         LinearLayoutCompat editPerfil = vista.findViewById(R.id.EditProfileCompat);
         editPerfil.setOnClickListener(v1 -> {

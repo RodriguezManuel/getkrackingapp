@@ -137,7 +137,6 @@ public class RoutineInfoFragment extends Fragment {
     }
 
     private void fillExercises(int cycleId, CycleVO cycle) {
-        ;
         exerciseRepository.getExercises(idRoutine, cycleId).observe(getViewLifecycleOwner(), resource -> {
             switch (resource.status) {
                 case LOADING:
