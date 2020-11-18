@@ -59,7 +59,7 @@ public class ExerciseRepository {
         this.media = media;
     }
      */
-    public LiveData<Resource<List<ExerciseVO>>> getRoutines(int routineId , int cycleId) {
+    public LiveData<Resource<List<ExerciseVO>>> getExercises(int routineId , int cycleId) {
 
         return new NetworkBoundResource<List<ExerciseVO>, List<ExerciseTable>, PagedListModel<ExerciseModel>>(executors,
                 entities -> {

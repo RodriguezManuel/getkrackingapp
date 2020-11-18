@@ -4,6 +4,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +14,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,25 +29,31 @@ import android.widget.TextView;
 import com.example.getkracking.HomeActivity;
 import com.example.getkracking.R;
 import com.example.getkracking.adapters.CyclesAdapter;
+import com.example.getkracking.app.MyApplication;
 import com.example.getkracking.entities.CycleVO;
 import com.example.getkracking.entities.ExerciseVO;
+import com.example.getkracking.repository.CycleRepository;
+import com.example.getkracking.repository.ExerciseRepository;
 import com.example.getkracking.viewmodels.RoutineInfoViewModel;
 
+import java.net.URL;
 import java.util.ArrayList;
 
 public class RoutineInfoFragment extends Fragment {
 
     RecyclerView cyclesRoutine;
-    ArrayList<CycleVO> cycles;
+    ArrayList<CycleVO> cyclesList;
     RoutineInfoViewModel viewModel;
     boolean favorited = false;  //HARDCODEADO OBTENIDO DE API
     int idRoutine;
+    CycleRepository cycleRepository;
+    ExerciseRepository exerciseRepository;
 
     @Override
     public void onResume() {
         super.onResume();
         setHasOptionsMenu(true);
-        Toolbar mToolBar =  ((HomeActivity) getActivity()).findViewById(R.id.homeTopBar);
+        Toolbar mToolBar = ((HomeActivity) getActivity()).findViewById(R.id.homeTopBar);
         ActionBar actionBar = ((HomeActivity) getActivity()).getSupportActionBar();
         actionBar.setTitle(R.string.routine);
 
@@ -75,14 +84,14 @@ public class RoutineInfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View vista = inflater.inflate(R.layout.routine_info_fragment, container, false);
-        if(getArguments() != null) {
+        if (getArguments() != null) {
             RoutineInfoFragmentArgs args = RoutineInfoFragmentArgs.fromBundle(getArguments());
             //una vez q consegui los argumentos los seteo en la vista
-            ((TextView)vista.findViewById(R.id.RoutineNameInRoutine)).setText(args.getNameRoutine());
-            ((TextView)vista.findViewById(R.id.CreatorNameInRoutine)).setText(args.getCreatorRoutine());
-            ((TextView)vista.findViewById(R.id.RoutineDescriptionInRoutine)).setText(args.getDescRoutine());
-            ((RatingBar)vista.findViewById(R.id.rbCategory1InRoutine)).setRating(args.getDifficultyRoutine());
-            ((TextView)vista.findViewById(R.id.RoutineNameInRoutine)).setText(args.getNameRoutine());
+            ((TextView) vista.findViewById(R.id.RoutineNameInRoutine)).setText(args.getNameRoutine());
+            ((TextView) vista.findViewById(R.id.CreatorNameInRoutine)).setText(args.getCreatorRoutine());
+            ((TextView) vista.findViewById(R.id.RoutineDescriptionInRoutine)).setText(args.getDescRoutine());
+            ((RatingBar) vista.findViewById(R.id.rbCategory1InRoutine)).setRating(args.getDifficultyRoutine());
+            ((TextView) vista.findViewById(R.id.RoutineNameInRoutine)).setText(args.getNameRoutine());
             favorited = args.getFavoritedRoutine();
             idRoutine = args.getIdRoutine();    //PARA HACER EL REQUEST DE CICLOS
             //category?? donde va????
@@ -96,10 +105,10 @@ public class RoutineInfoFragment extends Fragment {
 
             ImageView favIcon = vista.findViewById(R.id.favoriteIconInfoRoutine);
             favIcon.setOnClickListener((View.OnClickListener) v -> {
-                if(favorited) {
+                if (favorited) {
                     favIcon.setBackgroundResource(R.drawable.ic_favorite_border);
                     //SACAR DE FAVORITOS CON LA API
-                }else{
+                } else {
                     favIcon.setBackgroundResource(R.drawable.ic_favorite);
                     //AGREGAR A FAVORITOS CON LA API
                 }
@@ -112,30 +121,60 @@ public class RoutineInfoFragment extends Fragment {
 
         viewModel = new ViewModelProvider(this).get(RoutineInfoViewModel.class);
         cyclesRoutine = vista.findViewById(R.id.CyclesRoutine);
-        cycles = new ArrayList<>();
+        cyclesList = new ArrayList<>();
+
+        MyApplication application = (MyApplication) getActivity().getApplication();
+        cycleRepository = application.getCycleRepository();
+        exerciseRepository = application.getExerciseRepository();
 
         fillCycles();
-
-        CyclesAdapter adapter = new CyclesAdapter(getActivity(), cycles);
-        cyclesRoutine.setLayoutManager(new LinearLayoutManager(getContext()));
-        cyclesRoutine.setAdapter(adapter);
-        cyclesRoutine.setNestedScrollingEnabled(false);
-
         return vista;
     }
 
-    public void fillCycles() {
-        //HARDCODEADO ARREGLAR CON API PADREEEEEEEEEEEEEEEEEE Y MADREEEEEEEEE
-        ArrayList<ExerciseVO> exercises = new ArrayList<>();
-        exercises.add(new ExerciseVO("SALtos","PEREPREPREPRperperpeprepr", 16, 0,"A"));
-        exercises.add(new ExerciseVO("PATADAS","pasdoeokqokpapsdapwda", 5, 0,"A"));
-        exercises.add(new ExerciseVO("nada","awoelko129ekos;la,dam wadmaw amp   ", 0, 5,"A"));
-        cycles.add(new CycleVO(1 ,"Calentamiento", exercises , 1));
-        ArrayList<ExerciseVO> exercises2 = new ArrayList<>();
-        exercises2.add(new ExerciseVO("beto", "aowdlqowdkpqsl,apld,pasl dpaw ", 0, 3,"A"));
-        exercises2.add(new ExerciseVO("mbhertDAS", "dopwk,ospakdmapskdqw" , 7, 0,"A"));
-        exercises2.add(new ExerciseVO("betaismo", "dawokdpqwkdpo,asld,aw", 0, 12,"A"));
-        cycles.add(new CycleVO( 2, "ENFRIAMIENTO", exercises2 , 2));
-        cycles.add(new CycleVO( 3 , "ENFRIAMIENTO", exercises2 , 3));
+    private void fillExercises(int cycleId, CycleVO cycle) {
+        ;
+        exerciseRepository.getExercises(idRoutine, cycleId).observe(getViewLifecycleOwner(), resource -> {
+            switch (resource.status) {
+                case LOADING:
+                    Log.d("UI", "awaiting routines");
+                    break;
+                case SUCCESS:
+                    Log.d("UI", "Éxito recuperando rutinas");
+
+                    cycle.getExercises().addAll(resource.data);
+                    break;
+                case ERROR:
+                    Log.d("UI", "Error en get routines - " + resource.message);
+                    break;
+            }
+        });
+    }
+
+    private void fillCycles() {
+        cycleRepository.getCycles(idRoutine).observe(getViewLifecycleOwner(), resource -> {
+            switch (resource.status) {
+                case LOADING:
+                    Log.d("UI", "awaiting routines");
+                    break;
+                case SUCCESS:
+                    Log.d("UI", "Éxito recuperando rutinas");
+
+                    for (CycleVO cycle : resource.data) {
+                        cyclesList.add(cycle);
+                        fillExercises(cycle.getId(), cycle);
+                        //SE DEBERIA ESPERAR A QUE CARGEN LOS EJERCICIOS PARA PASAR AL SIGUIENTE CICLO
+
+                    }
+                    CyclesAdapter adapter = new CyclesAdapter(getActivity(), cyclesList);
+                    cyclesRoutine.setLayoutManager(new LinearLayoutManager(getContext()));
+                    cyclesRoutine.setAdapter(adapter);
+                    cyclesRoutine.setNestedScrollingEnabled(false);
+
+                    break;
+                case ERROR:
+                    Log.d("UI", "Error en get routines - " + resource.message);
+                    break;
+            }
+        });
     }
 }
