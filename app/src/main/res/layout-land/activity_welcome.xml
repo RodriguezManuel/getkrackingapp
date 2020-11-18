@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WelcomeActivity">
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/vpwelcome"
+        android:layout_width="365dp"
+        android:layout_height="412dp"
+        android:background="@color/secondary"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            app:tabIndicatorColor="@color/orange"
+            app:tabIndicatorHeight="3dp"
+            app:tabSelectedTextColor="@color/orange"
+            app:tabTextAppearance="@style/customTextNoSpecificCaseLayout" />
+    </androidx.viewpager.widget.ViewPager>
+
+    <ImageView
+        android:id="@+id/ivwelcome1"
+        android:layout_width="201dp"
+        android:layout_height="190dp"
+        android:layout_marginTop="68dp"
+        android:contentDescription="@string/logo_get_krackin"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/pulpi_logo" />
+
+    <TextView
+        android:id="@+id/tvwelcome1"
+        android:layout_width="290dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/notosans_regular"
+        android:text="@string/welcome1"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivwelcome1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="365dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

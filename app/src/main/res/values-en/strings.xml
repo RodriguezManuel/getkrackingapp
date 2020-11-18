@@ -8,8 +8,8 @@
     <string name="action_register">Sign up</string>
     <string name="action_sign_in">Log in</string>
     <string name="contrasenia">Password</string>
-    <string name="welcome_login_link">Forgot your password?</string>
-    <string name="welcome_link">Continue without an account</string>
+    <string name="welcome_login_link"><u>Forgot your password?</u></string>
+    <string name="welcome_link"><u>Continue without an account</u></string>
     <string name="home_button">Main page</string>
     <string name="bottombaricon_social">Social</string>
     <string name="bottombaricon_search">Search</string>
