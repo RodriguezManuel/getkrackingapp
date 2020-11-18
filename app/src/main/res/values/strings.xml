@@ -86,4 +86,13 @@
     <string name="routine">Rutina</string>
     <string name="finish_routine_execution">Estas seguro de que queres finalizar la ejecucion?</string>
     <string name="rating_value">Puntuacion:</string>
+    <string name="rate_this_routine">Puntua la rutina:</string>
+    <string name="confirm">Confirmar</string>
+    <string name="congratulations_routine_ended">Rutina finalizada, felicidades!</string>
+    <string name="start">Empezar</string>
+    <string name="time">Tiempo</string>
+    <string name="repetitions">Repeticiones</string>
+    <string name="pause">Pausar</string>
+    <string name="continueText">Continuar</string>
+    <string name="continue_string">Continuar</string>
 </resources>

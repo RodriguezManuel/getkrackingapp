@@ -22,7 +22,7 @@ public class ExitRoutineDialog extends AppCompatDialogFragment {
         View view = inflater.inflate(R.layout.dialog_exitroutine, null);
         builder.setView(view).setNegativeButton(R.string.confirmation_close_dialog, (dialog, which) -> {
             //no pasa nada
-        }).setPositiveButton("Confirmar", (dialog, which) -> {
+        }).setPositiveButton(R.string.confirm, (dialog, which) -> {
             Navigation.findNavController(getActivity(), R.id.nav_host_fragment).popBackStack();
         });
         return builder.create();

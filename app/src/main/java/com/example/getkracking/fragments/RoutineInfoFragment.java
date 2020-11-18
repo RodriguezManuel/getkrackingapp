@@ -126,14 +126,15 @@ public class RoutineInfoFragment extends Fragment {
     public void fillCycles() {
         //HARDCODEADO ARREGLAR CON API PADREEEEEEEEEEEEEEEEEE Y MADREEEEEEEEE
         ArrayList<ExerciseVO> exercises = new ArrayList<>();
-        exercises.add(new ExerciseVO("SALtos", 16, 0));
-        exercises.add(new ExerciseVO("PATADAS", 5, 0));
-        exercises.add(new ExerciseVO("nada", 0, 45));
+        exercises.add(new ExerciseVO("SALtos","PEREPREPREPRperperpeprepr", 16, 0));
+        exercises.add(new ExerciseVO("PATADAS","pasdoeokqokpapsdapwda", 5, 0));
+        exercises.add(new ExerciseVO("nada","awoelko129ekos;la,dam wadmaw amp   ", 0, 5));
         cycles.add(new CycleVO("Calentamiento", exercises));
         ArrayList<ExerciseVO> exercises2 = new ArrayList<>();
-        exercises2.add(new ExerciseVO("beto", 5, 0));
-        exercises2.add(new ExerciseVO("mbhertDAS", 0, 60));
-        exercises2.add(new ExerciseVO("betaismo", 0, 24));
+        exercises2.add(new ExerciseVO("beto", "aowdlqowdkpqsl,apld,pasl dpaw ", 0, 3));
+        exercises2.add(new ExerciseVO("mbhertDAS", "dopwk,ospakdmapskdqw" , 7, 0));
+        exercises2.add(new ExerciseVO("betaismo", "dawokdpqwkdpo,asld,aw", 0, 12));
+        cycles.add(new CycleVO("ENFRIAMIENTO", exercises2));
         cycles.add(new CycleVO("ENFRIAMIENTO", exercises2));
     }
 }
