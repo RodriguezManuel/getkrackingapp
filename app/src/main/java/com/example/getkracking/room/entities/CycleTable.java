@@ -17,16 +17,19 @@ public class CycleTable {
     @ForeignKey(entity = RoutineTable.class , parentColumns = "id" , childColumns = "RoutineId")
     public int routineId;
 
+    @ColumnInfo(name = "Name")
+    public String name;
     @ColumnInfo(name = "Detail")
     public String detail;
 
     @ColumnInfo(name = "Order")
     public int order;
 
-    public CycleTable( int cycleId , int routineId , String detail , int order){
+    public CycleTable( int cycleId , int routineId , String detail ,String name, int order){
         this.cycleId = cycleId;
         this.routineId = routineId;
         this.detail = detail;
+        this.name=name;
         this.order = order;
     }
 }
