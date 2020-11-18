@@ -16,6 +16,30 @@ public class CycleVO {
         this.order = order;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setExercises(ArrayList<ExerciseVO> exercises) {
+        this.exercises = exercises;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getOrder() {
+        return order;
+    }
+
+    public int getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
