@@ -63,8 +63,8 @@ public class RoutineRepository {
         return new NetworkBoundResource<List<RoutineVO>, List<RoutineTable>, PagedListModel<RoutineModel>>(executors,
                 entities -> {
                     return entities.stream()
-                            .map(routineEntity -> new RoutineVO(routineEntity.name, routineEntity.detail, routineEntity.detail,
-                                    routineEntity.creator, routineEntity.difficulty, 3,
+                            .map(routineEntity -> new RoutineVO(routineEntity.name, routineEntity.detail, routineEntity.creator,
+                                    "placeholder", routineEntity.difficulty, 3,
                                     69, routineEntity.id, routineEntity.favourite != 0, routineEntity.rating))
                             .collect(toList());
                 },
@@ -75,11 +75,12 @@ public class RoutineRepository {
                 },
                 model -> {
                     return model.getResults().stream()
-                            .map(routineModel -> new RoutineVO(routineModel.getName(), routineModel.getDetail(), routineModel.getDetail(),
-                                    routineModel.getCreatorModel().getUsername(), castDifficulty(routineModel.getDifficulty()), 3,
-                                    69, routineModel.getId(), false, routineModel.getAverageRating()))
+                            .map(routineModel -> new RoutineVO(routineModel.getName(), routineModel.getDetail(), routineModel.getCreatorModel().getUsername(),
+                                    "placeholder", castDifficulty(routineModel.getDifficulty()), 3,
+                                    69, routineModel.getId(), false /*TODO: no hardcodear*/, routineModel.getAverageRating()))
                             .collect(toList());
-                }) {
+                })
+            {
             @Override
             protected void saveCallResult(@NonNull List<RoutineTable> entities) {
                 database.routineDao().deleteAll();

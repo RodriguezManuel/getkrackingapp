@@ -1,16 +1,21 @@
 package com.example.getkracking.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.getkracking.API.ApiClient;
+import com.example.getkracking.API.ApiRoutineService;
 import com.example.getkracking.HomeActivity;
 import com.example.getkracking.R;
 import com.example.getkracking.adapters.RoutinesAdapter;
@@ -18,10 +23,12 @@ import com.example.getkracking.app.MyApplication;
 import com.example.getkracking.entities.RoutineVO;
 import com.example.getkracking.repository.RoutineRepository;
 import com.example.getkracking.repository.UserRepository;
+import com.example.getkracking.vo.Resource;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutineListener {
     RecyclerView recyclerRoutines;
@@ -44,8 +51,35 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
 
     private void fillList() {
         //HARDCODEADO ADAPTAR A API
+        /*ApiRoutineService service = ApiClient.create(application.getApplicationContext(), ApiRoutineService.class);
+        service.getRoutines().observe(getViewLifecycleOwner(),response -> {
+            if(response.getError() == null){
+                Log.d("UI","Todo en orden");
+                Log.d("UI", response.getData().toString());
+            }
+        });*/
 
-        routinesList.addAll(routineRepository.getRoutines().getValue().data);
+        /*LiveData<Resource<List<RoutineVO>>> rutinas =  routineRepository.getRoutines();
+        System.out.println("Get routines: "+ rutinas.toString());
+        System.out.println("Get value: "+ rutinas.getValue().toString());
+        System.out.println("Data: "+ rutinas.getValue().message);
+        System.out.println("Status: "+ rutinas.getValue().status);*/
+
+        routineRepository.getRoutines().observe(getViewLifecycleOwner(), resource -> {
+            switch (resource.status) {
+                case LOADING:
+                    Log.d("UI", "awaiting routines");
+                    break;
+                case SUCCESS:
+                    routinesList.addAll(resource.data);
+                    break;
+                case ERROR:
+                    Log.d("UI", "Error en get routines - " + resource.message);
+                    break;
+            }
+        });
+
+        //routinesList.addAll(routineRepository.getRoutines().getValue().data);
         //routinesList.add(new RoutineVO("IRONMAN", "HMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMMHMH", "Octa1", "Piernas", 5, 5, 18, 1, true, 3));
         //routinesList.add(new RoutineVO("CAPTAIN AMERICA", "VALCHARRRR SACA LA MANO DE AHI CARAJO", "Octa2", "Brazos", 1, 0, 180, 2, true,4.5f));
         //routinesList.add(new RoutineVO("THOR NOT AGUSTIN", "wasaaaaaaaaaaaaaaaaaaaaaaaaaa", "Octa3", "Piernas", 2, 0, 11, 3, true,5));

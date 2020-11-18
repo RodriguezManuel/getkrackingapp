@@ -3,6 +3,8 @@ package com.example.getkracking.API.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
+
 public class RoutineModel {
 
     @SerializedName("id")
@@ -16,7 +18,7 @@ public class RoutineModel {
     private String detail;
     @SerializedName("dateCreated")
     @Expose
-    private int dateCreated;
+    private Date dateCreated;
     @SerializedName("averageRating")
     @Expose
     private int averageRating;
@@ -52,7 +54,7 @@ public class RoutineModel {
      * @param detail
      * @param categoryModel
      */
-    public RoutineModel(int id, String name, String detail, int dateCreated, int averageRating, boolean isPublic, String difficulty, CreatorModel creatorModel, CategoryModel categoryModel) {
+    public RoutineModel(int id, String name, String detail, Date dateCreated, int averageRating, boolean isPublic, String difficulty, CreatorModel creatorModel, CategoryModel categoryModel) {
         super();
         this.id = id;
         this.name = name;
@@ -89,11 +91,11 @@ public class RoutineModel {
         this.detail = detail;
     }
 
-    public int getDateCreated() {
+    public Date getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(int dateCreated) {
+    public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
     }
 
