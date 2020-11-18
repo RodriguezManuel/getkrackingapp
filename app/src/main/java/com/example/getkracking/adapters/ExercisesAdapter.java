@@ -24,14 +24,14 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.Exce
 
     public static class ExcerciseViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
-        TextView name;
-        TextView quantity;
+        TextView name, type, quantity;
 
         public ExcerciseViewHolder(@NonNull View itemView) {
             super(itemView);
-            image = (ImageView) itemView.findViewById(R.id.ExcerciseImageInExcercise);
-            name = (TextView) itemView.findViewById(R.id.NameValueInExcerciseCard);
-            quantity = (TextView) itemView.findViewById(R.id.QuantityValueInExcerciseCard);
+            image = itemView.findViewById(R.id.ExcerciseImageInExcercise);
+            name = itemView.findViewById(R.id.NameValueInExcerciseCard);
+            type = itemView.findViewById(R.id.QuantityTypeInExcerciseCard);
+            quantity = itemView.findViewById(R.id.QuantityValueInExcerciseCard);
         }
     }
 
@@ -47,10 +47,13 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.Exce
     public void onBindViewHolder(@NonNull ExcerciseViewHolder holder, int position) {
         //holder.image.setImageResource(excerciseList.get(position).getImage());
         holder.name.setText(excerciseList.get(position).getName());
-        if(excerciseList.get(position).getQuantity() > 0){
+        if (excerciseList.get(position).getQuantity() > 0) {
             holder.quantity.setText(String.valueOf(excerciseList.get(position).getQuantity()));
-        }else
+            holder.type.setText(R.string.repetitions_value);
+        } else {
             holder.quantity.setText(String.valueOf(excerciseList.get(position).getDuration()));
+            holder.type.setText(R.string.seconds_value);
+        }
     }
 
     @Override

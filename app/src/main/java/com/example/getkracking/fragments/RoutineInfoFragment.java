@@ -90,7 +90,8 @@ public class RoutineInfoFragment extends Fragment {
             //seteo de funcionalidades de botones
             ((Button) vista.findViewById(R.id.ButtonEmpezarInRoutine)).setOnClickListener(v1 -> {
 
-                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.runRoutineFragment);
+                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.runRoutineListFragment);
+//                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.runRoutineFragment);
             });
 
             ImageView favIcon = vista.findViewById(R.id.favoriteIconInfoRoutine);
@@ -126,14 +127,14 @@ public class RoutineInfoFragment extends Fragment {
     public void fillCycles() {
         //HARDCODEADO ARREGLAR CON API PADREEEEEEEEEEEEEEEEEE Y MADREEEEEEEEE
         ArrayList<ExerciseVO> exercises = new ArrayList<>();
-        exercises.add(new ExerciseVO("SALtos","PEREPREPREPRperperpeprepr", 16, 0));
-        exercises.add(new ExerciseVO("PATADAS","pasdoeokqokpapsdapwda", 5, 0));
-        exercises.add(new ExerciseVO("nada","awoelko129ekos;la,dam wadmaw amp   ", 0, 5));
+        exercises.add(new ExerciseVO("SALtos","PEREPREPREPRperperpeprepr", 16, 0,"A"));
+        exercises.add(new ExerciseVO("PATADAS","pasdoeokqokpapsdapwda", 5, 0,"A"));
+        exercises.add(new ExerciseVO("nada","awoelko129ekos;la,dam wadmaw amp   ", 0, 5,"A"));
         cycles.add(new CycleVO("Calentamiento", exercises));
         ArrayList<ExerciseVO> exercises2 = new ArrayList<>();
-        exercises2.add(new ExerciseVO("beto", "aowdlqowdkpqsl,apld,pasl dpaw ", 0, 3));
-        exercises2.add(new ExerciseVO("mbhertDAS", "dopwk,ospakdmapskdqw" , 7, 0));
-        exercises2.add(new ExerciseVO("betaismo", "dawokdpqwkdpo,asld,aw", 0, 12));
+        exercises2.add(new ExerciseVO("beto", "aowdlqowdkpqsl,apld,pasl dpaw ", 0, 3,"A"));
+        exercises2.add(new ExerciseVO("mbhertDAS", "dopwk,ospakdmapskdqw" , 7, 0,"A"));
+        exercises2.add(new ExerciseVO("betaismo", "dawokdpqwkdpo,asld,aw", 0, 12,"A"));
         cycles.add(new CycleVO("ENFRIAMIENTO", exercises2));
         cycles.add(new CycleVO("ENFRIAMIENTO", exercises2));
     }

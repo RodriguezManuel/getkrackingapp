@@ -78,6 +78,9 @@
         <action
             android:id="@+id/action_routineInfoFragment_to_runRoutineFragment"
             app:destination="@id/runRoutineFragment" />
+        <action
+            android:id="@+id/action_routineInfoFragment_to_runRoutineListFragment"
+            app:destination="@id/runRoutineListFragment" />
     </fragment>
 
     <fragment
@@ -86,11 +89,6 @@
         android:label="run_fragment"
         tools:layout="@layout/fragment_run_routine" />
 
-    <fragment
-        android:id="@+id/listRoutineFragment"
-        android:name="com.example.getkracking.fragments.RoutineListFragment"
-        android:label="list_fragment"
-        tools:layout="@layout/fragment_run_routine_list_format" />
     <fragment
         android:id="@+id/editPerfilFragment"
         android:name="com.example.getkracking.fragments.EditPerfilFragment"
@@ -105,4 +103,8 @@
             android:name="email"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/runRoutineListFragment"
+        android:name="com.example.getkracking.fragments.RunRoutineListFragment"
+        android:label="RunRoutineListFragment" />
 </navigation>

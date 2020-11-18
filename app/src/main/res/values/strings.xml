@@ -93,6 +93,7 @@
     <string name="time">Tiempo</string>
     <string name="repetitions">Repeticiones</string>
     <string name="pause">Pausar</string>
-    <string name="continueText">Continuar</string>
     <string name="continue_string">Continuar</string>
+    <string name="repetitions_value">Repeticiones: </string>
+    <string name="seconds_value">Segundos: </string>
 </resources>

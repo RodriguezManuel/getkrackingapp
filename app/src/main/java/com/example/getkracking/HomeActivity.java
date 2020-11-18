@@ -68,14 +68,14 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void goToHome(View view) {
-        if(!showSelectedFragment(R.id.homeFragment)) {
+        if (!showSelectedFragment(R.id.homeFragment)) {
             bottomNavigationView.getMenu().getItem(2).setChecked(true); //desactivo todos los otros activando el placeholder
             switchFabHomeColor(true);
         }
     }
 
     private boolean showSelectedFragment(int id) {
-        if(navController.getCurrentBackStackEntry() != null &&
+        if (navController.getCurrentBackStackEntry() != null &&
                 navController.getCurrentBackStackEntry().getDestination().getId() == id)
             return false;
 
@@ -93,14 +93,14 @@ public class HomeActivity extends AppCompatActivity {
 
         if (navController.getCurrentBackStackEntry() != null) {
             int actualId = navController.getCurrentBackStackEntry().getDestination().getId();
-            checkOptionBottomBar(actualId);
-        } else if( navController.getPreviousBackStackEntry() != null){
-            int previousId = navController.getPreviousBackStackEntry().getDestination().getId();
-            checkOptionBottomBar(previousId);
+            if (!checkOptionBottomBar(actualId) && navController.getPreviousBackStackEntry() != null) {
+                int previousId = navController.getPreviousBackStackEntry().getDestination().getId();
+                checkOptionBottomBar(previousId);
+            }
         }
     }
 
-    public void checkOptionBottomBar(int id) {
+    public boolean checkOptionBottomBar(int id) {
         if (id == R.id.homeFragment) {
             switchFabHomeColor(true);
             bottomNavigationView.getMenu().getItem(2).setChecked(true); //desactivo todos los otros activando el placeholder
@@ -112,6 +112,10 @@ public class HomeActivity extends AppCompatActivity {
             bottomNavigationView.getMenu().getItem(3).setChecked(true);
         else if (id == R.id.perfilFragment)
             bottomNavigationView.getMenu().getItem(4).setChecked(true);
+        else
+            return false;
+
+        return true;
     }
 
     private void switchFabHomeColor(boolean flag) {
