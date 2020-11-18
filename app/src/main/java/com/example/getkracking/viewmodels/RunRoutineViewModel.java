@@ -10,19 +10,22 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.getkracking.R;
 import com.example.getkracking.entities.CycleVO;
+import com.example.getkracking.entities.ExerciseVO;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RunRoutineViewModel extends AndroidViewModel {
     //Variables para la ejecucion de ejercicios
-    ArrayList<CycleVO> cycles;
-    int actualCycle, actualExercise;
-    boolean timedExercise;
-    MutableLiveData<String> sectionName = new MutableLiveData<>();
-    MutableLiveData<String> exerciseName = new MutableLiveData<>();
-    MutableLiveData<String> exerciseDesc = new MutableLiveData<>();
-    MutableLiveData<String> exerciseType = new MutableLiveData<>();
-    MutableLiveData<Boolean> finishedRoutine = new MutableLiveData<>(false);
+    private ArrayList<CycleVO> cycles;
+    private int actualCycle, actualExercise;
+    private boolean timedExercise;
+    private MutableLiveData<String> sectionName = new MutableLiveData<>();
+    private MutableLiveData<String> exerciseName = new MutableLiveData<>();
+    private MutableLiveData<String> exerciseDesc = new MutableLiveData<>();
+    private MutableLiveData<String> exerciseType = new MutableLiveData<>();
+    private MutableLiveData<Boolean> finishedRoutine = new MutableLiveData<>(false);
+    private MutableLiveData<Boolean> finishedExercise = new MutableLiveData<>(false);
 
     //Variables para el timer
     private CountDownTimer countDownTimer;
@@ -34,6 +37,17 @@ public class RunRoutineViewModel extends AndroidViewModel {
 
     public RunRoutineViewModel(@NonNull Application application) {
         super(application);
+    }
+
+    public List<ExerciseVO> getRemainingExercises() {
+        if(actualCycle == cycles.size())
+            return null;
+
+        return cycles.get(actualCycle).getExercises().subList(actualExercise, cycles.get(actualCycle).getExercises().size());
+    }
+
+    public MutableLiveData<Boolean> getFinishedExercise() {
+        return finishedExercise;
     }
 
     public MutableLiveData<Boolean> getFinishedRoutine() {
@@ -67,8 +81,10 @@ public class RunRoutineViewModel extends AndroidViewModel {
     public void buttonSelected() {
         if (timedExercise)
             startStop();
-        else
+        else {
+            finishedExercise.setValue(true);
             runNextExercise();
+        }
     }
 
     public void setCycles(ArrayList<CycleVO> cycles) {
@@ -80,6 +96,7 @@ public class RunRoutineViewModel extends AndroidViewModel {
             finishedRoutine.setValue(true);
             return;
         }
+        finishedExercise.setValue(false);
         sectionName.setValue(cycles.get(actualCycle).getName());
         exerciseName.setValue(cycles.get(actualCycle).getExercises().get(actualExercise).getName());
         exerciseDesc.setValue(cycles.get(actualCycle).getExercises().get(actualExercise).getDesc());
@@ -92,7 +109,7 @@ public class RunRoutineViewModel extends AndroidViewModel {
         } else {
             timeLeftText.setValue(String.valueOf(cycles.get(actualCycle).getExercises().get(actualExercise).getQuantity()));
             timedExercise = false;
-            buttonText.setValue(getApplication().getResources().getString(R.string.continueText));
+            buttonText.setValue(getApplication().getResources().getString(R.string.continue_string));
             exerciseType.setValue(getApplication().getResources().getString(R.string.repetitions));
         }
 
@@ -124,6 +141,7 @@ public class RunRoutineViewModel extends AndroidViewModel {
 
             @Override
             public void onFinish() {
+                finishedExercise.setValue(true);
                 runNextExercise();
             }
         };
@@ -138,7 +156,7 @@ public class RunRoutineViewModel extends AndroidViewModel {
 
     public void stopTimer() {
         countDownTimer.cancel();
-        buttonText.setValue(getApplication().getResources().getString(R.string.continueText));
+        buttonText.setValue(getApplication().getResources().getString(R.string.continue_string));
         timerRunning = false;
     }
 

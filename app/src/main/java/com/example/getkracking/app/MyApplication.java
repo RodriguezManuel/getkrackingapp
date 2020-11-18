@@ -32,6 +32,8 @@ public class MyApplication extends Application {
 
     public RoutineRepository getRoutineRepository(){ return routineRepository; }
 
+
+
     @Override
     public void onCreate() {
         super.onCreate();

@@ -5,8 +5,10 @@ import android.os.Bundle;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,8 @@ import android.widget.TextView;
 
 import com.example.getkracking.HomeActivity;
 import com.example.getkracking.R;
+import com.example.getkracking.adapters.ExercisesAdapter;
+import com.example.getkracking.adapters.RoutinesAdapter;
 import com.example.getkracking.dialogs.EndedRoutineDialog;
 import com.example.getkracking.dialogs.ExitRoutineDialog;
 import com.example.getkracking.entities.CycleVO;
@@ -27,19 +31,27 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
-public class RunRoutineFragment extends Fragment {
-    //para desactivarlos mientras se ejecuta la rutina
+public class RunRoutineListFragment extends Fragment {
     private BottomAppBar bottomAppBar;
     private BottomNavigationView bottomNavigationView;
     private FloatingActionButton homeButton;
     private RunRoutineViewModel viewModel;
 
-    private TextView sectionName, exerciseName, exerciseDesc, exerciseType;
+    private TextView sectionName, exerciseName;
     private TextView countDownText;
     private Button countDownButton;
 
-    public RunRoutineFragment() {
+    private ArrayList<ExerciseVO> remainingExercises = new ArrayList<>();
+    private RecyclerView recyclerExercises;
+    private ExercisesAdapter adapter;
+
+    public RunRoutineListFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -48,24 +60,35 @@ public class RunRoutineFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(RunRoutineViewModel.class);
 
         // Inflate the layout for this fragment
-        View vista = inflater.inflate(R.layout.fragment_run_routine, container, false);
-        countDownText = vista.findViewById(R.id.timerInRunRoutine);
-        countDownButton = vista.findViewById(R.id.buttonInRunRoutine);
+        View vista = inflater.inflate(R.layout.fragment_run_routine_list, container, false);
+        countDownText = vista.findViewById(R.id.timerInRunListRoutine);
+        countDownButton = vista.findViewById(R.id.buttonInRunListRoutine);
 
-        sectionName = vista.findViewById(R.id.section_name_run_routine);
-        exerciseName = vista.findViewById(R.id.exercise_name_run_routine);
-        exerciseDesc = vista.findViewById(R.id.exercise_desc_run_routine);
-        exerciseType = vista.findViewById(R.id.exercise_type_run_routine);
+        sectionName = vista.findViewById(R.id.section_name_run_listroutine);
+        exerciseName = vista.findViewById(R.id.exercise_name_run_listroutine);
+        recyclerExercises = vista.findViewById(R.id.recycler_exercises_run_listroutine);
+        recyclerExercises.setLayoutManager(new LinearLayoutManager(getContext()));
 
         viewModel.getTimeLeftText().observe(getViewLifecycleOwner(), s -> countDownText.setText(s));
         viewModel.getButtonText().observe(getViewLifecycleOwner(), s -> countDownButton.setText(s));
         viewModel.getSectionName().observe(getViewLifecycleOwner(), s -> sectionName.setText(s));
         viewModel.getExerciseName().observe(getViewLifecycleOwner(), s -> exerciseName.setText(s));
-        viewModel.getExerciseDesc().observe(getViewLifecycleOwner(), s -> exerciseDesc.setText(s));
-        viewModel.getExerciseType().observe(getViewLifecycleOwner(), s -> exerciseType.setText(s));
         viewModel.getFinishedRoutine().observe(getViewLifecycleOwner(), aBoolean -> {
             if (aBoolean)
                 openEndDialog();
+        });
+        viewModel.getFinishedExercise().observe(getViewLifecycleOwner(), bool -> {
+            if (remainingExercises.isEmpty()) {    //nuevo ciclo
+                if(viewModel.getRemainingExercises() != null) {
+                    remainingExercises = new ArrayList<>(viewModel.getRemainingExercises());
+                    adapter = new ExercisesAdapter(remainingExercises);
+                    recyclerExercises.setAdapter(adapter);
+                    recyclerExercises.setNestedScrollingEnabled(false);
+                }
+            } else if(!bool){
+                remainingExercises.remove(0);
+                adapter.notifyItemRemoved(0);
+            }
         });
 
         countDownButton.setOnClickListener(v -> viewModel.buttonSelected());
@@ -87,7 +110,6 @@ public class RunRoutineFragment extends Fragment {
         cycles.add(new CycleVO("ENFRIAMIENTO", exercises2));
 
         viewModel.setCycles(cycles);
-        viewModel.runNextExercise();
         return vista;
     }
 
@@ -100,6 +122,7 @@ public class RunRoutineFragment extends Fragment {
         EndedRoutineDialog dialog = new EndedRoutineDialog();
         dialog.show(getActivity().getSupportFragmentManager(), "Routine ended");
     }
+
 
     @Override
     public void onResume() {
@@ -123,6 +146,15 @@ public class RunRoutineFragment extends Fragment {
         bottomAppBar.setVisibility(View.GONE);
         bottomNavigationView.setVisibility(View.GONE);
         homeButton.setVisibility(View.GONE);
+
+        //seteo recyclerview
+        remainingExercises = new ArrayList<>(viewModel.getRemainingExercises());
+        adapter = new ExercisesAdapter(remainingExercises);
+        recyclerExercises.setAdapter(adapter);
+        recyclerExercises.setNestedScrollingEnabled(false);
+
+        //arranca rutina
+        viewModel.runNextExercise();
     }
 
     @Override
@@ -134,4 +166,5 @@ public class RunRoutineFragment extends Fragment {
         bottomNavigationView.setVisibility(View.VISIBLE);
         homeButton.setVisibility(View.VISIBLE);
     }
+
 }

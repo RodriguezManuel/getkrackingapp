@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">getkracking</string>
     <string name="logo_get_krackin">Logo Get Krackin</string>
-    <string name="title_activity_welcome">WelcomeActivity</string>
+    <string name="title_activity_welcome" translatable="false">WelcomeActivity</string>
     <string name="tab_text_1">Ingresar</string>
     <string name="tab_text_2">Registrarse</string>
     <string name="welcome1">Para tener una experiencia mas personalizada, inicie sesión!</string>
@@ -11,13 +11,13 @@
     <string name="prompt_password">Contraseña</string>
     <string name="action_register">Registrarse</string>
     <string name="action_sign_in">Ingresar</string>
-    <string name="welcome">"Welcome!"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
+    <string name="welcome" translatable="false">"Welcome!"</string>
+    <string name="invalid_username" translatable="false">Not a valid username</string>
+    <string name="invalid_password" translatable="false">Password must be >5 characters</string>
+    <string name="login_failed" translatable="false">"Login failed"</string>
 
     <!--    Strings del resto de la app-->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="contrasenia">Contraseña</string>
     <string name="welcome_login_link"><u>¿Olvidaste tu contraseña?</u></string>
     <string name="welcome_link"><u>Continuar sin cuenta</u></string>
@@ -29,7 +29,7 @@
     <string name="highlight_routine">Rutina destacada</string>
     <string name="fav_icon_string">Icono de favoritos</string>
     <string name="weight_icon">Icono de mancuerna</string>
-    <string name="workout_image">Workout image</string>
+    <string name="workout_image">imagen de rutina</string>
     <string name="category1rating_routine">Dificultad</string>
     <string name="category2rating_routine">Flexibilidad</string>
     <string name="category3rating_routine">Resistencia</string>
@@ -40,7 +40,7 @@
     <string name="recent_routines">Recientes</string>
     <string name="recomended_routines">Recomendados</string>
     <string name="first_category_recomended_routines">Cardio</string>
-    <string name="second_category_recomended_routines">HIIT</string>
+    <string name="second_category_recomended_routines" translatable="false">HIIT</string>
     <string name="third_category_recomended_routines">Elongacion</string>
     <string name="imagen_descriptiva_de_la_rutina">Imagen descriptiva de la rutina</string>
     <string name="buttonstart_routine_string">¡Empezar!</string>
@@ -49,7 +49,7 @@
     <string name="imagen_ilustrativa_del_ejercicio">Imagen ilustrativa del ejercicio</string>
     <string name="logout">Cerrar sesión</string>
     <string name="terms_and_conditions">Términos y condiciones</string>
-    <string name="feedback">Feedback</string>
+    <string name="feedback" translatable="false">Feedback</string>
     <string name="more_information">Más información</string>
     <string name="privacy">Privacidad</string>
     <string name="notifications">Notificaciones</string>
@@ -93,6 +93,7 @@
     <string name="time">Tiempo</string>
     <string name="repetitions">Repeticiones</string>
     <string name="pause">Pausar</string>
-    <string name="continueText">Continuar</string>
     <string name="continue_string">Continuar</string>
+    <string name="repetitions_value">Repeticiones: </string>
+    <string name="seconds_value">Segundos: </string>
 </resources>
