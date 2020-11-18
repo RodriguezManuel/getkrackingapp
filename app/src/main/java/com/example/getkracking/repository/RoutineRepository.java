@@ -45,19 +45,6 @@ public class RoutineRepository {
         this.database = database;
     }
 
-    /*
-       public RoutineVO(String name, String description, String creator, String category, int levelCategory1, int levelCategory2, int duration, int id, boolean favorited) {
-        this.name = name;
-        this.description = description;
-        this.creator = creator;
-        this.category = category;
-        this.levelCategory1 = levelCategory1;
-        this.levelCategory2 = levelCategory2;
-        this.duration = duration;
-        this.id = id;
-        this.favorited = favorited;
-    }
-     */
     public LiveData<Resource<List<RoutineVO>>> getRoutines() {
 
         return new NetworkBoundResource<List<RoutineVO>, List<RoutineTable>, PagedListModel<RoutineModel>>(executors,
