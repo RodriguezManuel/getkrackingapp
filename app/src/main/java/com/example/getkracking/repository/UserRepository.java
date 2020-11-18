@@ -128,7 +128,7 @@ public class UserRepository {
             @NonNull
             @Override
             protected LiveData<UserTable> loadFromDb(){
-                return database.userDao().getUser().getValue().get(0);
+                return database.userDao().getUser();
             }
 
             @NonNull
