@@ -32,8 +32,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PerfilFragment extends Fragment {
 
-    private UserRepository userRepository;
     private MyApplication application;
+    private UserRepository userRepository;
+
+
+    private String imageUrl, fullName, userName, email;
 
     public PerfilFragment() {
         // Required empty public constructor
@@ -53,10 +56,16 @@ public class PerfilFragment extends Fragment {
         View vista = inflater.inflate(R.layout.fragment_perfil, container, false);
         TextView tvName = vista.findViewById(R.id.name_perfil);
 
-        tvName.setText("JERUSA JERUSALISNKY");    //HARDCODEADO
+        application = (MyApplication) getActivity().getApplication();
+        userRepository = application.getUserRepository();
+
+        fetchUserData();
+
+        tvName.setText(fullName);
+
         Thread loadImage = new Thread(() -> {
             try {
-                URL newurl = new URL("https://as01.epimg.net/argentina/imagenes/2019/09/17/futbol/1568751635_589606_1568752933_noticia_normal.jpg");
+                URL newurl = new URL(imageUrl);
                 Bitmap bm = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
                 ((Activity) getContext()).runOnUiThread(() -> {
                     ((CircleImageView) vista.findViewById(R.id.picture_perfil)).setImageBitmap(bm);
@@ -72,12 +81,10 @@ public class PerfilFragment extends Fragment {
         editPerfil.setOnClickListener(v1 -> {
             PerfilFragmentDirections.ActionPerfilFragmentToEditPerfilFragment action = PerfilFragmentDirections.actionPerfilFragmentToEditPerfilFragment(
                     tvName.getText().toString(),
-                    "fabiopisculichi",  //HARDCODEADO
-                    "pepepe@lololo.com.uy", //HARDCODEADO
-                    "https://as01.epimg.net/argentina/imagenes/2019/09/17/futbol/1568751635_589606_1568752933_noticia_normal.jpg");    //HARDCODEADO
-
-
-            //IMAGEN??????
+                    userName,
+                    email,
+                    imageUrl
+            );
 
             Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(action);
         });
@@ -90,10 +97,30 @@ public class PerfilFragment extends Fragment {
         return vista;
     }
 
-    private void performLogout(LinearLayoutCompat logout) {
+    private void fetchUserData(){
 
-        application = (MyApplication) getActivity().getApplication();
-        userRepository = application.getUserRepository();
+        userRepository.getCurrent().observe(getViewLifecycleOwner(), resource -> {
+            switch (resource.status) {
+                case LOADING:
+                    Log.d("UI", "awaiting user data");
+                    break;
+                case SUCCESS:
+                    Log.d("UI", "Éxito recuperando datos");
+
+                    fullName = resource.data.getFullName();
+                    userName = resource.data.getUsername();
+                    imageUrl = resource.data.getAvatarUrl();
+                    email = resource.data.getEmail();
+
+                    break;
+                case ERROR:
+                    Log.d("UI", "Error en get edición de perfil - " + resource.message);
+                    break;
+            }
+        });
+    }
+
+    private void performLogout(LinearLayoutCompat logout) {
 
         logout.setOnClickListener(v -> {
             userRepository.logout().observe(getViewLifecycleOwner(), resource -> {
@@ -114,5 +141,4 @@ public class PerfilFragment extends Fragment {
             });
         });
     }
-
 }

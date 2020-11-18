@@ -100,24 +100,7 @@ public class EditPerfilFragment extends Fragment {
             //cargo la imagen
             updateImage(vista);
 
-            //TODO: fetch a la api
-            userRepository.getCurrent().observe(getViewLifecycleOwner(), resource -> {
-                switch (resource.status) {
-                    case LOADING:
-                        Log.d("UI", "awaiting user data");
-                        break;
-                    case SUCCESS:
-                        Log.d("UI", "Éxito recuperando datos");
-                        name.setText(resource.data.getFullName());
-                        image.setText(resource.data.getAvatarUrl());
 
-                        //TODO: faltan campos para mail y username
-                        break;
-                    case ERROR:
-                        Log.d("UI", "Error en get edición de perfil - " + resource.message);
-                        break;
-                }
-            });
         }
         vista.findViewById(R.id.returnButton_edit_perfil).setOnClickListener(v -> {
             Navigation.findNavController(getActivity(), R.id.nav_host_fragment).popBackStack();
@@ -125,11 +108,10 @@ public class EditPerfilFragment extends Fragment {
         vista.findViewById(R.id.saveButton_edit_perfil).setOnClickListener(v -> {
 
             //TODO: post a la api
-            name.getText(); //variable donde se encuentra el nombre
-            image.getText(); //variable donde se encuentra la imagen
+            postUserData();
 
-            //despues de guardar los datos, recargo la imagen
-            updateImage(vista);
+            reloadUserData(vista);
+
         });
 
         // configuracion de campo para cambiar nombre
@@ -161,4 +143,49 @@ public class EditPerfilFragment extends Fragment {
         });
         return vista;
     }
+
+    //Cuando guardo cambios hago este post
+    private void postUserData(){
+        userRepository.updateUser(name.getText().toString(), image.getText().toString()).observe(getViewLifecycleOwner(),
+            resource -> {
+                switch (resource.status) {
+                    case LOADING:
+                        Log.d("UI", "awaiting user data");
+                        break;
+                    case SUCCESS:
+                        Log.d("UI", "Éxito actualizando datos");
+                        break;
+                    case ERROR:
+                        Log.d("UI", "Error en get edición de perfil - " + resource.message);
+                        break;
+                }
+            }
+        );
+    }
+
+    //refresca los datos en pantalla. Lo ejecuto luego de hacer post
+    private void reloadUserData(View vista){
+        //Pido los datos a la API
+        userRepository.getCurrent().observe(getViewLifecycleOwner(), resource -> {
+            switch (resource.status) {
+                case LOADING:
+                    Log.d("UI", "awaiting user data");
+                    break;
+                case SUCCESS:
+                    Log.d("UI", "Éxito recuperando datos");
+                    name.setText(resource.data.getFullName());
+                    image.setText(resource.data.getAvatarUrl());
+                    break;
+                case ERROR:
+                    Log.d("UI", "Error en get edición de perfil - " + resource.message);
+                    break;
+            }
+        });
+
+        //refresco la imágen
+        updateImage(vista);
+    }
 }
+
+
+
