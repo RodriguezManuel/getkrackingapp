@@ -10,6 +10,6 @@ import retrofit2.http.Path;
 
 public interface ApiExerciseService {
     @GET("/routines/{routineId}/cycles/{cycleId}/exercises")
-    LiveData<ApiResponse<PagedListModel<ExerciseModel>>> getCycles(@Path("routineId") int routineId , @Path("cycleId") int cycleId);
+    LiveData<ApiResponse<PagedListModel<ExerciseModel>>> getExercises(@Path("routineId") int routineId , @Path("cycleId") int cycleId);
 
 }
