@@ -21,7 +21,7 @@ public interface ApiUserService {
     LiveData<ApiResponse<Void>> logout();
 
     @GET("user/current")
-    LiveData<ApiResponse<UserModel>> getCurrentUser();
+    LiveData<ApiResponse<UserModel>> getCurrent();
 
     @POST("user")
     LiveData<ApiResponse<UserModel>> register(@Body RegisterCredentialsModel registerCredentialsModel);

@@ -27,8 +27,9 @@ public interface  RoutineDao {
 
     @Insert
     void addRoutine(RoutineTable ... routine);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-   void insert(List<RoutineTable> routine);
+    void insert(List<RoutineTable> routine);
 
     @Delete
     void deleteRoutine(RoutineTable ... routine);

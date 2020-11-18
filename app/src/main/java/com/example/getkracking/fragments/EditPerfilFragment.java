@@ -2,6 +2,7 @@ package com.example.getkracking.fragments;
 
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,11 +20,17 @@ import androidx.navigation.Navigation;
 
 import com.example.getkracking.HomeActivity;
 import com.example.getkracking.R;
+import com.example.getkracking.adapters.RoutinesAdapter;
+import com.example.getkracking.app.MyApplication;
+import com.example.getkracking.repository.UserRepository;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class EditPerfilFragment extends Fragment {
     EditText name, image;
+
+    private MyApplication application;
+    private UserRepository userRepository;
 
     public EditPerfilFragment() {
         // Required empty public constructor
@@ -49,6 +56,10 @@ public class EditPerfilFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View vista = inflater.inflate(R.layout.fragment_edit_perfil, container, false);
+
+        application = (MyApplication)getActivity().getApplication();
+        userRepository = application.getUserRepository();
+
         if (getArguments() != null) {
             EditPerfilFragmentArgs args = EditPerfilFragmentArgs.fromBundle(getArguments());
             //una vez q consegui los argumentos los seteo en la vista
@@ -56,16 +67,31 @@ public class EditPerfilFragment extends Fragment {
             ((TextView) vista.findViewById(R.id.username_edit_perfil)).setText(args.getUsername());
             ((TextView) vista.findViewById(R.id.email_edit_perfil)).setText(args.getEmail());
 
-            //IMAGEN???
+            //TODO: fetch a la api
+            userRepository.getCurrent().observe(getViewLifecycleOwner(), resource -> {
+                switch (resource.status) {
+                    case LOADING:
+                        Log.d("UI", "awaiting user data");
+                        break;
+                    case SUCCESS:
+                        Log.d("UI", "Éxito recuperando datos");
+                        name.setText(resource.data.getFullName());
+                        image.setText(resource.data.getAvatarUrl());
 
+                        //TODO: faltan campos para mail y username
+                        break;
+                    case ERROR:
+                        Log.d("UI", "Error en get edición de perfil - " + resource.message);
+                        break;
+                }
+            });
         }
         vista.findViewById(R.id.returnButton_edit_perfil).setOnClickListener(v -> {
             Navigation.findNavController(getActivity(), R.id.nav_host_fragment).popBackStack();
         });
         vista.findViewById(R.id.saveButton_edit_perfil).setOnClickListener(v -> {
 
-
-            //POST A API CON NUEVA INFORMACION
+            //TODO: post a la api
 
 
         });
