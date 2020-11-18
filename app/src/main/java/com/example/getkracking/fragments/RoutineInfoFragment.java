@@ -48,6 +48,7 @@ public class RoutineInfoFragment extends Fragment {
     int idRoutine;
     CycleRepository cycleRepository;
     ExerciseRepository exerciseRepository;
+    CyclesAdapter adapter;
 
     @Override
     public void onResume() {
@@ -127,6 +128,10 @@ public class RoutineInfoFragment extends Fragment {
         cycleRepository = application.getCycleRepository();
         exerciseRepository = application.getExerciseRepository();
 
+        adapter = new CyclesAdapter(getActivity(), cyclesList);
+        cyclesRoutine.setLayoutManager(new LinearLayoutManager(getContext()));
+        cyclesRoutine.setAdapter(adapter);
+        cyclesRoutine.setNestedScrollingEnabled(false);
         fillCycles();
         return vista;
     }
@@ -142,6 +147,7 @@ public class RoutineInfoFragment extends Fragment {
                     Log.d("UI", "Éxito recuperando rutinas");
 
                     cycle.getExercises().addAll(resource.data);
+                    adapter.notifyDataSetChanged();
                     break;
                 case ERROR:
                     Log.d("UI", "Error en get routines - " + resource.message);
@@ -162,13 +168,8 @@ public class RoutineInfoFragment extends Fragment {
                     for (CycleVO cycle : resource.data) {
                         cyclesList.add(cycle);
                         fillExercises(cycle.getId(), cycle);
-                        //SE DEBERIA ESPERAR A QUE CARGEN LOS EJERCICIOS PARA PASAR AL SIGUIENTE CICLO
-
+                        adapter.notifyDataSetChanged();
                     }
-                    CyclesAdapter adapter = new CyclesAdapter(getActivity(), cyclesList);
-                    cyclesRoutine.setLayoutManager(new LinearLayoutManager(getContext()));
-                    cyclesRoutine.setAdapter(adapter);
-                    cyclesRoutine.setNestedScrollingEnabled(false);
 
                     break;
                 case ERROR:

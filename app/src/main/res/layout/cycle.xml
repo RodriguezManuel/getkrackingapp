@@ -15,7 +15,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_exercises"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"/>
 
     <!--            PLACEHOLDER PARA SEPARAR UN POCO      -->
     <TextView
