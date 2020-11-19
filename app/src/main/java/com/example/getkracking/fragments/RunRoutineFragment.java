@@ -87,7 +87,7 @@ public class RunRoutineFragment extends Fragment {
     }
 
     private void openEndDialog() {
-        EndedRoutineDialog dialog = new EndedRoutineDialog();
+        EndedRoutineDialog dialog = new EndedRoutineDialog(viewModel.getRoutineId());
         dialog.show(getActivity().getSupportFragmentManager(), "Routine ended");
     }
 

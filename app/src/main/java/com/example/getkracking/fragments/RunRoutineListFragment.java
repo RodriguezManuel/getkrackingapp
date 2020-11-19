@@ -110,7 +110,7 @@ public class RunRoutineListFragment extends Fragment {
     }
 
     private void openEndDialog() {
-        EndedRoutineDialog dialog = new EndedRoutineDialog();
+        EndedRoutineDialog dialog = new EndedRoutineDialog(viewModel.getRoutineId());
         dialog.show(getActivity().getSupportFragmentManager(), "Routine ended");
     }
 
@@ -141,8 +141,8 @@ public class RunRoutineListFragment extends Fragment {
         List<ExerciseVO> aux = viewModel.getRemainingExercises();
         //seteo recyclerview si no termino
         if (aux != null && !viewModel.getFinishedRoutine().getValue()) {
-            Toast.makeText(getContext(), aux.toString(), Toast.LENGTH_SHORT).show();
-            remainingExercises = (ArrayList<ExerciseVO>) aux;
+            remainingExercises = new ArrayList<>();
+            remainingExercises.addAll(aux);
             adapter = new ExercisesAdapter(remainingExercises);
             recyclerExercises.setAdapter(adapter);
             recyclerExercises.setNestedScrollingEnabled(false);

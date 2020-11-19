@@ -53,7 +53,7 @@ public class RunRoutineViewModel extends AndroidViewModel {
             return getRemainingExercises();
         }
 
-        return cycles.get(actualCycle).getExercises().subList(actualExercise, cycles.get(actualCycle).getExercises().size()-1);
+        return cycles.get(actualCycle).getExercises().subList(actualExercise, cycles.get(actualCycle).getExercises().size());
     }
 
     public int getRoutineId() {

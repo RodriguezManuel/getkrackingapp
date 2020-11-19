@@ -133,8 +133,6 @@ public class RoutineInfoFragment extends Fragment {
         cyclesRoutine.setNestedScrollingEnabled(false);
         fillCycles();
 
-        //TODO: SE TIENE QUE SETEAR LOS CICLOS DESPUES DE QUE SE COMPLETE EL LLENADO DE LA API
-
         return vista;
     }
 
@@ -149,16 +147,16 @@ public class RoutineInfoFragment extends Fragment {
 
                     cycle.getExercises().addAll(resource.data);
                     adapter.notifyDataSetChanged();
-                    if(cyclesList.indexOf(cycle) == cyclesList.size() -1)
+                    if (cyclesList.indexOf(cycle) == cyclesList.size() - 1)
                         //seteo de funcionalidades de botones
                         ((Button) getView().findViewById(R.id.ButtonEmpezarInRoutine)).setOnClickListener(v1 -> {
-                            if(mode.getText() == getString(R.string.exercise_execution_exercise_mode)) {
+                            if (mode.getText().equals(getString(R.string.exercise_execution_list_mode))) {
                                 RoutineInfoFragmentDirections.ActionRoutineInfoFragmentToRunRoutineListFragment action =
-                                        RoutineInfoFragmentDirections.actionRoutineInfoFragmentToRunRoutineListFragment(new CycleVO[cyclesList.size()], idRoutine);
+                                        RoutineInfoFragmentDirections.actionRoutineInfoFragmentToRunRoutineListFragment(cyclesList.toArray(new CycleVO[cyclesList.size()]), idRoutine);
                                 Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(action);
-                            }else {
+                            } else {
                                 RoutineInfoFragmentDirections.ActionRoutineInfoFragmentToRunRoutineFragment action =
-                                        RoutineInfoFragmentDirections.actionRoutineInfoFragmentToRunRoutineFragment(new CycleVO[cyclesList.size()], idRoutine);
+                                        RoutineInfoFragmentDirections.actionRoutineInfoFragmentToRunRoutineFragment(cyclesList.toArray(new CycleVO[cyclesList.size()]), idRoutine);
                                 Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(action);
                             }
                         });

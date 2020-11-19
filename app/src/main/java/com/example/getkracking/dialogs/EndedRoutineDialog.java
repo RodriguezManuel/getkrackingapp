@@ -16,6 +16,12 @@ import com.example.getkracking.R;
 
 public class EndedRoutineDialog extends AppCompatDialogFragment {
     float rating = -1;
+    int routineId;
+
+    public EndedRoutineDialog(int routineId) {
+        super();
+        this.routineId = routineId;
+    }
 
     @NonNull
     @Override
