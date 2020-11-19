@@ -11,8 +11,6 @@ import com.example.getkracking.API.ApiRoutineService;
 import com.example.getkracking.API.ApiSportService;
 import com.example.getkracking.API.ApiUserService;
 import com.example.getkracking.repository.AppExecutors;
-import com.example.getkracking.repository.CycleRepository;
-import com.example.getkracking.repository.ExerciseRepository;
 import com.example.getkracking.repository.RoutineRepository;
 import com.example.getkracking.repository.UserRepository;
 import com.example.getkracking.room.AppDatabase;
@@ -25,16 +23,6 @@ public class MyApplication extends Application {
     MyPreferences preferences;
     UserRepository userRepository;
     RoutineRepository routineRepository;
-    CycleRepository cycleRepository;
-    ExerciseRepository exerciseRepository;
-
-    public CycleRepository getCycleRepository() {
-        return cycleRepository;
-    }
-
-    public ExerciseRepository getExerciseRepository() {
-        return exerciseRepository;
-    }
 
     public MyPreferences getPreferences() {
         return preferences;
@@ -64,8 +52,7 @@ public class MyApplication extends Application {
         AppDatabase database = Room.databaseBuilder(this, AppDatabase.class, Constants.DATABASE_NAME).build();
 
         userRepository = new UserRepository(appExecutors, userService, database);
-        routineRepository = new RoutineRepository(appExecutors, routineService, database);
-        cycleRepository = new CycleRepository(appExecutors, cycleService, database);
-        exerciseRepository = new ExerciseRepository(appExecutors, exerciseService, database);
+        routineRepository = new RoutineRepository(appExecutors, routineService, cycleService, exerciseService, database);
+
     }
 }

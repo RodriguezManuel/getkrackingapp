@@ -23,7 +23,7 @@ public interface  RoutineDao {
     LiveData<RoutineTable> getRoutineById(int myid);
 
     @Query("select * from routineTable where favourite = 1")
-    LiveData<List<RoutineTable>> getFavRoutines();
+    LiveData<List<RoutineTable>> getFavouriteRoutines();
 
     @Insert
     void addRoutine(RoutineTable ... routine);

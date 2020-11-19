@@ -7,7 +7,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,8 +29,9 @@ import com.example.getkracking.R;
 import com.example.getkracking.adapters.CyclesAdapter;
 import com.example.getkracking.app.MyApplication;
 import com.example.getkracking.entities.CycleVO;
-import com.example.getkracking.repository.CycleRepository;
-import com.example.getkracking.repository.ExerciseRepository;
+import com.example.getkracking.repository.RoutineRepository;
+import com.example.getkracking.repository.UserRepository;
+import com.example.getkracking.viewmodels.RepositoryViewModelFactory;
 import com.example.getkracking.viewmodels.RoutineInfoViewModel;
 import com.google.android.material.chip.Chip;
 
@@ -43,10 +43,8 @@ public class RoutineInfoFragment extends Fragment {
     private ArrayList<CycleVO> cyclesList;
     private boolean favorited = false;  //HARDCODEADO OBTENIDO DE API
     private int idRoutine;
-    private ExerciseRepository exerciseRepository;
-    private CycleRepository cycleRepository;
     private CyclesAdapter adapter;
-    private RoutineInfoViewModel viewModel;
+    private RoutineInfoViewModel routineViewModel;
     private Chip mode;
 
     @Override
@@ -84,13 +82,17 @@ public class RoutineInfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View vista = inflater.inflate(R.layout.routine_info_fragment, container, false);
-        viewModel = new ViewModelProvider(getActivity()).get(RoutineInfoViewModel.class);
+
+        RepositoryViewModelFactory viewModelFactory = new RepositoryViewModelFactory(RoutineRepository.class, ((MyApplication) getActivity().getApplication()).getRoutineRepository());
+        routineViewModel = new ViewModelProvider(this, viewModelFactory).get(RoutineInfoViewModel.class);
+
 
         mode = vista.findViewById(R.id.execution_mode_chip);
-        viewModel.getChipText().observe(getViewLifecycleOwner(), s -> {
+        //FIXME: error por cambios en RoutineInfoViewModel
+        /*routineViewModel.getChipText().observe(getViewLifecycleOwner(), s -> {
             mode.setText(s);
-        });
-        mode.setOnClickListener(v -> viewModel.changeChipText());
+        });*/
+        mode.setOnClickListener(v -> routineViewModel.changeChipText());
 
         if (getArguments() != null) {
             RoutineInfoFragmentArgs args = RoutineInfoFragmentArgs.fromBundle(getArguments());
@@ -109,11 +111,12 @@ public class RoutineInfoFragment extends Fragment {
                 if (favorited) {
                     favIcon.setBackgroundResource(R.drawable.ic_favorite_border);
                     //SACAR DE FAVORITOS CON LA API
+                    removeFromFavourites(idRoutine);
                 } else {
                     favIcon.setBackgroundResource(R.drawable.ic_favorite);
                     //AGREGAR A FAVORITOS CON LA API
+                    addToFavourites(idRoutine);
                 }
-                favorited = !favorited;
             });
 
             TextView puntuacion = vista.findViewById(R.id.rating_value_info_routine);
@@ -122,10 +125,6 @@ public class RoutineInfoFragment extends Fragment {
 
         cyclesRoutine = vista.findViewById(R.id.CyclesRoutine);
         cyclesList = new ArrayList<>();
-
-        MyApplication application = (MyApplication) getActivity().getApplication();
-        cycleRepository = application.getCycleRepository();
-        exerciseRepository = application.getExerciseRepository();
 
         adapter = new CyclesAdapter(getActivity(), cyclesList);
         cyclesRoutine.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -136,8 +135,46 @@ public class RoutineInfoFragment extends Fragment {
         return vista;
     }
 
+    private void addToFavourites(int idRoutine) {
+        routineViewModel.removeFromFavourites(idRoutine).observe(getViewLifecycleOwner(),
+                resource -> {
+                    switch (resource.status) {
+                        case LOADING:
+                            Log.d("UI", "awaiting favourites to add");
+                            break;
+                        case SUCCESS:
+                            Log.d("UI", "Éxito agregando a favoritos");
+                            favorited = true;
+                            break;
+                        case ERROR:
+                            Log.d("UI", "Error agregando a favoritos - " + resource.message);
+                            break;
+                    }
+
+                });
+    }
+
+    private void removeFromFavourites(int idRoutine) {
+        routineViewModel.removeFromFavourites(idRoutine).observe(getViewLifecycleOwner(),
+                resource -> {
+                    switch (resource.status) {
+                        case LOADING:
+                            Log.d("UI", "awaiting favourites to remove");
+                            break;
+                        case SUCCESS:
+                            Log.d("UI", "Éxito quitando de favoritos");
+                            favorited = false;
+                            break;
+                        case ERROR:
+                            Log.d("UI", "Error quitando de favoritos - " + resource.message);
+                            break;
+                    }
+
+                });
+    }
+
     private void fillExercises(int cycleId, CycleVO cycle) {
-        exerciseRepository.getExercises(idRoutine, cycleId).observe(getViewLifecycleOwner(), resource -> {
+        routineViewModel.getExercises(idRoutine, cycleId).observe(getViewLifecycleOwner(), resource -> {
             switch (resource.status) {
                 case LOADING:
                     Log.d("UI", "awaiting routines");
@@ -169,7 +206,7 @@ public class RoutineInfoFragment extends Fragment {
     }
 
     private void fillCycles() {
-        cycleRepository.getCycles(idRoutine).observe(getViewLifecycleOwner(), resource -> {
+        routineViewModel.getCycles(idRoutine).observe(getViewLifecycleOwner(), resource -> {
             switch (resource.status) {
                 case LOADING:
                     Log.d("UI", "awaiting routines");
