@@ -13,6 +13,7 @@ import com.example.getkracking.room.entities.UserTable;
 import com.example.getkracking.vo.Resource;
 
 public class UserViewModel extends RepositoryViewModel<UserRepository> {
+    private boolean editingName = false, editingEmail = false;
 
     private MediatorLiveData<Resource<UserVO>> userData;
 
@@ -32,5 +33,19 @@ public class UserViewModel extends RepositoryViewModel<UserRepository> {
         return repository.logout();
     }
 
+    public boolean isEditingName() {
+        return editingName;
+    }
 
+    public void setEditingName(boolean editingName) {
+        this.editingName = editingName;
+    }
+
+    public boolean isEditingEmail() {
+        return editingEmail;
+    }
+
+    public void setEditingEmail(boolean editingEmail) {
+        this.editingEmail = editingEmail;
+    }
 }

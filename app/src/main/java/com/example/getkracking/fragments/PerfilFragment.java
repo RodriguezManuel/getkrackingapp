@@ -38,8 +38,6 @@ public class PerfilFragment extends Fragment {
     private UserViewModel userViewModel;
     private TextView tvName;
 
-    MyApplication application;
-
     private String imageUrl, fullName, userName, email;
 
     public PerfilFragment() {
