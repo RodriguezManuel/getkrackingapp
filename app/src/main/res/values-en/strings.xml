@@ -74,7 +74,7 @@
     <string name="rating_value">"Rating: "</string>
     <string name="rate_this_routine">"Rate the routine: "</string>
     <string name="confirm">Confirm</string>
-    <string name="congratulations_routine_ended">Rutine finished. Congratulations!</string>
+    <string name="congratulations_routine_ended">Routine finished. Congratulations!</string>
     <string name="start">Start</string>
     <string name="time">Time</string>
     <string name="repetitions">Repetitions</string>
@@ -87,4 +87,5 @@
     <string name="seconds_value">Seconds: </string>
     <string name="exercise_execution_exercise_mode">Exercise mode</string>
     <string name="exercise_execution_list_mode">Section mode</string>
+    <string name="execution_mode_value">Execution mode:</string>
 </resources>
