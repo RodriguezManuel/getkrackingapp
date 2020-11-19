@@ -34,7 +34,7 @@ public class PerfilFragment extends Fragment {
 
     private MyApplication application;
     private UserRepository userRepository;
-
+    private TextView tvName;
 
     private String imageUrl, fullName, userName, email;
 
@@ -54,14 +54,12 @@ public class PerfilFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View vista = inflater.inflate(R.layout.fragment_perfil, container, false);
-        TextView tvName = vista.findViewById(R.id.name_perfil);
+        tvName = vista.findViewById(R.id.name_perfil);
 
         application = (MyApplication) getActivity().getApplication();
         userRepository = application.getUserRepository();
 
         fetchUserData();
-
-        tvName.setText(fullName);
 
         Thread loadImage = new Thread(() -> {
             try {
@@ -108,6 +106,7 @@ public class PerfilFragment extends Fragment {
                     Log.d("UI", "Éxito recuperando datos");
 
                     fullName = resource.data.getFullName();
+                    tvName.setText(fullName);
                     userName = resource.data.getUsername();
                     imageUrl = resource.data.getAvatarUrl();
                     email = resource.data.getEmail();

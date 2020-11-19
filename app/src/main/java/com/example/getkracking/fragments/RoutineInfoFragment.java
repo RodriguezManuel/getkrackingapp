@@ -34,7 +34,6 @@ import com.example.getkracking.entities.CycleVO;
 import com.example.getkracking.entities.ExerciseVO;
 import com.example.getkracking.repository.CycleRepository;
 import com.example.getkracking.repository.ExerciseRepository;
-import com.example.getkracking.viewmodels.RoutineInfoViewModel;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -43,7 +42,6 @@ public class RoutineInfoFragment extends Fragment {
 
     RecyclerView cyclesRoutine;
     ArrayList<CycleVO> cyclesList;
-    RoutineInfoViewModel viewModel;
     boolean favorited = false;  //HARDCODEADO OBTENIDO DE API
     int idRoutine;
     CycleRepository cycleRepository;
@@ -120,7 +118,6 @@ public class RoutineInfoFragment extends Fragment {
             puntuacion.setText(String.valueOf(args.getRatingRoutine()));
         }
 
-        viewModel = new ViewModelProvider(this).get(RoutineInfoViewModel.class);
         cyclesRoutine = vista.findViewById(R.id.CyclesRoutine);
         cyclesList = new ArrayList<>();
 
