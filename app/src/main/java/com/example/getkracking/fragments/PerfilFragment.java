@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import android.text.InputType;
@@ -25,6 +26,8 @@ import com.example.getkracking.R;
 import com.example.getkracking.WelcomeActivity;
 import com.example.getkracking.app.MyApplication;
 import com.example.getkracking.repository.UserRepository;
+import com.example.getkracking.viewmodels.RepositoryViewModelFactory;
+import com.example.getkracking.viewmodels.UserViewModel;
 
 import java.net.URL;
 
@@ -32,15 +35,17 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PerfilFragment extends Fragment {
 
-    private MyApplication application;
-    private UserRepository userRepository;
+    private UserViewModel userViewModel;
     private TextView tvName;
+
+    MyApplication application;
 
     private String imageUrl, fullName, userName, email;
 
     public PerfilFragment() {
         // Required empty public constructor
     }
+
 
     @Override
     public void onResume() {
@@ -56,8 +61,8 @@ public class PerfilFragment extends Fragment {
         View vista = inflater.inflate(R.layout.fragment_perfil, container, false);
         tvName = vista.findViewById(R.id.name_perfil);
 
-        application = (MyApplication) getActivity().getApplication();
-        userRepository = application.getUserRepository();
+        RepositoryViewModelFactory viewModelFactory = new RepositoryViewModelFactory(UserRepository.class, ((MyApplication) getActivity().getApplication()).getUserRepository());
+        userViewModel = new ViewModelProvider(this, viewModelFactory).get(UserViewModel.class);
 
         fetchUserData();
 
@@ -89,15 +94,16 @@ public class PerfilFragment extends Fragment {
 
         LinearLayoutCompat logout = vista.findViewById(R.id.LogoutCompat);
 
-
-        performLogout(logout);
+        logout.setOnClickListener(v -> {
+            performLogout();
+        });
 
         return vista;
     }
 
     private void fetchUserData(){
 
-        userRepository.getCurrent().observe(getViewLifecycleOwner(), resource -> {
+        userViewModel.getCurrent().observe(getViewLifecycleOwner(), resource -> {
             switch (resource.status) {
                 case LOADING:
                     Log.d("UI", "awaiting user data");
@@ -119,25 +125,24 @@ public class PerfilFragment extends Fragment {
         });
     }
 
-    private void performLogout(LinearLayoutCompat logout) {
+    private void performLogout(){
 
-        logout.setOnClickListener(v -> {
-            userRepository.logout().observe(getViewLifecycleOwner(), resource -> {
-                switch (resource.status) {
-                    case LOADING:
-                        Log.d("UI", "awaiting");
-                        break;
-                    case SUCCESS:
-                        Log.d("UI", "ALL GOOD :) -- token = " + application.getPreferences().getAuthToken());
-                        Intent welcomeIntent = new Intent(getActivity(), WelcomeActivity.class);
-                        startActivity(welcomeIntent);
-                        getActivity().finish();
-                        break;
-                    case ERROR:
-                        Log.d("UI", "Error al cerrar sesión");
-                        break;
-                }
-            });
+        userViewModel.logout().observe(getViewLifecycleOwner(), resource -> {
+            switch (resource.status) {
+                case LOADING:
+                    Log.d("UI", "awaiting");
+                    break;
+                case SUCCESS:
+                    Log.d("UI", "Cierre de sesión exitoso" );
+                    Intent welcomeIntent = new Intent(getActivity(), WelcomeActivity.class);
+                    startActivity(welcomeIntent);
+                    getActivity().finish();
+                    break;
+                case ERROR:
+                    Log.d("UI", "Error al cerrar sesión");
+                    break;
+            }
         });
     }
+
 }
