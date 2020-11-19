@@ -3,6 +3,8 @@ package com.example.getkracking.viewmodels;
 import android.app.Application;
 import android.content.res.Resources;
 import android.os.CountDownTimer;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -18,7 +20,7 @@ import java.util.List;
 public class RunRoutineViewModel extends AndroidViewModel {
     //Variables para la ejecucion de ejercicios
     private ArrayList<CycleVO> cycles;
-    private int actualCycle, actualExercise;
+    private int actualCycle, actualExercise, routineId;
     private boolean timedExercise;
     private MutableLiveData<String> sectionName = new MutableLiveData<>();
     private MutableLiveData<String> exerciseName = new MutableLiveData<>();
@@ -40,42 +42,26 @@ public class RunRoutineViewModel extends AndroidViewModel {
     }
 
     public List<ExerciseVO> getRemainingExercises() {
-        if(actualCycle == cycles.size())
+        if(cycles == null || actualCycle == cycles.size()) {
+            if(!finishedRoutine.getValue())
+                finishedRoutine.setValue(true);
             return null;
+        }
 
-        return cycles.get(actualCycle).getExercises().subList(actualExercise, cycles.get(actualCycle).getExercises().size());
+        if(cycles.get(actualCycle) == null){
+            actualCycle++;
+            return getRemainingExercises();
+        }
+
+        return cycles.get(actualCycle).getExercises().subList(actualExercise, cycles.get(actualCycle).getExercises().size()-1);
     }
 
-    public MutableLiveData<Boolean> getFinishedExercise() {
-        return finishedExercise;
+    public int getRoutineId() {
+        return routineId;
     }
 
-    public MutableLiveData<Boolean> getFinishedRoutine() {
-        return finishedRoutine;
-    }
-
-    public MutableLiveData<String> getSectionName() {
-        return sectionName;
-    }
-
-    public MutableLiveData<String> getExerciseName() {
-        return exerciseName;
-    }
-
-    public MutableLiveData<String> getExerciseDesc() {
-        return exerciseDesc;
-    }
-
-    public MutableLiveData<String> getExerciseType() {
-        return exerciseType;
-    }
-
-    public MutableLiveData<String> getTimeLeftText() {
-        return timeLeftText;
-    }
-
-    public MutableLiveData<String> getButtonText() {
-        return buttonText;
+    public void setRoutineId(int routineId) {
+        this.routineId = routineId;
     }
 
     public void buttonSelected() {
@@ -87,8 +73,10 @@ public class RunRoutineViewModel extends AndroidViewModel {
         }
     }
 
-    public void setCycles(ArrayList<CycleVO> cycles) {
-        this.cycles = cycles;
+    public void setCycles(List<CycleVO> cyclesaux) {
+        actualCycle = actualExercise = 0;
+        this.cycles = new ArrayList<>();
+        this.cycles.addAll(cyclesaux);
     }
 
     public void runNextExercise() {
@@ -96,6 +84,13 @@ public class RunRoutineViewModel extends AndroidViewModel {
             finishedRoutine.setValue(true);
             return;
         }
+        
+        if(cycles.get(actualCycle) == null || cycles.get(actualCycle).getExercises().size() == 0) {
+            actualCycle++;
+            runNextExercise();
+            return;
+        }
+
         finishedExercise.setValue(false);
         sectionName.setValue(cycles.get(actualCycle).getName());
         exerciseName.setValue(cycles.get(actualCycle).getExercises().get(actualExercise).getName());
@@ -121,6 +116,7 @@ public class RunRoutineViewModel extends AndroidViewModel {
     }
 
     //METODOS PARA EL TIMER
+
     public void startStop() {
         if (timerRunning) {
             stopTimer();
@@ -128,7 +124,6 @@ public class RunRoutineViewModel extends AndroidViewModel {
             startTimer();
         }
     }
-
     public void setCountDownTimer(long exerciseDurationInMiliseconds) {
         timeLeftInMiliseconds = exerciseDurationInMiliseconds;
         timerRunning = false;
@@ -171,5 +166,37 @@ public class RunRoutineViewModel extends AndroidViewModel {
 
         timeLeftTextAux += "" + seconds;
         this.timeLeftText.setValue(timeLeftTextAux);
+    }
+
+    public MutableLiveData<Boolean> getFinishedExercise() {
+        return finishedExercise;
+    }
+
+    public MutableLiveData<Boolean> getFinishedRoutine() {
+        return finishedRoutine;
+    }
+
+    public MutableLiveData<String> getSectionName() {
+        return sectionName;
+    }
+
+    public MutableLiveData<String> getExerciseName() {
+        return exerciseName;
+    }
+
+    public MutableLiveData<String> getExerciseDesc() {
+        return exerciseDesc;
+    }
+
+    public MutableLiveData<String> getExerciseType() {
+        return exerciseType;
+    }
+
+    public MutableLiveData<String> getTimeLeftText() {
+        return timeLeftText;
+    }
+
+    public MutableLiveData<String> getButtonText() {
+        return buttonText;
     }
 }

@@ -96,4 +96,6 @@
     <string name="continue_string">Continuar</string>
     <string name="repetitions_value">Repeticiones: </string>
     <string name="seconds_value">Segundos: </string>
+    <string name="exercise_execution_exercise_mode">Modo ejercicio</string>
+    <string name="exercise_execution_list_mode">Modo secciones</string>
 </resources>

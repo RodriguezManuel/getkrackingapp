@@ -26,6 +26,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class RunRoutineFragment extends Fragment {
     //para desactivarlos mientras se ejecuta la rutina
@@ -46,6 +47,12 @@ public class RunRoutineFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         viewModel = new ViewModelProvider(this).get(RunRoutineViewModel.class);
+
+        if (getArguments() != null) {
+            RunRoutineFragmentArgs args = RunRoutineFragmentArgs.fromBundle(getArguments());
+            viewModel.setCycles(Arrays.asList(args.getCycles()));
+            viewModel.setRoutineId(args.getIdRoutine());
+        }
 
         // Inflate the layout for this fragment
         View vista = inflater.inflate(R.layout.fragment_run_routine, container, false);
@@ -70,23 +77,6 @@ public class RunRoutineFragment extends Fragment {
 
         countDownButton.setOnClickListener(v -> viewModel.buttonSelected());
 
-        if (getArguments() != null) {
-        }
-        //CONSEGUIR LISTA DESDE INFOFRAGMENT??
-
-        ArrayList<CycleVO> cycles = new ArrayList<>();
-        ArrayList<ExerciseVO> exercises = new ArrayList<>();
-        exercises.add(new ExerciseVO("SALtos", "PEREPREPREPRperperpeprepr", 16, 0,"A"));
-        exercises.add(new ExerciseVO("PATADAS", "pasdoeokqokpapsdapwda", 5, 0,"A"));
-        exercises.add(new ExerciseVO("nada", "awoelko129ekos;la,dam wadmaw amp   ", 0, 5,"A"));
-        cycles.add(new CycleVO( 1 , "Calentamiento", exercises , 2 ));
-        ArrayList<ExerciseVO> exercises2 = new ArrayList<>();
-        exercises2.add(new ExerciseVO("beto", "aowdlqowdkpqsl,apld,pasl dpaw ", 0, 3,"A"));
-        exercises2.add(new ExerciseVO("mbhertDAS", "dopwk,ospakdmapskdqw", 7, 0,"A"));
-        exercises2.add(new ExerciseVO("betaismo", "dawokdpqwkdpo,asld,aw", 0, 12,"A"));
-        cycles.add(new CycleVO(1 ,"ENFRIAMIENTO", exercises2 , 2));
-
-        viewModel.setCycles(cycles);
         viewModel.runNextExercise();
         return vista;
     }
