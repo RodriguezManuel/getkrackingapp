@@ -47,6 +47,7 @@ public class RoutineInfoFragment extends Fragment {
     private CycleRepository cycleRepository;
     private CyclesAdapter adapter;
     private RoutineInfoViewModel viewModel;
+    private Chip mode;
 
     @Override
     public void onResume() {
@@ -85,7 +86,7 @@ public class RoutineInfoFragment extends Fragment {
         View vista = inflater.inflate(R.layout.routine_info_fragment, container, false);
         viewModel = new ViewModelProvider(getActivity()).get(RoutineInfoViewModel.class);
 
-        Chip mode = vista.findViewById(R.id.execution_mode_chip);
+        mode = vista.findViewById(R.id.execution_mode_chip);
         viewModel.getChipText().observe(getViewLifecycleOwner(), s -> {
             mode.setText(s);
         });
@@ -102,19 +103,6 @@ public class RoutineInfoFragment extends Fragment {
             favorited = args.getFavoritedRoutine();
             idRoutine = args.getIdRoutine();    //PARA HACER EL REQUEST DE CICLOS
             //category?? donde va????
-
-            //seteo de funcionalidades de botones
-            ((Button) vista.findViewById(R.id.ButtonEmpezarInRoutine)).setOnClickListener(v1 -> {
-                if(mode.getText() == getString(R.string.exercise_execution_exercise_mode)) {
-                    RoutineInfoFragmentDirections.ActionRoutineInfoFragmentToRunRoutineListFragment action =
-                            RoutineInfoFragmentDirections.actionRoutineInfoFragmentToRunRoutineListFragment(new CycleVO[cyclesList.size()], idRoutine);
-                    Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(action);
-                }else {
-                    RoutineInfoFragmentDirections.ActionRoutineInfoFragmentToRunRoutineFragment action =
-                            RoutineInfoFragmentDirections.actionRoutineInfoFragmentToRunRoutineFragment(new CycleVO[cyclesList.size()], idRoutine);
-                            Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(action);
-                }
-            });
 
             ImageView favIcon = vista.findViewById(R.id.favoriteIconInfoRoutine);
             favIcon.setOnClickListener((View.OnClickListener) v -> {
@@ -161,7 +149,19 @@ public class RoutineInfoFragment extends Fragment {
 
                     cycle.getExercises().addAll(resource.data);
                     adapter.notifyDataSetChanged();
-
+                    if(cyclesList.indexOf(cycle) == cyclesList.size() -1)
+                        //seteo de funcionalidades de botones
+                        ((Button) getView().findViewById(R.id.ButtonEmpezarInRoutine)).setOnClickListener(v1 -> {
+                            if(mode.getText() == getString(R.string.exercise_execution_exercise_mode)) {
+                                RoutineInfoFragmentDirections.ActionRoutineInfoFragmentToRunRoutineListFragment action =
+                                        RoutineInfoFragmentDirections.actionRoutineInfoFragmentToRunRoutineListFragment(new CycleVO[cyclesList.size()], idRoutine);
+                                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(action);
+                            }else {
+                                RoutineInfoFragmentDirections.ActionRoutineInfoFragmentToRunRoutineFragment action =
+                                        RoutineInfoFragmentDirections.actionRoutineInfoFragmentToRunRoutineFragment(new CycleVO[cyclesList.size()], idRoutine);
+                                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(action);
+                            }
+                        });
                     break;
                 case ERROR:
                     Log.d("UI", "Error en get routines - " + resource.message);

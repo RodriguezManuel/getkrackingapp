@@ -39,7 +39,7 @@ import java.net.URL;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class EditPerfilFragment extends Fragment {
-    EditText name, image;
+    private EditText name, image;
 
     private UserViewModel userViewModel;
 
@@ -70,6 +70,7 @@ public class EditPerfilFragment extends Fragment {
                 Bitmap bm = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
                 ((Activity) getContext()).runOnUiThread(() -> {
                     ((CircleImageView) vista.findViewById(R.id.picture_edit_perfil)).setImageBitmap(bm);
+                    userViewModel.setImageBM(bm);
                 });
 
             } catch (Exception e) {
@@ -106,6 +107,9 @@ public class EditPerfilFragment extends Fragment {
 
         if (getArguments() != null) {
             EditPerfilFragmentArgs args = EditPerfilFragmentArgs.fromBundle(getArguments());
+            userViewModel.setUsername(args.getUsername());
+            userViewModel.setEmail(args.getEmail());
+            userViewModel.setIdUser(args.getIdUser());
             //una vez q consegui los argumentos los seteo en la vista
             name.setText(args.getName());
             image.setText(args.getImage());
@@ -171,6 +175,10 @@ public class EditPerfilFragment extends Fragment {
                     Log.d("UI", "Éxito recuperando datos");
                     name.setText(resource.data.getFullName());
                     image.setText(resource.data.getAvatarUrl());
+                    userViewModel.setUsername(resource.data.getUsername());
+                    userViewModel.setEmail(resource.data.getEmail());
+                    userViewModel.setIdUser(resource.data.getId());
+
                     break;
                 case ERROR:
                     Log.d("UI", "Error en get edición de perfil - " + resource.message);

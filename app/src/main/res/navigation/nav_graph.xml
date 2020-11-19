@@ -112,6 +112,9 @@
         <argument
             android:name="image"
             app:argType="string" />
+        <argument
+            android:name="idUser"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/runRoutineListFragment"

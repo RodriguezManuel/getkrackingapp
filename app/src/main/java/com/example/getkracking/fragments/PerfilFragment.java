@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
@@ -39,6 +40,7 @@ public class PerfilFragment extends Fragment {
     private TextView tvName;
 
     private String imageUrl, fullName, userName, email;
+    private int userId;
 
     public PerfilFragment() {
         // Required empty public constructor
@@ -59,24 +61,14 @@ public class PerfilFragment extends Fragment {
         View vista = inflater.inflate(R.layout.fragment_perfil, container, false);
         tvName = vista.findViewById(R.id.name_perfil);
 
+
         RepositoryViewModelFactory viewModelFactory = new RepositoryViewModelFactory(UserRepository.class, ((MyApplication) getActivity().getApplication()).getUserRepository());
         userViewModel = new ViewModelProvider(this, viewModelFactory).get(UserViewModel.class);
 
         fetchUserData();
 
-        Thread loadImage = new Thread(() -> {
-            try {
-                URL newurl = new URL(imageUrl);
-                Bitmap bm = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
-                ((Activity) getContext()).runOnUiThread(() -> {
-                    ((CircleImageView) vista.findViewById(R.id.picture_perfil)).setImageBitmap(bm);
-                });
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-        loadImage.start();
+        userViewModel.getImageBM().observe(getViewLifecycleOwner(),
+                bitmap -> ((CircleImageView) vista.findViewById(R.id.picture_perfil)).setImageBitmap(bitmap));
 
         LinearLayoutCompat editPerfil = vista.findViewById(R.id.EditProfileCompat);
         editPerfil.setOnClickListener(v1 -> {
@@ -84,7 +76,8 @@ public class PerfilFragment extends Fragment {
                     tvName.getText().toString(),
                     userName,
                     email,
-                    imageUrl
+                    imageUrl,
+                    userId
             );
 
             Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(action);
@@ -114,7 +107,19 @@ public class PerfilFragment extends Fragment {
                     userName = resource.data.getUsername();
                     imageUrl = resource.data.getAvatarUrl();
                     email = resource.data.getEmail();
+                    userId = resource.data.getId();
 
+                    Thread loadImage = new Thread(() -> {
+                        try {
+                            URL newurl = new URL(imageUrl);
+                            Bitmap bm = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
+                            ((Activity) getContext()).runOnUiThread(() -> userViewModel.setImageBM(bm));
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    });
+                    loadImage.start();
                     break;
                 case ERROR:
                     Log.d("UI", "Error en get edición de perfil - " + resource.message);

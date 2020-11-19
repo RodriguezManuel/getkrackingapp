@@ -84,7 +84,7 @@ public class RunRoutineViewModel extends AndroidViewModel {
             finishedRoutine.setValue(true);
             return;
         }
-        
+
         if(cycles.get(actualCycle) == null || cycles.get(actualCycle).getExercises().size() == 0) {
             actualCycle++;
             runNextExercise();

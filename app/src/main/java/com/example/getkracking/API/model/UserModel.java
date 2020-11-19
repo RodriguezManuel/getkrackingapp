@@ -5,8 +5,6 @@ package com.example.getkracking.API.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
-
 public class UserModel {
 
     @SerializedName("id")

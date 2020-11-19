@@ -1,9 +1,11 @@
 package com.example.getkracking.viewmodels;
 
+import android.graphics.Bitmap;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.getkracking.API.model.UserModel;
 import com.example.getkracking.R;
@@ -14,8 +16,9 @@ import com.example.getkracking.vo.Resource;
 
 public class UserViewModel extends RepositoryViewModel<UserRepository> {
     private boolean editingName = false, editingEmail = false;
-
-    private MediatorLiveData<Resource<UserVO>> userData;
+    private String username, email;
+    private int idUser;
+    private MutableLiveData<Bitmap> imageBM = new MutableLiveData<>();
 
     public UserViewModel(UserRepository repository) {
         super(repository);
@@ -26,11 +29,19 @@ public class UserViewModel extends RepositoryViewModel<UserRepository> {
     }
 
     public LiveData<Resource<UserVO>> updateUser(String fullname, String image) {
-        return repository.updateUser(fullname, image);
+        return repository.updateUser(fullname, image, fullname, email, idUser);
     }
 
     public LiveData<Resource<Void>> logout(){
         return repository.logout();
+    }
+
+    public MutableLiveData<Bitmap> getImageBM() {
+        return imageBM;
+    }
+
+    public void setImageBM(Bitmap imageBM) {
+        this.imageBM.setValue(imageBM);
     }
 
     public boolean isEditingName() {
@@ -47,5 +58,29 @@ public class UserViewModel extends RepositoryViewModel<UserRepository> {
 
     public void setEditingEmail(boolean editingEmail) {
         this.editingEmail = editingEmail;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
     }
 }
