@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".fragments.RoutineInfoFragment">
 
     <androidx.core.widget.NestedScrollView
@@ -61,18 +61,19 @@
                 android:orientation="vertical"
                 app:layout_constraintGuide_begin="205dp" />
 
+
             <Button
                 android:id="@+id/ButtonEmpezarInRoutine"
                 style="@style/customTextNoSpecificCaseLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:backgroundTint="#FBAC31"
                 android:backgroundTintMode="src_in"
                 android:text="@string/buttonstart_routine"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.94"
+                app:layout_constraintHorizontal_bias="0.943"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/RoutineImageInRoutine" />
 
@@ -87,19 +88,29 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <com.google.android.material.chip.Chip
+                android:id="@+id/execution_mode_chip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                style="@style/customTextNoSpecificCaseLayout"
+                app:chipBackgroundColor="@drawable/selectedchip"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ButtonEmpezarInRoutine" />
+
             <TextView
                 android:id="@+id/RoutineDescriptionInRoutine"
                 style="@style/customTextNoSpecificCaseLayout"
                 android:layout_width="377dp"
                 android:layout_height="74dp"
                 android:layout_margin="8dp"
-                android:layout_marginTop="16dp"
                 android:background="@drawable/text_border"
                 android:padding="3dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.484"
+                app:layout_constraintHorizontal_bias="0.529"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ButtonEmpezarInRoutine" />
+                app:layout_constraintTop_toBottomOf="@+id/execution_mode_chip" />
 
             <TextView
                 android:id="@+id/RoutineCategory1InRoutine"
@@ -208,7 +219,8 @@
                 app:layout_constraintTop_toTopOf="@+id/RoutineCategory4InRoutine" />
 
             <LinearLayout
-                android:layout_width="205dp"
+                android:id="@+id/linearLayout"
+                android:layout_width="240dp"
                 android:layout_height="49dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
@@ -227,12 +239,12 @@
 
                 <TextView
                     android:id="@+id/rating_value_info_routine"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
                     style="@style/customTextNoSpecificCaseLayout"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="8dp"/>
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp" />
             </LinearLayout>
 
             <androidx.appcompat.widget.LinearLayoutCompat

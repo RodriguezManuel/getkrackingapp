@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.getkracking.HomeActivity;
 import com.example.getkracking.R;
@@ -30,6 +31,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class RunRoutineListFragment extends Fragment {
     private BottomAppBar bottomAppBar;
@@ -57,10 +60,16 @@ public class RunRoutineListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        viewModel = new ViewModelProvider(this).get(RunRoutineViewModel.class);
-
+        viewModel = new ViewModelProvider(getActivity()).get(RunRoutineViewModel.class);
         // Inflate the layout for this fragment
         View vista = inflater.inflate(R.layout.fragment_run_routine_list, container, false);
+
+        if (getArguments() != null) {
+            RunRoutineListFragmentArgs args = RunRoutineListFragmentArgs.fromBundle(getArguments());
+            viewModel.setCycles(Arrays.asList(args.getCycles()));
+            viewModel.setRoutineId(args.getIdRoutine());
+        }
+
         countDownText = vista.findViewById(R.id.timerInRunListRoutine);
         countDownButton = vista.findViewById(R.id.buttonInRunListRoutine);
 
@@ -79,37 +88,19 @@ public class RunRoutineListFragment extends Fragment {
         });
         viewModel.getFinishedExercise().observe(getViewLifecycleOwner(), bool -> {
             if (remainingExercises.isEmpty()) {    //nuevo ciclo
-                if(viewModel.getRemainingExercises() != null) {
+                if (viewModel.getRemainingExercises() != null) {
                     remainingExercises = new ArrayList<>(viewModel.getRemainingExercises());
                     adapter = new ExercisesAdapter(remainingExercises);
                     recyclerExercises.setAdapter(adapter);
                     recyclerExercises.setNestedScrollingEnabled(false);
                 }
-            } else if(!bool){
+            } else if (!bool) {
                 remainingExercises.remove(0);
                 adapter.notifyItemRemoved(0);
             }
         });
 
         countDownButton.setOnClickListener(v -> viewModel.buttonSelected());
-
-        if (getArguments() != null) {
-        }
-        //CONSEGUIR LISTA DESDE INFOFRAGMENT??
-
-        ArrayList<CycleVO> cycles = new ArrayList<>();
-        ArrayList<ExerciseVO> exercises = new ArrayList<>();
-        exercises.add(new ExerciseVO("SALtos", "PEREPREPREPRperperpeprepr", 16, 0,"A"));
-        exercises.add(new ExerciseVO("PATADAS", "pasdoeokqokpapsdapwda", 5, 0,"A"));
-        exercises.add(new ExerciseVO("nada", "awoelko129ekos;la,dam wadmaw amp   ", 0, 5,"A"));
-        cycles.add(new CycleVO( 1 , "Calentamiento", exercises , 1));
-        ArrayList<ExerciseVO> exercises2 = new ArrayList<>();
-        exercises2.add(new ExerciseVO("beto", "aowdlqowdkpqsl,apld,pasl dpaw ", 0, 3,"A"));
-        exercises2.add(new ExerciseVO("mbhertDAS", "dopwk,ospakdmapskdqw", 7, 0,"A"));
-        exercises2.add(new ExerciseVO("betaismo", "dawokdpqwkdpo,asld,aw", 0, 12,"A"));
-        cycles.add(new CycleVO(2 ,"ENFRIAMIENTO", exercises2 , 2));
-
-        viewModel.setCycles(cycles);
         return vista;
     }
 
@@ -119,7 +110,7 @@ public class RunRoutineListFragment extends Fragment {
     }
 
     private void openEndDialog() {
-        EndedRoutineDialog dialog = new EndedRoutineDialog();
+        EndedRoutineDialog dialog = new EndedRoutineDialog(viewModel.getRoutineId());
         dialog.show(getActivity().getSupportFragmentManager(), "Routine ended");
     }
 
@@ -147,14 +138,18 @@ public class RunRoutineListFragment extends Fragment {
         bottomNavigationView.setVisibility(View.GONE);
         homeButton.setVisibility(View.GONE);
 
-        //seteo recyclerview
-        remainingExercises = new ArrayList<>(viewModel.getRemainingExercises());
-        adapter = new ExercisesAdapter(remainingExercises);
-        recyclerExercises.setAdapter(adapter);
-        recyclerExercises.setNestedScrollingEnabled(false);
+        List<ExerciseVO> aux = viewModel.getRemainingExercises();
+        //seteo recyclerview si no termino
+        if (aux != null && !viewModel.getFinishedRoutine().getValue()) {
+            remainingExercises = new ArrayList<>();
+            remainingExercises.addAll(aux);
+            adapter = new ExercisesAdapter(remainingExercises);
+            recyclerExercises.setAdapter(adapter);
+            recyclerExercises.setNestedScrollingEnabled(false);
 
-        //arranca rutina
-        viewModel.runNextExercise();
+            //arranca rutina
+            viewModel.runNextExercise();
+        }
     }
 
     @Override
@@ -166,5 +161,4 @@ public class RunRoutineListFragment extends Fragment {
         bottomNavigationView.setVisibility(View.VISIBLE);
         homeButton.setVisibility(View.VISIBLE);
     }
-
 }

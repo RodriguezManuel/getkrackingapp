@@ -34,6 +34,7 @@ public class ConfirmationDialog extends AppCompatDialogFragment {
         View view = inflater.inflate(R.layout.dialog_emailconfirmation, null);
 
         builder.setView(view).setTitle(R.string.email_confirmation).setNegativeButton(R.string.confirmation_close_dialog, (dialog, which) -> {
+            // ROUTINE ID ESTA EN LA VARIABLE DE LA CLASE
             //no pasa nada
         }).setPositiveButton(R.string.confirmation_done_dialog, (dialog, which) -> {
             //nada por que despues se sobreescribe

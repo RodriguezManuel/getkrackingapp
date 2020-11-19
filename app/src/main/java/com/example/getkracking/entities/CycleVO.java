@@ -1,8 +1,11 @@
 package com.example.getkracking.entities;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
-public class CycleVO {
+public class CycleVO implements Parcelable {
 
     private String name;
     private ArrayList<ExerciseVO> exercises;
@@ -46,5 +49,36 @@ public class CycleVO {
 
     public ArrayList<ExerciseVO> getExercises() {
         return exercises;
+    }
+
+    //METODOS PARA EL NAVIGATION ENTRE INFORUTINA Y EJECUCION
+    protected CycleVO(Parcel in) {
+        name = in.readString();
+        order = in.readInt();
+        id = in.readInt();
+    }
+
+    public static final Creator<CycleVO> CREATOR = new Creator<CycleVO>() {
+        @Override
+        public CycleVO createFromParcel(Parcel in) {
+            return new CycleVO(in);
+        }
+
+        @Override
+        public CycleVO[] newArray(int size) {
+            return new CycleVO[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeInt(order);
+        dest.writeInt(id);
     }
 }

@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Getkracking"
         android:networkSecurityConfig="@xml/network_security_config">
-        <activity android:name=".HomeActivity" />
+        <activity android:name=".HomeActivity" android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".WelcomeActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

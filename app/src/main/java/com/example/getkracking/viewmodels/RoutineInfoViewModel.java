@@ -1,23 +1,28 @@
 package com.example.getkracking.viewmodels;
 
-import androidx.lifecycle.ViewModel;
+import android.app.Application;
 
-import com.example.getkracking.entities.ExerciseVO;
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.MutableLiveData;
 
-import java.util.ArrayList;
+import com.example.getkracking.R;
 
-public class RoutineInfoViewModel extends ViewModel {
-    ArrayList<ExerciseVO> excercisesList = new ArrayList<>();
+public class RoutineInfoViewModel extends AndroidViewModel {
+    MutableLiveData<String> chipText = new MutableLiveData<>();
 
-    public ArrayList<ExerciseVO> getExcercisesList() {
-        fillList();
-        return excercisesList;
+    public RoutineInfoViewModel(@NonNull Application application) {
+        super(application);
+        chipText.setValue(getApplication().getResources().getString(R.string.exercise_execution_exercise_mode));
     }
 
-    private void fillList(){
-        //HARDCODEADO CONECTAR A API
-        excercisesList.add(new ExerciseVO("Sentadillas","asdawldql[qs[d;qsdq", 40, 0,"A"));
-        excercisesList.add(new ExerciseVO("Abominables", "dqpdwd[lsadl qla psd  asl [p",0, 50,"A"));
-        excercisesList.add(new ExerciseVO("Los de culo", "sadoqwdk pq ksdpq o qk p ",0, 20,"A"));
+    public MutableLiveData<String> getChipText() {
+        return chipText;
+    }
+
+    public void changeChipText() {
+        if(chipText.getValue().equals(getApplication().getResources().getString(R.string.exercise_execution_exercise_mode)))
+            chipText.setValue(getApplication().getResources().getString(R.string.exercise_execution_list_mode));
+        else chipText.setValue(getApplication().getResources().getString(R.string.exercise_execution_exercise_mode));
     }
 }
