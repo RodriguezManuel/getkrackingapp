@@ -5,14 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/secondary"
-    tools:context=".fragments.WelcomeLoginFragment">
+    tools:context=".fragments.WelcomeRegisterFragment">
 
     <EditText
-        android:id="@+id/etUsername_login"
-        android:layout_width="275dp"
-        android:layout_height="33dp"
+        android:id="@+id/etUsername_register"
+        android:layout_width="495dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="96dp"
+        android:background="@drawable/custominput"
+        android:hint="@string/username_hint"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:textAppearance="@style/CustomTextUppercaseLayout"
+        app:layout_constraintEnd_toStartOf="@+id/guideline9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etEmail_register"
+        android:layout_width="495dp"
+        android:layout_height="48dp"
         android:layout_marginTop="16dp"
-        android:autoSizeTextType="uniform"
         android:background="@drawable/custominput"
         android:hint="@string/prompt_email"
         android:importantForAutofill="no"
@@ -20,23 +35,23 @@
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
         android:textAppearance="@style/CustomTextUppercaseLayout"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline9"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/etUsername_register" />
 
     <RelativeLayout
-        android:id="@+id/rlpassword_login"
-        android:layout_width="275dp"
-        android:layout_height="33dp"
-        android:layout_marginStart="68dp"
+        android:id="@+id/rlpassword"
+        android:layout_width="495dp"
+        android:layout_height="48dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/custominput"
+        app:layout_constraintEnd_toStartOf="@+id/guideline9"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etUsername_login">
+        app:layout_constraintTop_toBottomOf="@+id/etEmail_register">
 
         <EditText
-            android:id="@+id/etPassword_login"
-            android:layout_width="255dp"
+            android:id="@+id/etPassword_register"
+            android:layout_width="495dp"
             android:layout_height="match_parent"
             android:background="@drawable/cumtominputnostroke"
             android:hint="@string/contrasenia"
@@ -48,53 +63,40 @@
             android:textAppearance="@style/CustomTextUppercaseLayout" />
 
         <TextView
-            android:id="@+id/password_toggle_login"
+            android:id="@+id/password_toggle_register"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_centerVertical="true"
-            android:layout_marginStart="240dp"
+            android:layout_marginStart="450dp"
             android:background="@drawable/ic_eye" />
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/welcome_login_link"
-        android:layout_width="match_parent"
-        android:layout_height="33dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="16dp"
-        android:gravity="center_horizontal"
-        android:text="@string/welcome_login_link"
-        android:textAppearance="@style/customTextNoSpecificCaseLayout"
-        android:textColor="@color/mainbackground"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rlpassword_login" />
-
     <Button
-        android:id="@+id/welcomeButton_login"
+        android:id="@+id/welcomeButton_register"
         android:layout_width="135dp"
         android:layout_height="38dp"
-        android:layout_marginStart="136dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/roundedbutton"
         android:paddingTop="0dp"
-        android:text="@string/login"
+        android:text="@string/register"
         android:textAlignment="center"
         android:textAppearance="@style/customTextNoSpecificCaseLayout"
         android:textColor="@color/primary"
         app:backgroundTint="@color/mainbackground"
+        app:layout_constraintEnd_toStartOf="@+id/guideline9"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcome_login_link" />
+        app:layout_constraintTop_toBottomOf="@+id/rlpassword" />
 
     <TextView
         android:id="@+id/iconFB"
         android:layout_width="30dp"
         android:layout_height="32dp"
-        android:layout_marginStart="32dp"
         android:layout_marginTop="18dp"
         android:background="@drawable/ic_facebook"
         android:backgroundTint="@color/mainbackground"
-        app:layout_constraintStart_toEndOf="@+id/iconGP"
-        app:layout_constraintTop_toBottomOf="@+id/welcomeButton_login" />
+        app:layout_constraintEnd_toEndOf="@+id/welcomeButton_register"
+        app:layout_constraintStart_toStartOf="@+id/welcomeButton_register"
+        app:layout_constraintTop_toBottomOf="@+id/welcomeButton_register" />
 
     <TextView
         android:id="@+id/iconIG"
@@ -105,18 +107,17 @@
         android:background="@drawable/ic_instagram2"
         android:backgroundTint="@color/mainbackground"
         app:layout_constraintStart_toEndOf="@+id/iconFB"
-        app:layout_constraintTop_toBottomOf="@+id/welcomeButton_login" />
+        app:layout_constraintTop_toBottomOf="@+id/welcomeButton_register" />
 
     <TextView
         android:id="@+id/iconGP"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginStart="128dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginEnd="32dp"
         android:background="@drawable/ic_google_plus"
         android:backgroundTint="@color/mainbackground"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcomeButton_login" />
+        app:layout_constraintEnd_toStartOf="@+id/iconFB"
+        app:layout_constraintTop_toTopOf="@+id/iconFB" />
 
     <TextView
         android:id="@+id/welcomeLink"
@@ -124,10 +125,16 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:gravity="center_horizontal"
-        android:text="@string/welcome_link"
         android:textAppearance="@style/customTextNoSpecificCaseLayout"
-        android:textColor="@color/mainbackground"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iconFB" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="640dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
