@@ -122,7 +122,8 @@ public class RoutineInfoFragment extends Fragment {
                     removeFromFavourites(idRoutine);
                 } else {
                     //AGREGAR A FAVORITOS CON LA API
-                    addToFavourites(idRoutine);
+                    //int routineId, String name, String detail, String creator, int rating, int difficulty
+                    addToFavourites(idRoutine, args.getNameRoutine(), args.getDescRoutine(), args.getCreatorRoutine(), (int) args.getRatingRoutine(), args.getDifficultyRoutine());
                 }
             });
 
@@ -142,8 +143,8 @@ public class RoutineInfoFragment extends Fragment {
         return vista;
     }
 
-    private void addToFavourites(int idRoutine) {
-        routineViewModel.addToFavourites(idRoutine).observe(getViewLifecycleOwner(),
+    private void addToFavourites(int routineId, String name, String detail, String creator, int rating, int difficulty) {
+        routineViewModel.addToFavourites(idRoutine, name, detail, creator, rating, difficulty).observe(getViewLifecycleOwner(),
                 resource -> {
                     switch (resource.status) {
                         case LOADING:

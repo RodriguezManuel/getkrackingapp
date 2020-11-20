@@ -18,6 +18,7 @@ import com.example.getkracking.entities.RoutineVO;
 import com.example.getkracking.room.AppDatabase;
 import com.example.getkracking.room.entities.CycleTable;
 import com.example.getkracking.room.entities.ExerciseTable;
+import com.example.getkracking.room.entities.FavouriteRoutineTable;
 import com.example.getkracking.room.entities.RoutineTable;
 import com.example.getkracking.vo.AbsentLiveData;
 import com.example.getkracking.vo.Resource;
@@ -107,7 +108,7 @@ public class RoutineRepository {
 
     public LiveData<Resource<List<RoutineVO>>> getFavouriteRoutines() {
 
-        return new NetworkBoundResource<List<RoutineVO>, List<RoutineTable>, PagedListModel<RoutineModel>>(executors,
+        return new NetworkBoundResource<List<RoutineVO>, List<FavouriteRoutineTable>, PagedListModel<RoutineModel>>(executors,
                 entities -> {
                     return entities.stream()
                             .map(routineEntity -> new RoutineVO(routineEntity.name, routineEntity.detail, routineEntity.creator,
@@ -117,7 +118,7 @@ public class RoutineRepository {
                 },
                 model -> {
                     return model.getResults().stream()
-                            .map(routineModel -> new RoutineTable(routineModel.getId(), routineModel.getName(),
+                            .map(routineModel -> new FavouriteRoutineTable(routineModel.getId(), routineModel.getName(),
                                     routineModel.getDetail(), routineModel.getCreatorModel().getUsername(),
                                     1, routineModel.getAverageRating(), castDifficulty(routineModel.getDifficulty()))
                             ).collect(toList());
@@ -130,16 +131,14 @@ public class RoutineRepository {
                             .collect(toList());
                 }) {
             @Override //no me preocupo por esto, el getAllRoutines lo hace por mi
-            protected void saveCallResult(@NonNull List<RoutineTable> entities) {
+            protected void saveCallResult(@NonNull List<FavouriteRoutineTable> entities) {
                 //saco las rutinas favoritas y las vuelvo a agregar, quizás me las favvearon
-                for (RoutineTable entity : entities) {
-                    database.routineDao().deleteRoutine(entity);
-                    database.routineDao().addRoutine(entity);
-                }
+                database.favouriteRoutineDao().deleteAllFavourites();
+                database.favouriteRoutineDao().insertFavourite(entities);
             }
 
             @Override //siempre hago fetch por si me cambiaron algo
-            protected boolean shouldFetch(@Nullable List<RoutineTable> entities) {
+            protected boolean shouldFetch(@Nullable List<FavouriteRoutineTable> entities) {
                 return ((entities == null) || (entities.size() == 0) || rateLimit.shouldFetch(RATE_LIMITER_ALL_KEY));
             }
 
@@ -150,8 +149,8 @@ public class RoutineRepository {
 
             @NonNull
             @Override //busco de mi base de datos para recuperar las que tengo marcadas
-            protected LiveData<List<RoutineTable>> loadFromDb() {
-                return database.routineDao().getFavouriteRoutines();
+            protected LiveData<List<FavouriteRoutineTable>> loadFromDb() {
+                return database.favouriteRoutineDao().getFavouriteRoutines();
             }
 
             @NonNull
@@ -162,18 +161,17 @@ public class RoutineRepository {
         }.asLiveData();
     }
 
-    public LiveData<Resource<Void>> addToFavourites(int routineId) {
+    public LiveData<Resource<Void>> addToFavourites(int routineId, String name, String detail, String creator, int rating, int difficulty) {
         return new NetworkBoundResource<Void, Void, Void>(executors,
                 table -> null,
                 model -> null,
                 model -> null
         )
         {
-
-
             @Override
             protected void saveCallResult(@NonNull Void entity) {
-
+                database.favouriteRoutineDao().addFavouriteRoutine(new FavouriteRoutineTable(routineId,
+                        name, detail, creator, 1, rating, difficulty));
             }
 
             @Override
@@ -183,7 +181,7 @@ public class RoutineRepository {
 
             @Override
             protected boolean shouldPersist(@Nullable Void model) {
-                return false;
+                return true;
             }
 
             @NonNull

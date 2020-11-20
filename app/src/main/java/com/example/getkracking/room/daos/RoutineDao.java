@@ -22,9 +22,6 @@ public interface  RoutineDao {
     @Query("select * from routineTable where id = :myid")
     LiveData<RoutineTable> getRoutineById(int myid);
 
-    @Query("select * from routineTable where favourite = 1")
-    LiveData<List<RoutineTable>> getFavouriteRoutines();
-
     @Insert
     void addRoutine(RoutineTable ... routine);
 

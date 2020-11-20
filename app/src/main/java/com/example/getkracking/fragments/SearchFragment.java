@@ -1,10 +1,9 @@
 package com.example.getkracking.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,20 +14,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.getkracking.API.ApiClient;
-import com.example.getkracking.API.ApiRoutineService;
 import com.example.getkracking.HomeActivity;
 import com.example.getkracking.R;
 import com.example.getkracking.adapters.RoutinesAdapter;
 import com.example.getkracking.app.MyApplication;
 import com.example.getkracking.entities.RoutineVO;
 import com.example.getkracking.repository.RoutineRepository;
-import com.example.getkracking.repository.UserRepository;
 import com.example.getkracking.viewmodels.RepositoryViewModelFactory;
-import com.example.getkracking.viewmodels.RoutineInfoViewModel;
 import com.example.getkracking.viewmodels.SearchViewModel;
-import com.example.getkracking.vo.Resource;
-import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
 import java.util.ArrayList;
@@ -60,7 +53,7 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
         recyclerRoutines.setAdapter(adapter);
         recyclerRoutines.setNestedScrollingEnabled(false);
 
-        if(!searchViewModel.getRoutines().hasActiveObservers()) {
+        if (!searchViewModel.getRoutines().hasActiveObservers()) {
             searchViewModel.getRoutines().observe(getViewLifecycleOwner(), resource -> {
                 switch (resource.status) {
                     case LOADING:
@@ -68,6 +61,8 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
                         break;
                     case SUCCESS:
                         Log.d("UI", "Éxito recuperando rutinas");
+
+                        routinesList.addAll(resource.data);
 
                         if (!searchViewModel.getFavouriteRoutines().hasActiveObservers()) {
                             searchViewModel.getFavouriteRoutines().observe(getViewLifecycleOwner(), favresource -> {
@@ -77,21 +72,16 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
                                         break;
                                     case SUCCESS:
                                         Log.d("UI", "Éxito recuperando rutinas favoritas");
-                                        favRoutines.addAll(favresource.data);
 
-                                        for (RoutineVO routine : resource.data) {
-                                            if (favRoutines.size() > 0) {
-                                                for (RoutineVO favRoutine : favRoutines) {
+                                        if (favresource.data.size() > 0) {
+                                            for (RoutineVO routine : routinesList) {
+                                                for (RoutineVO favRoutine : favresource.data) {
                                                     if (routine.getId() == favRoutine.getId()) {
                                                         Log.d("UI", "MATCH!");
-                                                        routinesList.add(favRoutine); //TODO: chequear que levante bien si está fav
-                                                    } else {
-                                                        routinesList.add(routine);
+                                                        routine.setFavorited(true);
+                                                        break;
                                                     }
-                                                    break;
                                                 }
-                                            } else {
-                                                routinesList.add(routine);
                                             }
                                         }
 
@@ -104,8 +94,6 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
                                 }
                             });
                         }
-
-
                         break;
                     case ERROR:
                         Log.d("UI", "Error en get routines - " + resource.message);
@@ -116,12 +104,14 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View vista = inflater.inflate(R.layout.fragment_search, container, false);
-
-        RepositoryViewModelFactory viewModelFactory = new RepositoryViewModelFactory(RoutineRepository.class, ((MyApplication) getActivity().getApplication()).getRoutineRepository());
-        searchViewModel = new ViewModelProvider(this, viewModelFactory).get(SearchViewModel.class);
 
         //chip de filtros
         ChipGroup filters = vista.findViewById(R.id.chipgroup_filterSearch);
@@ -137,13 +127,16 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
             }
         });
 
-        //lista rutinas
-        routinesList = new ArrayList<>();
         recyclerRoutines = vista.findViewById(R.id.recyclerSearchRoutines);
         recyclerRoutines.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        fillList();
+        RepositoryViewModelFactory viewModelFactory = new RepositoryViewModelFactory(RoutineRepository.class, ((MyApplication) getActivity().getApplication()).getRoutineRepository());
+        searchViewModel = new ViewModelProvider(this, viewModelFactory).get(SearchViewModel.class);
 
+        //lista rutinas
+        routinesList = new ArrayList<>();
+
+        fillList();
         return vista;
     }
 
@@ -159,5 +152,12 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
         action.setDifficultyRoutine(routinesList.get(position).getLevelCategory1());
         //falta rating
         Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(action);
+    }
+
+    @Override
+    public void onStop() {
+        searchViewModel.getFavouriteRoutines().removeObservers(getViewLifecycleOwner());
+        searchViewModel.getRoutines().removeObservers(getViewLifecycleOwner());
+        super.onStop();
     }
 }

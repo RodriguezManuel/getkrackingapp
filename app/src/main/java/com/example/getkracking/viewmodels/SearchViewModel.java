@@ -21,14 +21,6 @@ public class SearchViewModel extends RepositoryViewModel<RoutineRepository> {
         return repository.getRoutines();
     }
 
-    public LiveData<Resource<Void>> addToFavourites(int routineId) {
-        return repository.addToFavourites(routineId);
-    }
-
-    public LiveData<Resource<Void>> removeFromFavourites(int routineId) {
-        return repository.removeFromFavourites(routineId);
-    }
-
     public LiveData<Resource<List<RoutineVO>>> getFavouriteRoutines() {
         return repository.getFavouriteRoutines();
     }
