@@ -33,6 +33,10 @@ public class ConfirmationDialog extends AppCompatDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_emailconfirmation, null);
 
+        view.findViewById(R.id.buttonResendVerification).setOnClickListener(v -> {
+            //TODO: IMPLEMENTAR LLAMADO A RESEND DE API
+        });
+
         builder.setView(view).setTitle(R.string.email_confirmation).setNegativeButton(R.string.confirmation_close_dialog, (dialog, which) -> {
             // ROUTINE ID ESTA EN LA VARIABLE DE LA CLASE
             //no pasa nada
