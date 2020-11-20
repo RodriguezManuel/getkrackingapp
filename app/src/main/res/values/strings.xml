@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">getkracking</string>
+    <string name="app_name">Get Kracking</string>
     <string name="logo_get_krackin">Logo Get Krackin</string>
     <string name="title_activity_welcome" translatable="false">WelcomeActivity</string>
     <string name="tab_text_1">Ingresar</string>
@@ -101,4 +101,6 @@
     <string name="edit_perfil">Editar Perfil</string>
     <string name="resend_email_verification">Reenviar codigo</string>
     <string name="execution_mode_value">Modo de ejecucion:</string>
+<!--    String que se muestra cuando usas el link de una rutina-->
+    <string name="share_label">Ver rutina</string>
 </resources>

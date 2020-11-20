@@ -6,27 +6,35 @@
     android:layout_height="match_parent"
     tools:context=".WelcomeActivity">
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/vpwelcome"
-        android:layout_width="365dp"
-        android:layout_height="412dp"
-        android:background="@color/secondary"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="parent">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginStart="92dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        app:layout_constraintStart_toEndOf="@+id/ivwelcome1"
+        tools:layout_editor_absoluteY="0dp">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/white"
+            android:background="@color/white"
+            android:backgroundTint="@color/mainbackground"
             app:tabIndicatorColor="@color/orange"
             app:tabIndicatorHeight="3dp"
             app:tabSelectedTextColor="@color/orange"
             app:tabTextAppearance="@style/customTextNoSpecificCaseLayout" />
-    </androidx.viewpager.widget.ViewPager>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vpwelcome"
+            android:layout_width="365dp"
+            android:layout_height="match_parent"
+            android:background="@color/secondary"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/ivwelcome1"
@@ -44,7 +52,7 @@
         android:layout_width="290dp"
         android:layout_height="55dp"
         android:layout_marginTop="24dp"
-        android:fontFamily="@font/notosans_regular"
+        style="@style/customTextNoSpecificCaseLayout"
         android:text="@string/welcome1"
         android:textAlignment="center"
         android:textSize="18sp"

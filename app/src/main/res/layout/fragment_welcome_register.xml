@@ -83,7 +83,7 @@
         android:textAppearance="@style/customTextNoSpecificCaseLayout"
         android:textColor="@color/primary"
         android:text="@string/register"
-        app:backgroundTint="@color/white"
+        app:backgroundTint="@color/mainbackground"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rlpassword"/>
 
@@ -94,6 +94,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="18dp"
         android:background="@drawable/ic_facebook"
+        android:backgroundTint="@color/mainbackground"
         app:layout_constraintStart_toEndOf="@+id/iconGP"
         app:layout_constraintTop_toBottomOf="@+id/welcomeButton_register" />
 
@@ -104,6 +105,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="18dp"
         android:background="@drawable/ic_instagram2"
+        android:backgroundTint="@color/mainbackground"
         app:layout_constraintStart_toEndOf="@+id/iconFB"
         app:layout_constraintTop_toBottomOf="@+id/welcomeButton_register" />
 
@@ -114,6 +116,7 @@
         android:layout_marginStart="128dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/ic_google_plus"
+        android:backgroundTint="@color/mainbackground"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcomeButton_register" />
 

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
@@ -26,19 +27,18 @@ import com.example.getkracking.app.MyApplication;
 import com.example.getkracking.app.MyPreferences;
 import com.example.getkracking.dialogs.ErrorDialog;
 import com.example.getkracking.repository.UserRepository;
+import com.example.getkracking.viewmodels.WelcomeViewModel;
 
 public class WelcomeLoginFragment extends Fragment {
     EditText username, password;
     private TextView passwordToggle;
     private boolean passwordFlag = false;
-
-
     private MyApplication application;
     private UserRepository userRepository;
+    private String argument;
 
-
-    public WelcomeLoginFragment() {
-        // Required empty public constructor
+    public WelcomeLoginFragment(String argument) {
+        this.argument = argument;
     }
 
     @Override
@@ -51,6 +51,7 @@ public class WelcomeLoginFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_welcome_login, container, false);
+        WelcomeViewModel viewModel = new ViewModelProvider(this).get(WelcomeViewModel.class);
 
         username = v.findViewById(R.id.etUsername_login);  //cambiar id a username xd
         password = v.findViewById(R.id.etPassword_login);
@@ -76,6 +77,8 @@ public class WelcomeLoginFragment extends Fragment {
                             application.getPreferences().setAuthToken(resource.data);
                             Log.d("UI", "ALL GOOD :) -- token = " + application.getPreferences().getAuthToken());
                             Intent homeIntent = new Intent(getActivity(), HomeActivity.class);
+
+                            homeIntent.putExtra("routineId", argument);
                             startActivity(homeIntent);
                             getActivity().finish();
 

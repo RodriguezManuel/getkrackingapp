@@ -30,6 +30,7 @@
     <style name="CustomTextUppercaseLayout" parent="TextAppearance.Design.Tab">
         <item name="font">@font/notosans_regular</item>
         <item name="android:textSize">18dp</item>
+        <item name="android:textColor">@color/primary</item>
     </style>
 
     <style name="CustomRatingBarStyle" parent="Widget.AppCompat.RatingBar">

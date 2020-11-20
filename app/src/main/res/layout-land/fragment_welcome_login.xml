@@ -63,7 +63,7 @@
         android:gravity="center_horizontal"
         android:text="@string/welcome_login_link"
         android:textAppearance="@style/customTextNoSpecificCaseLayout"
-        android:textColor="@color/white"
+        android:textColor="@color/mainbackground"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rlpassword_login" />
@@ -79,7 +79,7 @@
         android:textAlignment="center"
         android:textAppearance="@style/customTextNoSpecificCaseLayout"
         android:textColor="@color/primary"
-        app:backgroundTint="@color/white"
+        app:backgroundTint="@color/mainbackground"
         app:layout_constraintEnd_toEndOf="@+id/welcome_login_link"
         app:layout_constraintStart_toStartOf="@+id/welcome_login_link"
         app:layout_constraintTop_toBottomOf="@+id/welcome_login_link" />
@@ -91,6 +91,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="18dp"
         android:background="@drawable/ic_facebook"
+        android:backgroundTint="@color/mainbackground"
         app:layout_constraintStart_toEndOf="@+id/iconGP"
         app:layout_constraintTop_toBottomOf="@+id/welcomeButton_login" />
 
@@ -101,6 +102,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="18dp"
         android:background="@drawable/ic_instagram2"
+        android:backgroundTint="@color/mainbackground"
         app:layout_constraintStart_toEndOf="@+id/iconFB"
         app:layout_constraintTop_toBottomOf="@+id/welcomeButton_login" />
 
@@ -111,6 +113,7 @@
         android:layout_marginStart="108dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/ic_google_plus"
+        android:backgroundTint="@color/mainbackground"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcomeButton_login" />
 
@@ -121,8 +124,8 @@
         android:layout_marginTop="36dp"
         android:gravity="center_horizontal"
         android:text="@string/welcome_link"
+        android:textColor="@color/mainbackground"
         android:textAppearance="@style/customTextNoSpecificCaseLayout"
-        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/iconIG"
         app:layout_constraintStart_toStartOf="@+id/iconGP"
         app:layout_constraintTop_toBottomOf="@+id/iconFB" />
