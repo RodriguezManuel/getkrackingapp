@@ -10,7 +10,7 @@
         android:id="@+id/homeTopBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/primary"
+        android:background="@color/secondarybackground"
         app:menu="@menu/topbarmenu"
         app:titleTextColor="@color/white" />
 
@@ -31,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        app:backgroundTint="@color/primary"
+        app:backgroundTint="@color/secondarybackground"
         app:fabCradleMargin="8dp"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">

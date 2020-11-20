@@ -13,4 +13,6 @@
     <color name="orange">#FFFBAC31</color>
     <color name="red">#FFF83D61</color>
     <color name="mainbackground">#FFFFFFFF</color>
+    <color name="secondarybackground">#FF868686</color>
+    <color name="thirdbackground">#FFDCDCDC</color>
 </resources>

@@ -37,6 +37,10 @@ public class WelcomeLoginFragment extends Fragment {
     private UserRepository userRepository;
     private String argument;
 
+    public WelcomeLoginFragment() {
+        //constructor vacio necesario
+    }
+
     public WelcomeLoginFragment(String argument) {
         this.argument = argument;
     }
@@ -52,6 +56,8 @@ public class WelcomeLoginFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_welcome_login, container, false);
         WelcomeViewModel viewModel = new ViewModelProvider(this).get(WelcomeViewModel.class);
+        if(argument != null)
+            viewModel.setArgument(argument);
 
         username = v.findViewById(R.id.etUsername_login);  //cambiar id a username xd
         password = v.findViewById(R.id.etPassword_login);
@@ -78,7 +84,7 @@ public class WelcomeLoginFragment extends Fragment {
                             Log.d("UI", "ALL GOOD :) -- token = " + application.getPreferences().getAuthToken());
                             Intent homeIntent = new Intent(getActivity(), HomeActivity.class);
 
-                            homeIntent.putExtra("routineId", argument);
+                            homeIntent.putExtra("routineId", viewModel.getArgument());
                             startActivity(homeIntent);
                             getActivity().finish();
 
