@@ -12,6 +12,7 @@ import com.example.getkracking.API.model.CycleModel;
 import com.example.getkracking.API.model.ExerciseModel;
 import com.example.getkracking.API.model.PagedListModel;
 import com.example.getkracking.API.model.RoutineModel;
+import com.example.getkracking.R;
 import com.example.getkracking.entities.CycleVO;
 import com.example.getkracking.entities.ExerciseVO;
 import com.example.getkracking.entities.RoutineVO;
@@ -52,6 +53,54 @@ public class RoutineRepository {
         this.cycleRepository = cycleService;
         this.exerciseService = exerciseService;
         this.database = database;
+    }
+
+    public LiveData<Resource<RoutineVO>> getRoutineById(int id) {
+        return new NetworkBoundResource<RoutineVO, RoutineTable, RoutineModel>(executors,
+                table -> {
+                    return new RoutineVO(table.name, table.detail, table.creator,
+                            "placeholder", table.difficulty, 3,
+                            69, id, false, table.rating);
+                },
+                model -> {
+                    return new RoutineTable(id, model.getName(), model.getDetail(),
+                            model.getCreatorModel().getUsername(), 0, model.getAverageRating(),
+                            castDifficulty(model.getDifficulty()));
+                },
+                routineModel -> {
+                    return new RoutineVO(routineModel.getName(), routineModel.getDetail(), routineModel.getCreatorModel().getUsername(),
+                            "placeholder", castDifficulty(routineModel.getDifficulty()), 3,
+                            69, id, false, routineModel.getAverageRating());
+                }
+        ) {
+            @Override
+            protected void saveCallResult(@NonNull RoutineTable entity) {
+                database.routineDao().deleteRoutine(entity);
+                database.routineDao().addRoutine(entity);
+            }
+
+            @Override
+            protected boolean shouldFetch(@Nullable RoutineTable entity) {
+                return true;
+            }
+
+            @Override
+            protected boolean shouldPersist(@Nullable RoutineModel model) {
+                return true;
+            }
+
+            @NonNull
+            @Override
+            protected LiveData<RoutineTable> loadFromDb() {
+                return database.routineDao().getRoutineById(id);
+            }
+
+            @NonNull
+            @Override
+            protected LiveData<ApiResponse<RoutineModel>> createCall() {
+                return routineService.getRoutineById(id);
+            }
+        }.asLiveData();
     }
 
     public LiveData<Resource<List<RoutineVO>>> getRoutines() {
@@ -161,17 +210,16 @@ public class RoutineRepository {
         }.asLiveData();
     }
 
-    public LiveData<Resource<Void>> addToFavourites(int routineId, String name, String detail, String creator, int rating, int difficulty) {
+    public LiveData<Resource<Void>> addToFavourites(RoutineVO routine) {
         return new NetworkBoundResource<Void, Void, Void>(executors,
                 table -> null,
                 model -> null,
                 model -> null
-        )
-        {
+        ) {
             @Override
             protected void saveCallResult(@NonNull Void entity) {
-                database.favouriteRoutineDao().addFavouriteRoutine(new FavouriteRoutineTable(routineId,
-                        name, detail, creator, 1, rating, difficulty));
+                database.favouriteRoutineDao().addFavouriteRoutine(new FavouriteRoutineTable(routine.getId(),
+                        routine.getName(), routine.getDescription(), routine.getCreator(), 1, (int) routine.getRating(), routine.getLevelCategory1()));
             }
 
             @Override
@@ -193,17 +241,18 @@ public class RoutineRepository {
             @NonNull
             @Override
             protected LiveData<ApiResponse<Void>> createCall() {
-                return routineService.addToFavourites(routineId);
+                return routineService.addToFavourites(routine.getId());
             }
         }.asLiveData();
     }
 
-    public LiveData<Resource<Void>> removeFromFavourites(int routineId) {
+    public LiveData<Resource<Void>> removeFromFavourites(RoutineVO routine) {
         return new NetworkBoundResource<Void, Void, Void>(executors, table -> null, model -> null, model -> null) {
 
             @Override
             protected void saveCallResult(@NonNull Void entity) {
-
+                database.favouriteRoutineDao().deleteFavouriteRoutine(new FavouriteRoutineTable(routine.getId(),
+                        routine.getName(), routine.getDescription(), routine.getCreator(), 1, (int) routine.getRating(), routine.getLevelCategory1()));
             }
 
             @Override
@@ -213,7 +262,7 @@ public class RoutineRepository {
 
             @Override
             protected boolean shouldPersist(@Nullable Void model) {
-                return false;
+                return true;
             }
 
             @NonNull
@@ -225,7 +274,7 @@ public class RoutineRepository {
             @NonNull
             @Override
             protected LiveData<ApiResponse<Void>> createCall() {
-                return routineService.removeFromFavourites(routineId);
+                return routineService.removeFromFavourites(routine.getId());
             }
         }.asLiveData();
     }

@@ -143,14 +143,8 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
     @Override
     public void onRoutineClick(int position, String type) {
         SearchFragmentDirections.ActionSearchFragmentToRoutineInfoFragment action = SearchFragmentDirections.actionSearchFragmentToRoutineInfoFragment
-                (routinesList.get(position).getId(), routinesList.get(position).getDescription(), routinesList.get(position).getCreator(), routinesList.get(position).getRating(),
-                        routinesList.get(position).getCategory(), routinesList.get(position).isFavorited());
+                (routinesList.get(position).getId());
 
-
-        // LE PASO LOS ARGUMENTOS QUE NO TIENEN VALOR DEFAULT
-        action.setNameRoutine(routinesList.get(position).getName());
-        action.setDifficultyRoutine(routinesList.get(position).getLevelCategory1());
-        //falta rating
         Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(action);
     }
 

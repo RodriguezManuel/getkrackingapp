@@ -17,6 +17,9 @@ public interface ApiRoutineService {
     @GET("user/current/routines/favourites")
     LiveData<ApiResponse<PagedListModel<RoutineModel>>> getFavouriteRoutines();
 
+    @GET("routines/{routineId}")
+    LiveData<ApiResponse<RoutineModel>> getRoutineById(@Path("routineId") int routineId);
+
     @POST("user/current/routines/{routineId}/favourites")
     LiveData<ApiResponse<Void>> addToFavourites(@Path("routineId") int routineId);
 
