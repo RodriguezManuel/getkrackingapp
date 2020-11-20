@@ -42,13 +42,13 @@ public class RunRoutineViewModel extends AndroidViewModel {
     }
 
     public List<ExerciseVO> getRemainingExercises() {
-        if(cycles == null || actualCycle == cycles.size()) {
-            if(!finishedRoutine.getValue())
+        if (cycles == null || actualCycle == cycles.size()) {
+            if (!finishedRoutine.getValue())
                 finishedRoutine.setValue(true);
             return null;
         }
 
-        if(cycles.get(actualCycle) == null){
+        if (cycles.get(actualCycle) == null || cycles.get(actualCycle).getExercises().size() == 0) {
             actualCycle++;
             return getRemainingExercises();
         }
@@ -81,17 +81,17 @@ public class RunRoutineViewModel extends AndroidViewModel {
 
     public void runNextExercise() {
         if (cycles == null || actualCycle == cycles.size()) {
-            finishedRoutine.setValue(true);
+            if (!finishedRoutine.getValue())
+                finishedRoutine.setValue(true);
             return;
         }
 
-        if(cycles.get(actualCycle) == null || cycles.get(actualCycle).getExercises().size() == 0) {
+        if (cycles.get(actualCycle) == null || cycles.get(actualCycle).getExercises().size() == 0) {
             actualCycle++;
             runNextExercise();
             return;
         }
 
-        finishedExercise.setValue(false);
         sectionName.setValue(cycles.get(actualCycle).getName());
         exerciseName.setValue(cycles.get(actualCycle).getExercises().get(actualExercise).getName());
         exerciseDesc.setValue(cycles.get(actualCycle).getExercises().get(actualExercise).getDesc());
@@ -107,6 +107,7 @@ public class RunRoutineViewModel extends AndroidViewModel {
             buttonText.setValue(getApplication().getResources().getString(R.string.continue_string));
             exerciseType.setValue(getApplication().getResources().getString(R.string.repetitions));
         }
+        finishedExercise.setValue(false);
 
         actualExercise++;
         if (actualExercise == cycles.get(actualCycle).getExercises().size()) {
@@ -124,6 +125,7 @@ public class RunRoutineViewModel extends AndroidViewModel {
             startTimer();
         }
     }
+
     public void setCountDownTimer(long exerciseDurationInMiliseconds) {
         timeLeftInMiliseconds = exerciseDurationInMiliseconds;
         timerRunning = false;

@@ -88,13 +88,14 @@ public class RunRoutineListFragment extends Fragment {
         });
         viewModel.getFinishedExercise().observe(getViewLifecycleOwner(), bool -> {
             if (remainingExercises.isEmpty()) {    //nuevo ciclo
-                if (viewModel.getRemainingExercises() != null) {
-                    remainingExercises = new ArrayList<>(viewModel.getRemainingExercises());
+                List<ExerciseVO> aux = viewModel.getRemainingExercises();
+                if (aux != null) {
+                    remainingExercises = new ArrayList<>(aux);
                     adapter = new ExercisesAdapter(remainingExercises);
                     recyclerExercises.setAdapter(adapter);
                     recyclerExercises.setNestedScrollingEnabled(false);
                 }
-            } else if (!bool) {
+            } else if(!bool){
                 remainingExercises.remove(0);
                 adapter.notifyItemRemoved(0);
             }

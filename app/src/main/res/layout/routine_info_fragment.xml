@@ -88,16 +88,34 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/execution_mode_chip"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/linearLayoutAux"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                style="@style/customTextNoSpecificCaseLayout"
-                app:chipBackgroundColor="@drawable/selectedchip"
+                android:orientation="horizontal"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ButtonEmpezarInRoutine" />
+                app:layout_constraintTop_toBottomOf="@+id/ButtonEmpezarInRoutine">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/execution_mode_value"
+                    style="@style/customTextNoSpecificCaseLayout"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/execution_mode_chip"
+                    style="@style/customTextNoSpecificCaseLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="60dp"
+                    android:textColor="@color/black"
+                    android:textAlignment="center"
+                    app:chipBackgroundColor="@drawable/selectedchip" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/RoutineDescriptionInRoutine"
@@ -110,7 +128,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.529"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/execution_mode_chip" />
+                app:layout_constraintTop_toBottomOf="@+id/linearLayoutAux" />
 
             <TextView
                 android:id="@+id/RoutineCategory1InRoutine"
