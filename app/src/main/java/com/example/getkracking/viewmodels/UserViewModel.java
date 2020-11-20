@@ -1,17 +1,12 @@
 package com.example.getkracking.viewmodels;
 
 import android.graphics.Bitmap;
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.getkracking.API.model.UserModel;
-import com.example.getkracking.R;
 import com.example.getkracking.entities.UserVO;
 import com.example.getkracking.repository.UserRepository;
-import com.example.getkracking.room.entities.UserTable;
 import com.example.getkracking.vo.Resource;
 
 public class UserViewModel extends RepositoryViewModel<UserRepository> {
@@ -31,6 +26,10 @@ public class UserViewModel extends RepositoryViewModel<UserRepository> {
     public LiveData<Resource<UserVO>> updateUser(String fullname, String image) {
         return repository.updateUser(fullname, image, fullname, email, idUser);
     }
+
+    public LiveData<Resource<String>> login(String username, String password){ return repository.login(username, password); }
+
+    public LiveData<Resource<UserVO>> register(String username, String email, String password){ return repository.register(username, email, password); }
 
     public LiveData<Resource<Void>> logout(){
         return repository.logout();

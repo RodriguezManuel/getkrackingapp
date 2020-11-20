@@ -1,7 +1,5 @@
 package com.example.getkracking.repository;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
@@ -9,6 +7,7 @@ import androidx.lifecycle.LiveData;
 import com.example.getkracking.API.ApiResponse;
 import com.example.getkracking.API.ApiUserService;
 import com.example.getkracking.API.model.CredentialsModel;
+import com.example.getkracking.API.model.RegisterCredentialsModel;
 import com.example.getkracking.API.model.TokenModel;
 import com.example.getkracking.API.model.UpdateUserModel;
 import com.example.getkracking.API.model.UserModel;
@@ -17,8 +16,6 @@ import com.example.getkracking.room.AppDatabase;
 import com.example.getkracking.room.entities.UserTable;
 import com.example.getkracking.vo.AbsentLiveData;
 import com.example.getkracking.vo.Resource;
-
-import retrofit2.http.Body;
 
 
 public class UserRepository {
@@ -31,6 +28,51 @@ public class UserRepository {
         this.executors = executors;
         this.service = service;
         this.database = database;
+    }
+
+    public LiveData<Resource<UserVO>> register(String username, String email, String password) {
+        return new NetworkBoundResource<UserVO, UserTable, UserModel>
+                (executors, //Convierte UserTable a UserVO - llenar los campos que no vamos a usar
+                        table -> {
+                            return new UserVO(table.id, false, false, table.username, table.fullName, "other", table.email, table.image, "69420", 0, 1, 2);
+                        },
+                        //Convierte UserModel a UserTable
+                        model -> {
+                            return new UserTable(model.getId(), model.getUsername(), model.getAvatarUrl(), model.getFullName(), model.getEmail());
+                        },
+                        //Convierte UserModel a UserVO
+                        model -> {
+                            return new UserVO(model.getId(), false, false, model.getUsername(), model.getFullName(), "other", model.getEmail(), model.getAvatarUrl(), "69420", 0, 1, 2);
+                        }) {
+
+            @Override
+            protected void saveCallResult(@NonNull UserTable entity) {
+                database.userDao().insert(entity);
+            }
+
+            @Override
+            protected boolean shouldFetch(@Nullable UserTable entity) {
+                return true;
+            }
+
+            @Override
+            protected boolean shouldPersist(@Nullable UserModel model) {
+                return false;
+            }
+
+            @NonNull
+            @Override
+            protected LiveData<UserTable> loadFromDb() {
+                return database.userDao().getUser();
+            }
+
+            @NonNull
+            @Override
+            protected LiveData<ApiResponse<UserModel>> createCall() {
+                return service.register(new RegisterCredentialsModel
+                        (username, password, username, "other", 2L, email, "0303456", "http://icons.iconseeker.com/png/fullsize/live-messenger-icon/live-messenger-green.png"));
+            }
+        }.asLiveData();
     }
 
     public LiveData<Resource<String>> login(String username, String password) {

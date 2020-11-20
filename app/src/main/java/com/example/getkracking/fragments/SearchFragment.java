@@ -21,16 +21,15 @@ import com.example.getkracking.app.MyApplication;
 import com.example.getkracking.entities.RoutineVO;
 import com.example.getkracking.repository.RoutineRepository;
 import com.example.getkracking.viewmodels.RepositoryViewModelFactory;
-import com.example.getkracking.viewmodels.SearchViewModel;
+import com.example.getkracking.viewmodels.RoutinesViewModel;
 import com.google.android.material.chip.ChipGroup;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutineListener {
     RecyclerView recyclerRoutines;
     ArrayList<RoutineVO> routinesList;
-    SearchViewModel searchViewModel;
+    RoutinesViewModel routinesViewModel;
     RoutinesAdapter adapter;
 
     public SearchFragment() {
@@ -46,15 +45,12 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
     }
 
     private void fillList() {
-
-        List<RoutineVO> favRoutines = new ArrayList<>();
-
         adapter = new RoutinesAdapter(routinesList, this, null);
         recyclerRoutines.setAdapter(adapter);
         recyclerRoutines.setNestedScrollingEnabled(false);
 
-        if (!searchViewModel.getRoutines().hasActiveObservers()) {
-            searchViewModel.getRoutines().observe(getViewLifecycleOwner(), resource -> {
+        if (!routinesViewModel.getRoutines().hasActiveObservers()) {
+            routinesViewModel.getRoutines().observe(getViewLifecycleOwner(), resource -> {
                 switch (resource.status) {
                     case LOADING:
                         Log.d("UI", "awaiting routines");
@@ -64,8 +60,8 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
 
                         routinesList.addAll(resource.data);
 
-                        if (!searchViewModel.getFavouriteRoutines().hasActiveObservers()) {
-                            searchViewModel.getFavouriteRoutines().observe(getViewLifecycleOwner(), favresource -> {
+                        if (!routinesViewModel.getFavouriteRoutines().hasActiveObservers()) {
+                            routinesViewModel.getFavouriteRoutines().observe(getViewLifecycleOwner(), favresource -> {
                                 switch (favresource.status) {
                                     case LOADING:
                                         Log.d("UI", "awaiting favourite routines");
@@ -131,7 +127,7 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
         recyclerRoutines.setLayoutManager(new LinearLayoutManager(getContext()));
 
         RepositoryViewModelFactory viewModelFactory = new RepositoryViewModelFactory(RoutineRepository.class, ((MyApplication) getActivity().getApplication()).getRoutineRepository());
-        searchViewModel = new ViewModelProvider(this, viewModelFactory).get(SearchViewModel.class);
+        routinesViewModel = new ViewModelProvider(this, viewModelFactory).get(RoutinesViewModel.class);
 
         //lista rutinas
         routinesList = new ArrayList<>();
@@ -150,8 +146,8 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
 
     @Override
     public void onStop() {
-        searchViewModel.getFavouriteRoutines().removeObservers(getViewLifecycleOwner());
-        searchViewModel.getRoutines().removeObservers(getViewLifecycleOwner());
+        routinesViewModel.getFavouriteRoutines().removeObservers(getViewLifecycleOwner());
+        routinesViewModel.getRoutines().removeObservers(getViewLifecycleOwner());
         super.onStop();
     }
 }
