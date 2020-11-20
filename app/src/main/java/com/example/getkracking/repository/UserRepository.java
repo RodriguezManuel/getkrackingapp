@@ -7,10 +7,12 @@ import androidx.lifecycle.LiveData;
 import com.example.getkracking.API.ApiResponse;
 import com.example.getkracking.API.ApiUserService;
 import com.example.getkracking.API.model.CredentialsModel;
+import com.example.getkracking.API.model.EmailModel;
 import com.example.getkracking.API.model.RegisterCredentialsModel;
 import com.example.getkracking.API.model.TokenModel;
 import com.example.getkracking.API.model.UpdateUserModel;
 import com.example.getkracking.API.model.UserModel;
+import com.example.getkracking.API.model.VerificationModel;
 import com.example.getkracking.entities.UserVO;
 import com.example.getkracking.room.AppDatabase;
 import com.example.getkracking.room.entities.UserTable;
@@ -106,11 +108,74 @@ public class UserRepository {
             }
         }.asLiveData();
     }
-
-    public LiveData<Resource<Void>> logout() {
+    public LiveData<Resource<Void>> verifyEmail(String email , String code){
 
         return new NetworkBoundResource<Void, Void, Void>
                 (executors, null, null, model -> model) {
+
+            @Override
+            protected void saveCallResult(@NonNull Void entity) {
+            }
+
+            @Override
+            protected boolean shouldFetch(@Nullable Void entity) {
+                return true;
+            }
+
+            @Override
+            protected boolean shouldPersist(@Nullable Void model) {
+                return false;
+            }
+
+            @NonNull
+            @Override
+            protected LiveData<Void> loadFromDb() {
+                return AbsentLiveData.create();
+            }
+
+            @NonNull
+            @Override
+            protected LiveData<ApiResponse<Void>> createCall() {
+                return service.verifyEmail(new VerificationModel(email , code));
+            }
+        }.asLiveData();
+    }
+
+    public LiveData<Resource<Void>> resendVerification(String email){
+
+        return new NetworkBoundResource<Void, Void, Void>
+                (executors, null, null, model -> model) {
+
+            @Override
+            protected void saveCallResult(@NonNull Void entity) {
+            }
+
+            @Override
+            protected boolean shouldFetch(@Nullable Void entity) {
+                return true;
+            }
+
+            @Override
+            protected boolean shouldPersist(@Nullable Void model) {
+                return false;
+            }
+
+            @NonNull
+            @Override
+            protected LiveData<Void> loadFromDb() {
+                return AbsentLiveData.create();
+            }
+
+            @NonNull
+            @Override
+            protected LiveData<ApiResponse<Void>> createCall() {
+                return service.resendEmail(new EmailModel(email));
+            }
+        }.asLiveData();
+    }
+    public LiveData<Resource<Void>> logout() {
+
+        return new NetworkBoundResource<Void, Void, Void>(executors, null, null, model -> model) {
 
             @Override
             protected void saveCallResult(@NonNull Void entity) {

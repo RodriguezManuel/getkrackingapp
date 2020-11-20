@@ -11,6 +11,7 @@ import java.util.List;
 
 @Entity(tableName = "cycleTable")
 public class CycleTable {
+
     @PrimaryKey
     public int cycleId;
 

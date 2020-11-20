@@ -15,14 +15,20 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.getkracking.R;
+import com.example.getkracking.app.MyApplication;
+import com.example.getkracking.repository.UserRepository;
+import com.example.getkracking.viewmodels.RepositoryViewModelFactory;
+import com.example.getkracking.viewmodels.UserViewModel;
 
 import org.w3c.dom.Text;
 
 public class ConfirmationDialog extends AppCompatDialogFragment {
     private EditText etEmail, etCode;
     private CharSequence mail;
+    UserViewModel repository;
     public ConfirmationDialog(CharSequence mail){
         super();
         this.mail = mail;
@@ -33,11 +39,12 @@ public class ConfirmationDialog extends AppCompatDialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_emailconfirmation, null);
-
         Button bt = view.findViewById(R.id.buttonResendVerification);
-        bt.setOnClickListener(v -> {
-            //TODO: IMPLEMENTAR LLAMADO A RESEND DE API
+        RepositoryViewModelFactory viewModelFactory = new RepositoryViewModelFactory(UserRepository.class, ((MyApplication) getActivity().getApplication()).getUserRepository());
+        repository = new ViewModelProvider(this, viewModelFactory).get(UserViewModel.class);
 
+        bt.setOnClickListener(v -> {
+            repository.verifyEmail(etEmail.getText().toString() , etCode.getText().toString());
             bt.setClickable(false);
             bt.setVisibility(View.INVISIBLE);   //solo se puede llamar una vez a la API
         });
@@ -69,7 +76,6 @@ public class ConfirmationDialog extends AppCompatDialogFragment {
             //validar codigo y mail
 
             if(false)
-                //se valido el codigo
                 dismiss();
             else
                 errorMsg.setVisibility(View.VISIBLE);
