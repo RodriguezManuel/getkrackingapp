@@ -23,15 +23,13 @@ public class MainActivity extends AppCompatActivity {
 
         new Handler().postDelayed(() -> {
             //Manejo de si viene por link
-            Intent nextIntent = new Intent(this, WelcomeActivity.class);
+            Intent nextIntent;
+            if(true)
+                nextIntent = new Intent(this, WelcomeActivity.class);
+            else nextIntent = new Intent(this, HomeActivity.class);
 
             if(data != null && isNumeric(data.getLastPathSegment())){
-                //validar que usuario este logueado
-                //si no esta logueado lo llevo a q haga eso
-                nextIntent = new Intent(this, WelcomeActivity.class);
-//                nextIntent = new Intent(this, HomeActivity.class);
-                Log.d("UI", "EEEPAAA");
-                Log.d("UI", data.getLastPathSegment());
+                // si hay argumento y es numerico, lo agrego
                 nextIntent.putExtra("routineId", data.getLastPathSegment());
             }
 

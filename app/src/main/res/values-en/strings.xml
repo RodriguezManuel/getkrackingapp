@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">getkracking</string>
+    <string name="app_name">Get Kracking</string>
     <string name="logo_get_krackin">Logo Get Krackin</string>
     <string name="welcome1">For a more personal experience, create an account!</string>
     <string name="prompt_email">E-mail or username</string>

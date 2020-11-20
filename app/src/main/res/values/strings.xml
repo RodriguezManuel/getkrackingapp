@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">getkracking</string>
+    <string name="app_name">Get Kracking</string>
     <string name="logo_get_krackin">Logo Get Krackin</string>
     <string name="title_activity_welcome" translatable="false">WelcomeActivity</string>
     <string name="tab_text_1">Ingresar</string>
