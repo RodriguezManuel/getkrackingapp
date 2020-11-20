@@ -32,7 +32,10 @@ public class WelcomeActivity extends AppCompatActivity {
         SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager(), getLifecycle());
         ViewPager2 viewPager = this.findViewById(R.id.vpwelcome);
 
-        adapter.addFragment(new WelcomeLoginFragment());
+        Intent intent = getIntent();
+        String argument = intent.getStringExtra("routineId");
+
+        adapter.addFragment(new WelcomeLoginFragment(argument));
         adapter.addFragment(new WelcomeRegisterFragment());
 
         viewPager.setAdapter(adapter);
@@ -50,8 +53,5 @@ public class WelcomeActivity extends AppCompatActivity {
             }
         }
         ).attach();
-
-        Intent intent = getIntent();
-        String argument = intent.getStringExtra("routineId");
     }
 }

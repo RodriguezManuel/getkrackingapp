@@ -33,14 +33,12 @@ public class WelcomeLoginFragment extends Fragment {
     EditText username, password;
     private TextView passwordToggle;
     private boolean passwordFlag = false;
-
-
     private MyApplication application;
     private UserRepository userRepository;
+    private String argument;
 
-
-    public WelcomeLoginFragment() {
-        // Required empty public constructor
+    public WelcomeLoginFragment(String argument) {
+        this.argument = argument;
     }
 
     @Override
@@ -79,8 +77,8 @@ public class WelcomeLoginFragment extends Fragment {
                             application.getPreferences().setAuthToken(resource.data);
                             Log.d("UI", "ALL GOOD :) -- token = " + application.getPreferences().getAuthToken());
                             Intent homeIntent = new Intent(getActivity(), HomeActivity.class);
-                            Log.d("UI", viewModel.getArgument());
-                            homeIntent.putExtra("routineId", viewModel.getArgument());
+
+                            homeIntent.putExtra("routineId", argument);
                             startActivity(homeIntent);
                             getActivity().finish();
 
