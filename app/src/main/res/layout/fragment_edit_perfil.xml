@@ -217,6 +217,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/back_button"
                     android:textColor="@color/white"
+                    android:backgroundTint="@color/secondarybackground"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/Picture_edit_perfil"
                     app:layout_constraintStart_toStartOf="@+id/Picture_edit_perfil"

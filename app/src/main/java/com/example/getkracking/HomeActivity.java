@@ -139,6 +139,6 @@ public class HomeActivity extends AppCompatActivity {
         if (flag)
             homeButton.setBackgroundTintList(AppCompatResources.getColorStateList(this, R.color.orange));
         else
-            homeButton.setBackgroundTintList(AppCompatResources.getColorStateList(this, R.color.primary));
+            homeButton.setBackgroundTintList(AppCompatResources.getColorStateList(this, R.color.secondarybackground));
     }
 }
