@@ -61,17 +61,43 @@ public abstract class NetworkBoundResource<DomainType, EntityType, ModelType> {
                 }
         );
         result.addSource(apiResponse, response -> {
-            result.removeSource(apiResponse);
-            result.removeSource(dbSource);
+                    result.removeSource(apiResponse);
+                    result.removeSource(dbSource);
 
-            if (response.getError() != null) {
-                onFetchFailed();
-                result.addSource(dbSource,
-                        newData -> {
-                            DomainType domain = (newData != null) ?
-                                    mapEntityToDomain.apply(newData) :
-                                    null;
-                            setValue(Resource.error(response.getError().getDescription(), domain));
+                    if (response.getError() != null) {
+                        onFetchFailed();
+                        result.addSource(dbSource,
+                                newData -> {
+                                    DomainType domain = (newData != null) ?
+                                            mapEntityToDomain.apply(newData) :
+                                            null;
+                                    setValue(Resource.error(response.getError().getDescription(), domain));
+                                }
+                        );
+                    } else /*if (response.getData() != null)*/ {
+                        ModelType model = processResponse(response);
+                        if (shouldPersist(model)) {
+                            appExecutors.diskIO().execute(() -> {
+                                EntityType entity = mapModelToEntity.apply(model);
+                                saveCallResult(entity);
+                                appExecutors.mainThread().execute(() ->
+                                        // we specially request a new live data,
+                                        // otherwise we will get immediately last cached value,
+                                        // which may not be updated with latest results received from network.
+                                        result.addSource(loadFromDb(),
+                                                newData -> {
+                                                    DomainType domain = (newData != null) ?
+                                                            mapEntityToDomain.apply(newData) :
+                                                            mapModelToDomain.apply(model);
+                                                    setValue(Resource.success(domain));
+                                                })
+                                );
+                            });
+                        } else {
+                            appExecutors.mainThread().execute(() -> {
+                                DomainType domain = mapModelToDomain.apply(model);
+                                setValue(Resource.success(domain));
+                            });
                         }
                 );
             } else /*if (response.getData() != null)*/ {
