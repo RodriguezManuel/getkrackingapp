@@ -39,11 +39,11 @@ public class RoutineInfoViewModel extends RepositoryViewModel<RoutineRepository>
         return repository.getCycles(routineId);
     }
 
-    public LiveData<Resource<RoutineVO>> addToFavourites(int routineId) {
+    public LiveData<Resource<Void>> addToFavourites(int routineId) {
         return repository.addToFavourites(routineId);
     }
 
-    public LiveData<Resource<RoutineVO>> removeFromFavourites(int routineId) {
+    public LiveData<Resource<Void>> removeFromFavourites(int routineId) {
         return repository.removeFromFavourites(routineId);
     }
 

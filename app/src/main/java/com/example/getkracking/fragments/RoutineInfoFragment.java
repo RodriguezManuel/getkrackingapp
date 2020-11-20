@@ -46,6 +46,7 @@ public class RoutineInfoFragment extends Fragment {
     private CyclesAdapter adapter;
     private RoutineInfoViewModel routineViewModel;
     private Chip mode;
+    private ImageView favIcon;
 
     @Override
     public void onResume() {
@@ -88,10 +89,11 @@ public class RoutineInfoFragment extends Fragment {
 
 
         mode = vista.findViewById(R.id.execution_mode_chip);
-        //FIXME: error por cambios en RoutineInfoViewModel
-        /*routineViewModel.getChipText().observe(getViewLifecycleOwner(), s -> {
-            mode.setText(s);
-        });*/
+        routineViewModel.getChipText().observe(getViewLifecycleOwner(), bool -> {
+            if (bool)
+                mode.setText(R.string.exercise_execution_list_mode);
+            else mode.setText(R.string.exercise_execution_exercise_mode);
+        });
         mode.setOnClickListener(v -> routineViewModel.changeChipText());
 
         if (getArguments() != null) {
@@ -106,14 +108,12 @@ public class RoutineInfoFragment extends Fragment {
             idRoutine = args.getIdRoutine();    //PARA HACER EL REQUEST DE CICLOS
             //category?? donde va????
 
-            ImageView favIcon = vista.findViewById(R.id.favoriteIconInfoRoutine);
+            favIcon = vista.findViewById(R.id.favoriteIconInfoRoutine);
             favIcon.setOnClickListener((View.OnClickListener) v -> {
                 if (favorited) {
-                    favIcon.setBackgroundResource(R.drawable.ic_favorite_border);
                     //SACAR DE FAVORITOS CON LA API
                     removeFromFavourites(idRoutine);
                 } else {
-                    favIcon.setBackgroundResource(R.drawable.ic_favorite);
                     //AGREGAR A FAVORITOS CON LA API
                     addToFavourites(idRoutine);
                 }
@@ -136,7 +136,7 @@ public class RoutineInfoFragment extends Fragment {
     }
 
     private void addToFavourites(int idRoutine) {
-        routineViewModel.removeFromFavourites(idRoutine).observe(getViewLifecycleOwner(),
+        routineViewModel.addToFavourites(idRoutine).observe(getViewLifecycleOwner(),
                 resource -> {
                     switch (resource.status) {
                         case LOADING:
@@ -145,6 +145,7 @@ public class RoutineInfoFragment extends Fragment {
                         case SUCCESS:
                             Log.d("UI", "Éxito agregando a favoritos");
                             favorited = true;
+                            favIcon.setBackgroundResource(R.drawable.ic_favorite);
                             break;
                         case ERROR:
                             Log.d("UI", "Error agregando a favoritos - " + resource.message);
@@ -164,6 +165,7 @@ public class RoutineInfoFragment extends Fragment {
                         case SUCCESS:
                             Log.d("UI", "Éxito quitando de favoritos");
                             favorited = false;
+                            favIcon.setBackgroundResource(R.drawable.ic_favorite_border);
                             break;
                         case ERROR:
                             Log.d("UI", "Error quitando de favoritos - " + resource.message);

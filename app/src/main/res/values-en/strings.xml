@@ -87,4 +87,5 @@
     <string name="seconds_value">Seconds: </string>
     <string name="exercise_execution_exercise_mode">Exercise mode</string>
     <string name="exercise_execution_list_mode">Section mode</string>
+    <string name="edit_perfil">Editar Perfil</string>
 </resources>

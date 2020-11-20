@@ -162,26 +162,8 @@ public class RoutineRepository {
         }.asLiveData();
     }
 
-    public LiveData<Resource<RoutineVO>> addToFavourites(int routineId) {
-        return new NetworkBoundResource<RoutineVO, RoutineTable, Void>(executors,
-                table -> {
-                    return new RoutineVO(table.name, table.detail, table.creator,
-                            "placeholder", table.difficulty, 3,
-                            69, table.id, true, table.rating);
-                },
-                null,
-                null
-                /*model -> {
-                    return new RoutineTable(model.getId(), model.getName(),
-                            model.getDetail(), model.getCreatorModel().getUsername(),
-                            1, model.getAverageRating(), castDifficulty(model.getDifficulty()));
-                },
-                model -> {
-                    return new RoutineVO(model.getName(), model.getDetail(), model.getCreatorModel().getUsername(),
-                            "placeholder", castDifficulty(model.getDifficulty()), 3,
-                            69, model.getId(), true, model.getAverageRating());
-                }*/
-        ) {
+    public LiveData<Resource<Void>> addToFavourites(int routineId) {
+        return new NetworkBoundResource<Void, RoutineTable, Void>(executors, table -> null, model -> null, model -> null) {
             @Override
             protected void saveCallResult(@NonNull RoutineTable entity) {
                 database.routineDao().deleteRoutine(entity);
@@ -207,21 +189,13 @@ public class RoutineRepository {
             @NonNull
             @Override
             protected LiveData<ApiResponse<Void>> createCall() {
-
                 return routineService.addToFavourites(routineId);
             }
         }.asLiveData();
     }
 
-    public LiveData<Resource<RoutineVO>> removeFromFavourites(int routineId) {
-        return new NetworkBoundResource<RoutineVO, RoutineTable, Void>(executors,
-                table -> {
-                    return new RoutineVO(table.name, table.detail, table.creator,
-                            "placeholder", table.difficulty, 3,
-                            69, table.id, false, table.rating);
-                },
-                null,
-                null) {
+    public LiveData<Resource<Void>> removeFromFavourites(int routineId) {
+        return new NetworkBoundResource<Void, RoutineTable, Void>(executors, table -> null, model -> null, model -> null) {
             @Override
             protected void saveCallResult(@NonNull RoutineTable entity) {
                 database.routineDao().deleteRoutine(entity);
