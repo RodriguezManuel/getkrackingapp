@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +33,14 @@ public class ConfirmationDialog extends AppCompatDialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_emailconfirmation, null);
+
+        Button bt = view.findViewById(R.id.buttonResendVerification);
+        bt.setOnClickListener(v -> {
+            //TODO: IMPLEMENTAR LLAMADO A RESEND DE API
+
+            bt.setClickable(false);
+            bt.setVisibility(View.INVISIBLE);   //solo se puede llamar una vez a la API
+        });
 
         builder.setView(view).setTitle(R.string.email_confirmation).setNegativeButton(R.string.confirmation_close_dialog, (dialog, which) -> {
             // ROUTINE ID ESTA EN LA VARIABLE DE LA CLASE

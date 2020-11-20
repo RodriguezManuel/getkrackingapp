@@ -1,13 +1,8 @@
 package com.example.getkracking.viewmodels;
 
-import android.app.Application;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.getkracking.R;
 import com.example.getkracking.entities.CycleVO;
 import com.example.getkracking.entities.ExerciseVO;
 import com.example.getkracking.entities.RoutineVO;
@@ -35,16 +30,20 @@ public class RoutineInfoViewModel extends RepositoryViewModel<RoutineRepository>
         return repository.getExercises(routineId, cycleId);
     }
 
+    public LiveData<Resource<RoutineVO>> getRoutineById(int routineId) {
+        return repository.getRoutineById(routineId);
+    }
+
     public LiveData<Resource<List<CycleVO>>> getCycles(int routineId) {
         return repository.getCycles(routineId);
     }
 
-    public LiveData<Resource<RoutineVO>> addToFavourites(int routineId) {
-        return repository.addToFavourites(routineId);
+    public LiveData<Resource<Void>> addToFavourites(RoutineVO routine) {
+        return repository.addToFavourites(routine);
     }
 
-    public LiveData<Resource<RoutineVO>> removeFromFavourites(int routineId) {
-        return repository.removeFromFavourites(routineId);
+    public LiveData<Resource<Void>> removeFromFavourites(RoutineVO routine) {
+        return repository.removeFromFavourites(routine);
     }
 
     public LiveData<Resource<List<RoutineVO>>> getFavouriteRoutines() {

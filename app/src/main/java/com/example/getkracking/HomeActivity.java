@@ -79,11 +79,10 @@ public class HomeActivity extends AppCompatActivity {
                 navController.getCurrentBackStackEntry().getDestination().getId() == id)
             return false;
 
-        NavController controller = Navigation.findNavController(this, R.id.nav_host_fragment);
-        boolean poppedFragment = controller.popBackStack(id, false);
-        if (!poppedFragment) {
-            controller.navigate(id);    //lo creo por que no existe
-        }
+        boolean poppedFragment = navController.popBackStack(id, false);
+        if (!poppedFragment)
+            navController.navigate(id);    //lo creo por que no existe
+
         return true;
     }
 

@@ -16,6 +16,7 @@ import com.example.getkracking.R;
 import com.example.getkracking.adapters.RoutinesAdapter;
 import com.example.getkracking.adapters.SmallRoutinesAdapter;
 import com.example.getkracking.entities.RoutineVO;
+import com.example.getkracking.viewmodels.RoutineInfoViewModel;
 
 import java.util.ArrayList;
 
@@ -107,12 +108,7 @@ public class HomeFragment extends Fragment implements RoutinesAdapter.OnRoutineL
         else return;
 
         HomeFragmentDirections.ActionHomeFragmentToRoutineInfoFragment action = HomeFragmentDirections.actionHomeFragmentToRoutineInfoFragment
-                (array.get(position).getId(), array.get(position).getDescription(), array.get(position).getCreator(), array.get(position).getRating(),
-                        array.get(position).getCategory(), array.get(position).isFavorited());
-        // LE PASO LOS ARGUMENTOS QUE NO TIENEN VALOR DEFAULT
-        action.setNameRoutine(array.get(position).getName());
-        action.setDifficultyRoutine(array.get(position).getLevelCategory1());
-        //falta rating
+                (array.get(position).getId());
         Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(action);
     }
 }
