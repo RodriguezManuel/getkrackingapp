@@ -18,6 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
+            android:gravity="center"
             app:tabIndicatorColor="@color/orange"
             app:tabIndicatorHeight="3dp"
             app:tabSelectedTextColor="@color/orange"

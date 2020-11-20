@@ -124,8 +124,8 @@
         android:layout_marginTop="36dp"
         android:gravity="center_horizontal"
         android:text="@string/welcome_link"
+        android:textColor="@color/mainbackground"
         android:textAppearance="@style/customTextNoSpecificCaseLayout"
-        android:backgroundTint="@color/mainbackground"
         app:layout_constraintEnd_toEndOf="@+id/iconIG"
         app:layout_constraintStart_toStartOf="@+id/iconGP"
         app:layout_constraintTop_toBottomOf="@+id/iconFB" />
