@@ -34,6 +34,7 @@ import java.net.URL;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+
 public class PerfilFragment extends Fragment {
 
     private UserViewModel userViewModel;
@@ -129,7 +130,6 @@ public class PerfilFragment extends Fragment {
     }
 
     private void performLogout(){
-
         userViewModel.logout().observe(getViewLifecycleOwner(), resource -> {
             switch (resource.status) {
                 case LOADING:
@@ -137,6 +137,10 @@ public class PerfilFragment extends Fragment {
                     break;
                 case SUCCESS:
                     Log.d("UI", "Cierre de sesión exitoso" );
+                    MyApplication app = (MyApplication) getActivity().getApplication();
+                    app.getPreferences().setAuthToken("auth_token");
+                    app.getPreferences().setPassword(null);
+                    app.getPreferences().setUsername(null);
                     Intent welcomeIntent = new Intent(getActivity(), WelcomeActivity.class);
                     startActivity(welcomeIntent);
                     getActivity().finish();
