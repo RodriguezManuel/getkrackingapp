@@ -16,6 +16,7 @@ import com.example.getkracking.R;
 import com.example.getkracking.adapters.RoutinesAdapter;
 import com.example.getkracking.adapters.SmallRoutinesAdapter;
 import com.example.getkracking.entities.RoutineVO;
+import com.example.getkracking.viewmodels.RoutineInfoViewModel;
 
 import java.util.ArrayList;
 

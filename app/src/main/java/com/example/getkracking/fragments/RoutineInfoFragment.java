@@ -109,6 +109,13 @@ public class RoutineInfoFragment extends Fragment {
             //category?? donde va????
 
             favIcon = vista.findViewById(R.id.favoriteIconInfoRoutine);
+
+            if (favorited) {
+                favIcon.setBackgroundResource(R.drawable.ic_favorite);
+            } else {
+                favIcon.setBackgroundResource(R.drawable.ic_favorite_border);
+            }
+
             favIcon.setOnClickListener((View.OnClickListener) v -> {
                 if (favorited) {
                     //SACAR DE FAVORITOS CON LA API

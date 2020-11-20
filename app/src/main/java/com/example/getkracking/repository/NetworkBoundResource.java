@@ -74,7 +74,7 @@ public abstract class NetworkBoundResource<DomainType, EntityType, ModelType> {
                             setValue(Resource.error(response.getError().getDescription(), domain));
                         }
                 );
-            } else if (response.getData() != null) {
+            } else /*if (response.getData() != null)*/ {
                 ModelType model = processResponse(response);
                 if (shouldPersist(model)) {
                     appExecutors.diskIO().execute(() -> {
@@ -99,15 +99,7 @@ public abstract class NetworkBoundResource<DomainType, EntityType, ModelType> {
                         setValue(Resource.success(domain));
                     });
                 }
-            }  /*else {
-                appExecutors.mainThread().execute(() ->
-                        result.addSource(loadFromDb(),
-                                newData -> {
-                                    DomainType domain = mapEntityToDomain.apply(newData);
-                                    setValue(Resource.success(domain));
-                                })
-                );
-            }*/
+            }
         });
     }
 

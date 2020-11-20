@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +24,9 @@ import com.example.getkracking.app.MyApplication;
 import com.example.getkracking.entities.RoutineVO;
 import com.example.getkracking.repository.RoutineRepository;
 import com.example.getkracking.repository.UserRepository;
+import com.example.getkracking.viewmodels.RepositoryViewModelFactory;
+import com.example.getkracking.viewmodels.RoutineInfoViewModel;
+import com.example.getkracking.viewmodels.SearchViewModel;
 import com.example.getkracking.vo.Resource;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -33,9 +37,8 @@ import java.util.List;
 public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutineListener {
     RecyclerView recyclerRoutines;
     ArrayList<RoutineVO> routinesList;
-
-    private MyApplication application;
-    private RoutineRepository routineRepository;
+    SearchViewModel searchViewModel;
+    RoutinesAdapter adapter;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -50,31 +53,76 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
     }
 
     private void fillList() {
-        routineRepository.getRoutines().observe(getViewLifecycleOwner(), resource -> {
-            switch (resource.status) {
-                case LOADING:
-                    Log.d("UI", "awaiting routines");
-                    break;
-                case SUCCESS:
-                    Log.d("UI", "Éxito recuperando rutinas");
 
-                    routinesList.addAll(resource.data);
+        List<RoutineVO> favRoutines = new ArrayList<>();
 
-                    RoutinesAdapter adapter = new RoutinesAdapter(routinesList, this, null);
-                    recyclerRoutines.setAdapter(adapter);
-                    recyclerRoutines.setNestedScrollingEnabled(false);
-                    break;
-                case ERROR:
-                    Log.d("UI", "Error en get routines - " + resource.message);
-                    break;
-            }
-        });
+        adapter = new RoutinesAdapter(routinesList, this, null);
+        recyclerRoutines.setAdapter(adapter);
+        recyclerRoutines.setNestedScrollingEnabled(false);
+
+        if(!searchViewModel.getRoutines().hasActiveObservers()) {
+            searchViewModel.getRoutines().observe(getViewLifecycleOwner(), resource -> {
+                switch (resource.status) {
+                    case LOADING:
+                        Log.d("UI", "awaiting routines");
+                        break;
+                    case SUCCESS:
+                        Log.d("UI", "Éxito recuperando rutinas");
+
+                        if (!searchViewModel.getFavouriteRoutines().hasActiveObservers()) {
+                            searchViewModel.getFavouriteRoutines().observe(getViewLifecycleOwner(), favresource -> {
+                                switch (favresource.status) {
+                                    case LOADING:
+                                        Log.d("UI", "awaiting favourite routines");
+                                        break;
+                                    case SUCCESS:
+                                        Log.d("UI", "Éxito recuperando rutinas favoritas");
+                                        favRoutines.addAll(favresource.data);
+
+                                        for (RoutineVO routine : resource.data) {
+                                            if (favRoutines.size() > 0) {
+                                                for (RoutineVO favRoutine : favRoutines) {
+                                                    if (routine.getId() == favRoutine.getId()) {
+                                                        Log.d("UI", "MATCH!");
+                                                        routinesList.add(favRoutine); //TODO: chequear que levante bien si está fav
+                                                    } else {
+                                                        routinesList.add(routine);
+                                                    }
+                                                    break;
+                                                }
+                                            } else {
+                                                routinesList.add(routine);
+                                            }
+                                        }
+
+                                        adapter.notifyDataSetChanged();
+
+                                        break;
+                                    case ERROR:
+                                        Log.d("UI", "Error recuperando rutinas favoritas - " + favresource.message);
+                                        break;
+                                }
+                            });
+                        }
+
+
+                        break;
+                    case ERROR:
+                        Log.d("UI", "Error en get routines - " + resource.message);
+                        break;
+                }
+            });
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View vista = inflater.inflate(R.layout.fragment_search, container, false);
+
+        RepositoryViewModelFactory viewModelFactory = new RepositoryViewModelFactory(RoutineRepository.class, ((MyApplication) getActivity().getApplication()).getRoutineRepository());
+        searchViewModel = new ViewModelProvider(this, viewModelFactory).get(SearchViewModel.class);
+
         //chip de filtros
         ChipGroup filters = vista.findViewById(R.id.chipgroup_filterSearch);
         filters.setOnCheckedChangeListener((group, id) -> {
@@ -93,9 +141,6 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
         routinesList = new ArrayList<>();
         recyclerRoutines = vista.findViewById(R.id.recyclerSearchRoutines);
         recyclerRoutines.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        application = (MyApplication) getActivity().getApplication();
-        routineRepository = application.getRoutineRepository();
 
         fillList();
 
