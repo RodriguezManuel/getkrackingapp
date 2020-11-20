@@ -52,7 +52,7 @@ public class EditPerfilFragment extends Fragment {
         setHasOptionsMenu(true);
         Toolbar mToolBar = ((HomeActivity) getActivity()).findViewById(R.id.homeTopBar);
         ActionBar actionBar = ((HomeActivity) getActivity()).getSupportActionBar();
-        actionBar.setTitle("Editar Perfil");
+        actionBar.setTitle(R.string.edit_perfil);
 
         //CUSTOMIZAR BACK BUTTON
         ((HomeActivity) getActivity()).setSupportActionBar(mToolBar);

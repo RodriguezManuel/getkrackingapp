@@ -98,5 +98,7 @@
     <string name="seconds_value">Segundos: </string>
     <string name="exercise_execution_exercise_mode">Modo ejercicio</string>
     <string name="exercise_execution_list_mode">Modo secciones</string>
+    <string name="edit_perfil">Editar Perfil</string>
+    <string name="resend_email_verification">Reenviar codigo</string>
     <string name="execution_mode_value">Modo de ejecucion:</string>
 </resources>

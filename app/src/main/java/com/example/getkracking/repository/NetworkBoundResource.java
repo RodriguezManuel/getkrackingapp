@@ -99,15 +99,7 @@ public abstract class NetworkBoundResource<DomainType, EntityType, ModelType> {
                         setValue(Resource.success(domain));
                     });
                 }
-            }  /*else {
-                appExecutors.mainThread().execute(() ->
-                        result.addSource(loadFromDb(),
-                                newData -> {
-                                    DomainType domain = mapEntityToDomain.apply(newData);
-                                    setValue(Resource.success(domain));
-                                })
-                );
-            }*/
+            }
         });
     }
 

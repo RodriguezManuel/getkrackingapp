@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:padding="16dp"
-    android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
     <EditText
         android:id="@+id/etEmail_dialog"
         android:layout_width="match_parent"
@@ -23,20 +25,34 @@
         android:layout_marginTop="16dp"
         android:background="@drawable/custominput"
         android:hint="@string/verification_code"
-        android:maxLength="10"
         android:importantForAutofill="no"
         android:inputType="textEmailAddress"
+        android:maxLength="10"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
         android:textAppearance="@style/CustomTextUppercaseLayout" />
 
-    <TextView
-        android:id="@+id/wrong_code"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="33dp"
-        android:layout_marginTop="16dp"
-        android:textAppearance="@style/customTextNoSpecificCaseLayout"
-        android:textColor="@color/red"
-        android:text="@string/parameter_error"
-        android:visibility="invisible"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/buttonResendVerification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/resend_email_verification"
+            android:layout_marginTop="8dp"
+            style="@style/customTextNoSpecificCaseLayout"/>
+
+        <TextView
+            android:id="@+id/wrong_code"
+            android:layout_width="200dp"
+            android:layout_height="33dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/parameter_error"
+            android:textAppearance="@style/customTextNoSpecificCaseLayout"
+            android:textColor="@color/red"
+            android:visibility="invisible" />
+    </LinearLayout>
 </LinearLayout>

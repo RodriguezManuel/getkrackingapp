@@ -30,9 +30,12 @@ import com.example.getkracking.R;
 import com.example.getkracking.adapters.CyclesAdapter;
 import com.example.getkracking.app.MyApplication;
 import com.example.getkracking.entities.CycleVO;
-import com.example.getkracking.repository.CycleRepository;
-import com.example.getkracking.repository.ExerciseRepository;
+import com.example.getkracking.entities.RoutineVO;
+import com.example.getkracking.repository.RoutineRepository;
+import com.example.getkracking.repository.UserRepository;
+import com.example.getkracking.viewmodels.RepositoryViewModelFactory;
 import com.example.getkracking.viewmodels.RoutineInfoViewModel;
+import com.example.getkracking.vo.Resource;
 import com.google.android.material.chip.Chip;
 
 import java.util.ArrayList;
@@ -42,12 +45,12 @@ public class RoutineInfoFragment extends Fragment {
     private RecyclerView cyclesRoutine;
     private ArrayList<CycleVO> cyclesList;
     private boolean favorited = false;  //HARDCODEADO OBTENIDO DE API
-    private int idRoutine;
-    private ExerciseRepository exerciseRepository;
-    private CycleRepository cycleRepository;
     private CyclesAdapter adapter;
-    private RoutineInfoViewModel viewModel;
+    private RoutineInfoViewModel routineViewModel;
     private Chip mode;
+    private ImageView favIcon;
+    private RoutineVO routine;
+    private int routineId;
 
     @Override
     public void onResume() {
@@ -84,48 +87,80 @@ public class RoutineInfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View vista = inflater.inflate(R.layout.routine_info_fragment, container, false);
-        viewModel = new ViewModelProvider(getActivity()).get(RoutineInfoViewModel.class);
+
+        RepositoryViewModelFactory viewModelFactory = new RepositoryViewModelFactory(RoutineRepository.class, ((MyApplication) getActivity().getApplication()).getRoutineRepository());
+        routineViewModel = new ViewModelProvider(this, viewModelFactory).get(RoutineInfoViewModel.class);
+
 
         mode = vista.findViewById(R.id.execution_mode_chip);
-        viewModel.getChipText().observe(getViewLifecycleOwner(), s -> {
-            mode.setText(s);
+        routineViewModel.getChipText().observe(getViewLifecycleOwner(), bool -> {
+            if (bool)
+                mode.setText(R.string.exercise_execution_list_mode);
+            else mode.setText(R.string.exercise_execution_exercise_mode);
         });
-        mode.setOnClickListener(v -> viewModel.changeChipText());
+        mode.setOnClickListener(v -> routineViewModel.changeChipText());
 
-        if (getArguments() != null) {
-            RoutineInfoFragmentArgs args = RoutineInfoFragmentArgs.fromBundle(getArguments());
-            //una vez q consegui los argumentos los seteo en la vista
-            ((TextView) vista.findViewById(R.id.RoutineNameInRoutine)).setText(args.getNameRoutine());
-            ((TextView) vista.findViewById(R.id.CreatorNameInRoutine)).setText(args.getCreatorRoutine());
-            ((TextView) vista.findViewById(R.id.RoutineDescriptionInRoutine)).setText(args.getDescRoutine());
-            ((RatingBar) vista.findViewById(R.id.rbCategory1InRoutine)).setRating(args.getDifficultyRoutine());
-            ((TextView) vista.findViewById(R.id.RoutineNameInRoutine)).setText(args.getNameRoutine());
-            favorited = args.getFavoritedRoutine();
-            idRoutine = args.getIdRoutine();    //PARA HACER EL REQUEST DE CICLOS
-            //category?? donde va????
+        RoutineInfoFragmentArgs args = RoutineInfoFragmentArgs.fromBundle(getArguments());
+        routineId = args.getIdRoutine();
+        routineViewModel.getRoutineById(routineId).observe(getViewLifecycleOwner(),
+                resource -> {
+                    switch (resource.status) {
+                        case LOADING:
+                            Log.d("UI", "awaiting for routine");
+                            break;
+                        case SUCCESS:
+                            Log.d("UI", "Éxito recuperando rutina");
+                            routine = resource.data;
+                            routineViewModel.getFavouriteRoutines().observe(getViewLifecycleOwner(), favresource -> {
+                                        switch (favresource.status) {
+                                            case LOADING:
+                                                Log.d("UI", "awaiting favourite routines in infoRutina");
+                                                break;
+                                            case SUCCESS:
+                                                Log.d("UI", "Éxito recuperando rutinas favoritas en inforutina");
 
-            ImageView favIcon = vista.findViewById(R.id.favoriteIconInfoRoutine);
-            favIcon.setOnClickListener((View.OnClickListener) v -> {
-                if (favorited) {
-                    favIcon.setBackgroundResource(R.drawable.ic_favorite_border);
-                    //SACAR DE FAVORITOS CON LA API
-                } else {
-                    favIcon.setBackgroundResource(R.drawable.ic_favorite);
-                    //AGREGAR A FAVORITOS CON LA API
+                                                if (favresource.data.size() > 0) {
+                                                    for (RoutineVO favRoutine : favresource.data) {
+                                                        if (routine.getId() == favRoutine.getId()) {
+                                                            Log.d("UI", "MATCH!");
+                                                            routine.setFavorited(true);
+                                                            fillRoutineData(vista);
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+
+                                                break;
+                                            case ERROR:
+                                                Log.d("UI", "Error recuperando rutinas favoritas en inforutina - " + favresource.message);
+                                                break;
+                                        }
+                                    }
+                            );
+                            fillRoutineData(vista);
+                            break;
+                        case ERROR:
+                            Log.d("UI", "Error recuperando la rutina " + routine.getId() + " - " + resource.message);
+                            break;
+                    }
                 }
-                favorited = !favorited;
-            });
+        );
 
-            TextView puntuacion = vista.findViewById(R.id.rating_value_info_routine);
-            puntuacion.setText(String.valueOf(args.getRatingRoutine()));
-        }
+        favIcon = vista.findViewById(R.id.favoriteIconInfoRoutine);
+
+        favIcon.setOnClickListener((View.OnClickListener) v -> {
+            if (favorited) {
+                //SACAR DE FAVORITOS CON LA API
+                removeFromFavourites(routine);
+            } else {
+                //AGREGAR A FAVORITOS CON LA API
+                addToFavourites(routine);
+            }
+        });
+
 
         cyclesRoutine = vista.findViewById(R.id.CyclesRoutine);
         cyclesList = new ArrayList<>();
-
-        MyApplication application = (MyApplication) getActivity().getApplication();
-        cycleRepository = application.getCycleRepository();
-        exerciseRepository = application.getExerciseRepository();
 
         adapter = new CyclesAdapter(getActivity(), cyclesList);
         cyclesRoutine.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -136,8 +171,65 @@ public class RoutineInfoFragment extends Fragment {
         return vista;
     }
 
+    private void fillRoutineData(View vista) {
+        ((TextView) vista.findViewById(R.id.RoutineNameInRoutine)).setText(routine.getName());
+        ((TextView) vista.findViewById(R.id.CreatorNameInRoutine)).setText(routine.getCreator());
+        ((TextView) vista.findViewById(R.id.RoutineDescriptionInRoutine)).setText(routine.getDescription());
+        ((RatingBar) vista.findViewById(R.id.rbCategory1InRoutine)).setRating(routine.getLevelCategory1());
+        favorited = routine.isFavorited();
+        TextView puntuacion = vista.findViewById(R.id.rating_value_info_routine);
+        puntuacion.setText(String.valueOf(routine.getRating()));
+
+
+        if (favorited) {
+            favIcon.setBackgroundResource(R.drawable.ic_favorite);
+        } else {
+            favIcon.setBackgroundResource(R.drawable.ic_favorite_border);
+        }
+    }
+
+    private void addToFavourites(RoutineVO routine) {
+        routineViewModel.addToFavourites(routine).observe(getViewLifecycleOwner(),
+                resource -> {
+                    switch (resource.status) {
+                        case LOADING:
+                            Log.d("UI", "awaiting favourites to add");
+                            break;
+                        case SUCCESS:
+                            Log.d("UI", "Éxito agregando a favoritos");
+                            favorited = true;
+                            favIcon.setBackgroundResource(R.drawable.ic_favorite);
+                            break;
+                        case ERROR:
+                            Log.d("UI", "Error agregando a favoritos - " + resource.message);
+                            break;
+                    }
+
+                });
+    }
+
+    private void removeFromFavourites(RoutineVO routine) {
+        routineViewModel.removeFromFavourites(routine).observe(getViewLifecycleOwner(),
+                resource -> {
+                    switch (resource.status) {
+                        case LOADING:
+                            Log.d("UI", "awaiting favourites to remove");
+                            break;
+                        case SUCCESS:
+                            Log.d("UI", "Éxito quitando de favoritos");
+                            favorited = false;
+                            favIcon.setBackgroundResource(R.drawable.ic_favorite_border);
+                            break;
+                        case ERROR:
+                            Log.d("UI", "Error quitando de favoritos - " + resource.message);
+                            break;
+                    }
+
+                });
+    }
+
     private void fillExercises(int cycleId, CycleVO cycle) {
-        exerciseRepository.getExercises(idRoutine, cycleId).observe(getViewLifecycleOwner(), resource -> {
+        routineViewModel.getExercises(routineId, cycleId).observe(getViewLifecycleOwner(), resource -> {
             switch (resource.status) {
                 case LOADING:
                     Log.d("UI", "awaiting routines");
@@ -152,11 +244,11 @@ public class RoutineInfoFragment extends Fragment {
                         ((Button) getView().findViewById(R.id.ButtonEmpezarInRoutine)).setOnClickListener(v1 -> {
                             if (mode.getText().equals(getString(R.string.exercise_execution_list_mode))) {
                                 RoutineInfoFragmentDirections.ActionRoutineInfoFragmentToRunRoutineListFragment action =
-                                        RoutineInfoFragmentDirections.actionRoutineInfoFragmentToRunRoutineListFragment(cyclesList.toArray(new CycleVO[cyclesList.size()]), idRoutine);
+                                        RoutineInfoFragmentDirections.actionRoutineInfoFragmentToRunRoutineListFragment(cyclesList.toArray(new CycleVO[cyclesList.size()]), routine.getId());
                                 Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(action);
                             } else {
                                 RoutineInfoFragmentDirections.ActionRoutineInfoFragmentToRunRoutineFragment action =
-                                        RoutineInfoFragmentDirections.actionRoutineInfoFragmentToRunRoutineFragment(cyclesList.toArray(new CycleVO[cyclesList.size()]), idRoutine);
+                                        RoutineInfoFragmentDirections.actionRoutineInfoFragmentToRunRoutineFragment(cyclesList.toArray(new CycleVO[cyclesList.size()]), routine.getId());
                                 Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(action);
                             }
                         });
@@ -169,7 +261,7 @@ public class RoutineInfoFragment extends Fragment {
     }
 
     private void fillCycles() {
-        cycleRepository.getCycles(idRoutine).observe(getViewLifecycleOwner(), resource -> {
+        routineViewModel.getCycles(routineId).observe(getViewLifecycleOwner(), resource -> {
             switch (resource.status) {
                 case LOADING:
                     Log.d("UI", "awaiting routines");

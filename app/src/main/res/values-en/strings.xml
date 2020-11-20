@@ -88,4 +88,6 @@
     <string name="exercise_execution_exercise_mode">Exercise mode</string>
     <string name="exercise_execution_list_mode">Section mode</string>
     <string name="execution_mode_value">Execution mode:</string>
+    <string name="edit_perfil">Edit profile</string>
+    <string name="resend_email_verification">Resend code</string>
 </resources>

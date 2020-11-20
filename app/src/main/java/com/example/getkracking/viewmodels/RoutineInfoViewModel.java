@@ -1,28 +1,52 @@
 package com.example.getkracking.viewmodels;
 
-import android.app.Application;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.getkracking.R;
+import com.example.getkracking.entities.CycleVO;
+import com.example.getkracking.entities.ExerciseVO;
+import com.example.getkracking.entities.RoutineVO;
+import com.example.getkracking.repository.RoutineRepository;
+import com.example.getkracking.vo.Resource;
 
-public class RoutineInfoViewModel extends AndroidViewModel {
-    MutableLiveData<String> chipText = new MutableLiveData<>();
+import java.util.List;
 
-    public RoutineInfoViewModel(@NonNull Application application) {
-        super(application);
-        chipText.setValue(getApplication().getResources().getString(R.string.exercise_execution_exercise_mode));
+public class RoutineInfoViewModel extends RepositoryViewModel<RoutineRepository> {
+    MutableLiveData<Boolean> chipText = new MutableLiveData<>(false);
+
+    public RoutineInfoViewModel(RoutineRepository repository) {
+        super(repository);
     }
 
-    public MutableLiveData<String> getChipText() {
+    public MutableLiveData<Boolean> getChipText() {
         return chipText;
     }
 
     public void changeChipText() {
-        if(chipText.getValue().equals(getApplication().getResources().getString(R.string.exercise_execution_exercise_mode)))
-            chipText.setValue(getApplication().getResources().getString(R.string.exercise_execution_list_mode));
-        else chipText.setValue(getApplication().getResources().getString(R.string.exercise_execution_exercise_mode));
+        chipText.setValue(!chipText.getValue());
+    }
+
+    public LiveData<Resource<List<ExerciseVO>>> getExercises(int routineId, int cycleId) {
+        return repository.getExercises(routineId, cycleId);
+    }
+
+    public LiveData<Resource<RoutineVO>> getRoutineById(int routineId) {
+        return repository.getRoutineById(routineId);
+    }
+
+    public LiveData<Resource<List<CycleVO>>> getCycles(int routineId) {
+        return repository.getCycles(routineId);
+    }
+
+    public LiveData<Resource<Void>> addToFavourites(RoutineVO routine) {
+        return repository.addToFavourites(routine);
+    }
+
+    public LiveData<Resource<Void>> removeFromFavourites(RoutineVO routine) {
+        return repository.removeFromFavourites(routine);
+    }
+
+    public LiveData<Resource<List<RoutineVO>>> getFavouriteRoutines() {
+        return repository.getFavouriteRoutines();
     }
 }
