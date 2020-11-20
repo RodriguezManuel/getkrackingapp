@@ -9,9 +9,9 @@
 
     <EditText
         android:id="@+id/etUsername_login"
-        android:layout_width="275dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="495dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="44dp"
         android:autoSizeTextType="uniform"
         android:background="@drawable/custominput"
         android:hint="@string/prompt_email"
@@ -26,18 +26,18 @@
 
     <RelativeLayout
         android:id="@+id/rlpassword_login"
-        android:layout_width="275dp"
-        android:layout_height="33dp"
-        android:layout_marginStart="68dp"
+        android:layout_width="495dp"
+        android:layout_height="47dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/custominput"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etUsername_login">
 
         <EditText
             android:id="@+id/etPassword_login"
-            android:layout_width="255dp"
-            android:layout_height="match_parent"
+            android:layout_width="470dp"
+            android:layout_height="46dp"
             android:background="@drawable/cumtominputnostroke"
             android:hint="@string/contrasenia"
             android:importantForAutofill="no"
@@ -51,8 +51,11 @@
             android:id="@+id/password_toggle_login"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_centerVertical="true"
+            android:layout_alignEnd="@+id/etPassword_login"
+            android:layout_alignParentBottom="true"
             android:layout_marginStart="240dp"
+            android:layout_marginEnd="3dp"
+            android:layout_marginBottom="12dp"
             android:background="@drawable/ic_eye" />
     </RelativeLayout>
 
@@ -73,7 +76,6 @@
         android:id="@+id/welcomeButton_login"
         android:layout_width="135dp"
         android:layout_height="38dp"
-        android:layout_marginStart="136dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/roundedbutton"
         android:paddingTop="0dp"
@@ -82,6 +84,7 @@
         android:textAppearance="@style/customTextNoSpecificCaseLayout"
         android:textColor="@color/primary"
         app:backgroundTint="@color/mainbackground"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcome_login_link" />
 
@@ -89,11 +92,11 @@
         android:id="@+id/iconFB"
         android:layout_width="30dp"
         android:layout_height="32dp"
-        android:layout_marginStart="32dp"
         android:layout_marginTop="18dp"
         android:background="@drawable/ic_facebook"
         android:backgroundTint="@color/mainbackground"
-        app:layout_constraintStart_toEndOf="@+id/iconGP"
+        app:layout_constraintEnd_toEndOf="@+id/welcomeButton_login"
+        app:layout_constraintStart_toStartOf="@+id/welcomeButton_login"
         app:layout_constraintTop_toBottomOf="@+id/welcomeButton_login" />
 
     <TextView
@@ -111,12 +114,11 @@
         android:id="@+id/iconGP"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginStart="128dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginEnd="32dp"
         android:background="@drawable/ic_google_plus"
         android:backgroundTint="@color/mainbackground"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcomeButton_login" />
+        app:layout_constraintEnd_toStartOf="@+id/iconFB"
+        app:layout_constraintTop_toTopOf="@+id/iconFB" />
 
     <TextView
         android:id="@+id/welcomeLink"

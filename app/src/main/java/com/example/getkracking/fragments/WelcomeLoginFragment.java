@@ -73,7 +73,10 @@ public class WelcomeLoginFragment extends Fragment {
             ApiUserService userService = ApiClient.create(getActivity().getApplication(), ApiUserService.class);
             application = (MyApplication) getActivity().getApplication();
             userRepository = application.getUserRepository();
-            userRepository.login(username.getText().toString(), password.getText().toString())
+
+            String username_string = username.getText().toString();
+            String password_string = password.getText().toString();
+            userRepository.login(username_string, password_string)
                 .observe(getViewLifecycleOwner(), resource -> {
                     switch (resource.status) {
                         case LOADING:
@@ -81,6 +84,8 @@ public class WelcomeLoginFragment extends Fragment {
                             break;
                         case SUCCESS:
                             application.getPreferences().setAuthToken(resource.data);
+                            application.getPreferences().setUsername(username_string);
+                            application.getPreferences().setPassword(password_string);
                             Log.d("UI", "ALL GOOD :) -- token = " + application.getPreferences().getAuthToken());
                             Intent homeIntent = new Intent(getActivity(), HomeActivity.class);
 

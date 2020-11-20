@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 
+import com.example.getkracking.app.MyApplication;
+
+
 public class MainActivity extends AppCompatActivity {
     private static int SPLASH_TIME_OUT = 1000;
 
@@ -34,6 +37,10 @@ public class MainActivity extends AppCompatActivity {
             }
 
             startActivity(nextIntent);
+                Intent homeIntent;
+                //homeIntent = new Intent(this, HomeActivity.class);
+                homeIntent = new Intent(this, WelcomeActivity.class);
+            startActivity(homeIntent);
             finish();   //para que no pueda volver a esta pantalla
         }, SPLASH_TIME_OUT);
     }
@@ -46,5 +53,34 @@ public class MainActivity extends AppCompatActivity {
             Log.d("IU", "ERROR EN PATH RECIBIDO, FALTA NUMERO DE RUTINA A ACCEDER\n");
             return false;
         }
+    }
+
+    public int attemptLogin( MyApplication application){
+        String username_string = application.getPreferences().getUsername();
+        String password_string = application.getPreferences().getPassword();
+        application.getUserRepository().login(username_string, password_string)
+                .observe(this, resource -> {
+                    switch (resource.status) {
+                        case LOADING:
+                            Log.d("UI", "awaiting");
+                            break;
+                        case SUCCESS:
+                            application.getPreferences().setAuthToken(resource.data);
+                            application.getPreferences().setUsername(username_string);
+                            application.getPreferences().setPassword(password_string);
+                            Log.d("UI", "ALL GOOD :) -- token = " + application.getPreferences().getAuthToken());
+                            Intent homeIntent = new Intent(this, HomeActivity.class);
+                            startActivity(homeIntent);
+                            this.finish();
+
+                            break;
+                        case ERROR:
+                            Log.d("UI", "Error");
+                            Intent welcomeIntent = new Intent(this, WelcomeActivity.class);
+                            startActivity(welcomeIntent);
+                            this.finish();
+                            break;
+                    }
+                });
     }
 }
