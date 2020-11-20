@@ -8,9 +8,13 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
+import com.example.getkracking.fragments.HomeFragmentDirections;
+import com.example.getkracking.fragments.RoutineInfoFragmentArgs;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -59,6 +63,20 @@ public class HomeActivity extends AppCompatActivity {
             return true;
         });
 
+        String aux;
+        Intent intent = getIntent();
+        aux = intent.getStringExtra("routineId");
+        if(aux != null){
+            Log.d("UI", "Accediendo a rutina de numero: " + aux);
+            // en main se checkea si es numero, solo veo de recibirlo
+            HomeFragmentDirections.ActionHomeFragmentToRoutineInfoFragment action = HomeFragmentDirections.
+                    actionHomeFragmentToRoutineInfoFragment(Integer.parseInt(aux));
+            intent.removeExtra("routineId");    //para que no entre denuevo
+            navController.navigate(action);
+        }
+
+
+        //por is hay rotacion
         if (savedInstanceState == null) {
             switchFabHomeColor(true);
             bottomNavigationView.getMenu().getItem(2).setChecked(true);

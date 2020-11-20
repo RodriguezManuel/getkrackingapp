@@ -6,27 +6,34 @@
     android:layout_height="match_parent"
     tools:context=".WelcomeActivity">
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/vpwelcome"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="24dp"
-        android:background="@color/secondary"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:layout_weight="0"
         app:layout_constraintTop_toBottomOf="@+id/tvwelcome1">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/white"
+            android:background="@color/white"
             app:tabIndicatorColor="@color/orange"
             app:tabIndicatorHeight="3dp"
             app:tabSelectedTextColor="@color/orange"
             app:tabTextAppearance="@style/customTextNoSpecificCaseLayout" />
-    </androidx.viewpager.widget.ViewPager>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vpwelcome"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/secondary"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvwelcome1" />
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/ivwelcome1"

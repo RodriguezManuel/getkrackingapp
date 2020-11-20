@@ -6,15 +6,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.getkracking.R;
 import com.example.getkracking.fragments.WelcomeLoginFragment;
 import com.example.getkracking.fragments.WelcomeRegisterFragment;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 public class PlaceholderFragment extends Fragment {
-    private PageViewModel pageViewModel;
 
     public static Fragment newInstance(int index) {
         Fragment fragment = null;
@@ -29,7 +31,6 @@ public class PlaceholderFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pageViewModel = new ViewModelProvider(this).get(PageViewModel.class);
     }
 
     @Override

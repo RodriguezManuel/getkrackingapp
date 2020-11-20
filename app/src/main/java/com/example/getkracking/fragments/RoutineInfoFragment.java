@@ -3,6 +3,7 @@ package com.example.getkracking.fragments;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -78,7 +79,14 @@ public class RoutineInfoFragment extends Fragment {
         //handle options selected
         int id = item.getItemId();
         if (id == R.id.topbar_share) {
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "Mira esta rutina de ejercicio: " + routine.getName() + " de " + routine.getCreator() + "\n"
+                    + "http://www.getkracking.com/routines/" + routineId);
+            sendIntent.setType("text/plain");
 
+            Intent shareIntent = Intent.createChooser(sendIntent, null);
+            startActivity(shareIntent);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -125,6 +133,7 @@ public class RoutineInfoFragment extends Fragment {
                                                             Log.d("UI", "MATCH!");
                                                             routine.setFavorited(true);
                                                             fillRoutineData(vista);
+                                                            //si dio que era favorito actualizo el display
                                                             break;
                                                         }
                                                     }

@@ -101,4 +101,6 @@
     <string name="edit_perfil">Editar Perfil</string>
     <string name="resend_email_verification">Reenviar codigo</string>
     <string name="execution_mode_value">Modo de ejecucion:</string>
+<!--    String que se muestra cuando usas el link de una rutina-->
+    <string name="share_label">Ver rutina</string>
 </resources>
