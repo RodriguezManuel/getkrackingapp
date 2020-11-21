@@ -3,6 +3,7 @@ package com.example.getkracking.dialogs;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RatingBar;
@@ -10,13 +11,19 @@ import android.widget.RatingBar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.example.getkracking.R;
+import com.example.getkracking.app.MyApplication;
+import com.example.getkracking.repository.RoutineRepository;
+import com.example.getkracking.viewmodels.RepositoryViewModelFactory;
+import com.example.getkracking.viewmodels.RoutinesViewModel;
 
 public class EndedRoutineDialog extends AppCompatDialogFragment {
     float rating = -1;
     int routineId;
+    RoutinesViewModel viewModel;
 
     public EndedRoutineDialog(int routineId) {
         super();
@@ -30,15 +37,31 @@ public class EndedRoutineDialog extends AppCompatDialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_endedroutine, null);
+
+        RepositoryViewModelFactory viewModelFactory = new RepositoryViewModelFactory(RoutineRepository.class, ((MyApplication) getActivity().getApplication()).getRoutineRepository());
+        viewModel = new ViewModelProvider(this, viewModelFactory).get(RoutinesViewModel.class);
+
         ((RatingBar) view.findViewById(R.id.rating_routine_end)).setOnRatingBarChangeListener((ratingBar, rating, fromUser) -> {
             this.rating = rating;
         });
         builder.setView(view).setPositiveButton(R.string.confirm, (dialog, which) -> {
             if (rating != -1) {
-                //POST A API CON VALOR DE RESENIA QUE ESTA EN this.rating
+                viewModel.postReview(routineId, (int) rating).observe(this, resource -> {
+                    switch (resource.status) {
+                        case LOADING:
+                            Log.d("UI", "awaiting for rating post");
+                            break;
+                        case SUCCESS:
+                            Log.d("UI", "Éxito enviando puntuacion");
+                            break;
+                        case ERROR:
+                            Log.d("UI", "Error en puntuacion de rutina - " + resource.message);
+                            break;
+                    }
+                });
             }
 
-            Navigation.findNavController(getActivity(), R.id.nav_host_fragment).popBackStack(); //sale de la rutina
+            Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.homeFragment); //sale de la rutina
         });
         AlertDialog dialog = builder.create();
 

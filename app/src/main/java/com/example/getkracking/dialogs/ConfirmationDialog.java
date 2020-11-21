@@ -29,10 +29,12 @@ public class ConfirmationDialog extends AppCompatDialogFragment {
     private EditText etEmail, etCode;
     private CharSequence mail;
     UserViewModel repository;
+
     public ConfirmationDialog(CharSequence mail){
         super();
         this.mail = mail;
     }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {

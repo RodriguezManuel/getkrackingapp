@@ -104,6 +104,9 @@ public class WelcomeRegisterFragment extends Fragment {
             }
             passwordFlag = !passwordFlag;
         });
+
+        Button confirmationToggle = v.findViewById(R.id.openDialog_register);
+        confirmationToggle.setOnClickListener(v12 -> openConfirmationDialog(email.getText()));
         return v;
     }
 

@@ -20,6 +20,7 @@
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
         android:textAppearance="@style/CustomTextUppercaseLayout"
+        android:maxLength="50"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -40,6 +41,7 @@
             android:layout_height="match_parent"
             android:background="@drawable/cumtominputnostroke"
             android:hint="@string/contrasenia"
+            android:maxLength="50"
             android:importantForAutofill="no"
             android:inputType="textPassword"
             android:paddingStart="15dp"

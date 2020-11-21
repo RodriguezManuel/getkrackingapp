@@ -18,6 +18,7 @@
         android:inputType="text"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
+        android:maxLength="100"
         android:textAppearance="@style/CustomTextUppercaseLayout"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="parent"
@@ -120,15 +121,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcomeButton_register" />
 
-    <TextView
-        android:id="@+id/welcomeLink"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:gravity="center_horizontal"
+
+    <Button
+        android:id="@+id/openDialog_register"
+        android:layout_width="135dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/roundedbutton"
+        android:paddingTop="0dp"
+        android:text="@string/verify_register_code"
+        android:textAlignment="center"
         android:textAppearance="@style/customTextNoSpecificCaseLayout"
-        android:textColor="@color/white"
-        android:backgroundTint="@color/mainbackground"
+        android:textColor="@color/primary"
+        app:backgroundTint="@color/mainbackground"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iconFB" />
 
