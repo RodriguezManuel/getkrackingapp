@@ -44,8 +44,6 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
     ArrayList<RoutineVO> routinesList;
     RoutinesViewModel routinesViewModel;
     RoutinesAdapter adapter;
-    AtomicBoolean zonaCritica = new AtomicBoolean(true);
-
     public SearchFragment() {
         // Required empty public constructor
     }
@@ -241,7 +239,10 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View vista = inflater.inflate(R.layout.fragment_search, container, false);
+        RepositoryViewModelFactory viewModelFactory = new RepositoryViewModelFactory(RoutineRepository.class, ((MyApplication) getActivity().getApplication()).getRoutineRepository());
+        routinesViewModel = new ViewModelProvider(this, viewModelFactory).get(RoutinesViewModel.class);
 
         RepositoryViewModelFactory viewModelFactory = new RepositoryViewModelFactory(RoutineRepository.class, ((MyApplication) getActivity().getApplication()).getRoutineRepository());
         routinesViewModel = new ViewModelProvider(this, viewModelFactory).get(RoutinesViewModel.class);
