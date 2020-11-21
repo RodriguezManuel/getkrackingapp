@@ -105,16 +105,14 @@
                     android:text="@string/execution_mode_value"
                     style="@style/customTextNoSpecificCaseLayout"/>
 
-                <com.google.android.material.chip.Chip
+                <Switch
                     android:id="@+id/execution_mode_chip"
                     style="@style/customTextNoSpecificCaseLayout"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="460dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:layout_marginStart="60dp"
-                    android:textColor="@color/black"
                     android:textAlignment="center"
-                    app:chipBackgroundColor="@drawable/selectedchip" />
+                    android:text="Proximos ejercicios visibles" />
             </LinearLayout>
 
             <TextView
