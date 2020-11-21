@@ -25,6 +25,8 @@ import com.example.getkracking.viewmodels.RoutinesViewModel;
 import com.google.android.material.chip.ChipGroup;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutineListener {
     RecyclerView recyclerRoutines;
@@ -99,6 +101,57 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
             });
         }
     }
+
+    private enum Order{
+        ASCENDING, DESCENDING;
+    }
+
+    private enum Field{
+        DIFFICULTY, DATECREATED, RATING;
+    }
+
+    private void orderList(Field field, Order order){
+        switch (field){
+            case DIFFICULTY:
+                switch (order){
+                    case ASCENDING:
+                        Collections.sort(routinesList, Comparator.comparing(RoutineVO::getDifficulty));
+                        adapter.notifyDataSetChanged();
+                        break;
+                    case DESCENDING:
+                        Collections.sort(routinesList, Comparator.comparing(RoutineVO::getDifficulty).reversed());
+                        adapter.notifyDataSetChanged();
+                        break;
+                }
+                break;
+            case DATECREATED:
+                switch (order){
+                    case ASCENDING:
+                        Collections.sort(routinesList, Comparator.comparing(RoutineVO::getDateCreated));
+                        adapter.notifyDataSetChanged();
+                        break;
+                    case DESCENDING:
+                        Collections.sort(routinesList, Comparator.comparing(RoutineVO::getDateCreated).reversed());
+                        adapter.notifyDataSetChanged();
+                        break;
+                }
+                break;
+            case RATING:
+                switch (order){
+                    case ASCENDING:
+                        Collections.sort(routinesList, Comparator.comparing(RoutineVO::getRating));
+                        adapter.notifyDataSetChanged();
+                        break;
+                    case DESCENDING:
+                        Collections.sort(routinesList, Comparator.comparing(RoutineVO::getRating).reversed());
+                        adapter.notifyDataSetChanged();
+                        break;
+                }
+                break;
+        }
+    }
+
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

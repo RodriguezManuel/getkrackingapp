@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class RoutineVO {
     private String name, description, creator, category;
-    private int levelCategory1, levelCategory2, duration, id;
+    private int difficulty, levelCategory2, duration, id;
     private float rating;
     private boolean favorited;
     private Long dateCreated;
@@ -18,7 +18,7 @@ public class RoutineVO {
         this.description = description;
         this.creator = creator;
         this.category = category;
-        this.levelCategory1 = difficulty;
+        this.difficulty = difficulty;
         this.levelCategory2 = levelCategory2;
         this.duration = duration;
         this.id = id;
@@ -28,7 +28,7 @@ public class RoutineVO {
     }
 
     public FavouriteRoutineTable toFavTable(){
-        return new FavouriteRoutineTable(id, name, description, creator, 1, rating, levelCategory1, dateCreated);
+        return new FavouriteRoutineTable(id, name, description, creator, 1, rating, difficulty, dateCreated);
     }
 
     public float getRating() {
@@ -71,12 +71,12 @@ public class RoutineVO {
         this.category = category;
     }
 
-    public int getLevelCategory1() {
-        return levelCategory1;
+    public int getDifficulty() {
+        return difficulty;
     }
 
-    public void setLevelCategory1(int levelCategory1) {
-        this.levelCategory1 = levelCategory1;
+    public void setDifficulty(int difficulty) {
+        this.difficulty = difficulty;
     }
 
     public int getLevelCategory2() {
