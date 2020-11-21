@@ -19,6 +19,7 @@
         android:inputType="textEmailAddress"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
+        android:maxLength="50"
         android:textAppearance="@style/CustomTextUppercaseLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,6 +46,7 @@
             android:paddingStart="15dp"
             android:paddingTop="0dp"
             android:paddingEnd="15dp"
+            android:maxLength="50"
             android:textAppearance="@style/CustomTextUppercaseLayout" />
 
         <TextView

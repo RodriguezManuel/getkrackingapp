@@ -103,4 +103,5 @@
     <string name="execution_mode_value">Modo de ejecucion:</string>
 <!--    String que se muestra cuando usas el link de una rutina-->
     <string name="share_label">Ver rutina</string>
+    <string name="verify_register_code">Verificar</string>
 </resources>
