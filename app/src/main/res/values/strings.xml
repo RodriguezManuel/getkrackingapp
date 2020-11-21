@@ -105,4 +105,12 @@
     <string name="share_label">Ver rutina</string>
     <string name="verify_register_code">Verificar</string>
     <string name="dificultad">Dificultad</string>
+    <!-- opciones del spinner de search-->
+    <string name="spinner_diff_ascend">Dificultad ascendente</string>
+    <string name="spinner_diff_descend">Dificultad descendente</string>
+    <string name="spinner_date_ascend">Fecha de creación ascendente</string>
+    <string name="spinner_date_descend">Fecha de creación descendente</string>
+    <string name="spinner_rating_ascend">Reseña ascendente</string>
+    <string name="spinner_rating_descend">Reseña descendente</string>
+
 </resources>

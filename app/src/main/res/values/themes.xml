@@ -45,8 +45,18 @@
     </style>
 
     <string-array name="difficult_array">
-        <item>Dificultad ascendente</item>
-        <item>Dificultad descendente</item>
+        <item>@string/spinner_diff_ascend</item>
+        <item>@string/spinner_diff_descend</item>
+    </string-array>
+
+    <string-array name="date_array">
+        <item>@string/spinner_date_ascend</item>
+        <item>@string/spinner_date_descend</item>
+    </string-array>
+
+    <string-array name="rating_array">
+        <item>@string/spinner_rating_ascend</item>
+        <item>@string/spinner_rating_descend</item>
     </string-array>
 
 </resources>

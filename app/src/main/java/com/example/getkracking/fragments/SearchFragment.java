@@ -30,6 +30,7 @@ import com.google.android.material.chip.ChipGroup;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.stream.Collectors;
 
 public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutineListener {
     RecyclerView recyclerRoutines;
@@ -118,11 +119,15 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
             case DIFFICULTY:
                 switch (order) {
                     case ASCENDING:
+                        Log.d("UI", "Entré ascendente");
                         Collections.sort(routinesList, Comparator.comparing(RoutineVO::getDifficulty));
+                        Log.d("UI", routinesList.toString());
                         adapter.notifyDataSetChanged();
                         break;
                     case DESCENDING:
+                        Log.d("UI", "Entré descendente");
                         Collections.sort(routinesList, Comparator.comparing(RoutineVO::getDifficulty).reversed());
+                        Log.d("UI", routinesList.toString());
                         adapter.notifyDataSetChanged();
                         break;
                 }
@@ -130,11 +135,15 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
             case DATECREATED:
                 switch (order) {
                     case ASCENDING:
+                        Log.d("UI", "Entré ascendente");
                         Collections.sort(routinesList, Comparator.comparing(RoutineVO::getDateCreated));
+                        Log.d("UI", routinesList.toString());
                         adapter.notifyDataSetChanged();
                         break;
                     case DESCENDING:
+                        Log.d("UI", "Entré descendente");
                         Collections.sort(routinesList, Comparator.comparing(RoutineVO::getDateCreated).reversed());
+                        Log.d("UI", routinesList.toString());
                         adapter.notifyDataSetChanged();
                         break;
                 }
@@ -142,11 +151,15 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
             case RATING:
                 switch (order) {
                     case ASCENDING:
+                        Log.d("UI", "Entré ascendente");
                         Collections.sort(routinesList, Comparator.comparing(RoutineVO::getRating));
+                        Log.d("UI", routinesList.toString());
                         adapter.notifyDataSetChanged();
                         break;
                     case DESCENDING:
+                        Log.d("UI", "Entré descendente");
                         Collections.sort(routinesList, Comparator.comparing(RoutineVO::getRating).reversed());
+                        Log.d("UI", routinesList.toString());
                         adapter.notifyDataSetChanged();
                         break;
                 }
@@ -168,32 +181,102 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
         //chip de filtros
         ChipGroup filters = vista.findViewById(R.id.chipgroup_filterSearch);
         filters.setOnCheckedChangeListener((group, id) -> {
+            ArrayList<RoutineVO> aux = new ArrayList<>();
             if (id == R.id.filterchip_favourites) {
-                //completar
+                aux.addAll(routinesList.stream().filter(RoutineVO::isFavorited).collect(Collectors.toList()));
             } else if (id == R.id.filterchip_highdifficulty) {
-                //completar
+                aux.addAll(routinesList.stream().filter(routine -> routine.getDifficulty() < 1).collect(Collectors.toList()));
             } else if (id == R.id.filterchip_mediumdifficulty) {
-                //completar
+                aux.addAll(routinesList.stream().filter(routine -> routine.getDifficulty() < 3).collect(Collectors.toList()));
             } else if (id == R.id.filterchip_lowdifficulty) {
-                //completar
-            }
+                aux.addAll(routinesList.stream().filter(routine -> routine.getDifficulty() < 6).collect(Collectors.toList()));
+            }else
+                aux = routinesList;
+
+            adapter = new RoutinesAdapter(aux, this, null);
+            recyclerRoutines.setAdapter(adapter);
+            recyclerRoutines.setNestedScrollingEnabled(false);
         });
 
-        Spinner spinner = vista.findViewById(R.id.difficulty_order_spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.difficult_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemClickListener((parent, view, position, id) -> {
-            switch (position) {
-                case 0:
-                    //ascendente
-                    orderList(Field.DIFFICULTY, Order.ASCENDING);
-                    break;
-                case 1:
-                    orderList(Field.DIFFICULTY, Order.DESCENDING);
-                    break;
-            }
+        ArrayAdapter<CharSequence> difAdapter = ArrayAdapter.createFromResource(getContext(), R.array.difficult_array, android.R.layout.simple_spinner_item);
+
+        Spinner difficultySpinner = vista.findViewById(R.id.difficulty_order_spinner);
+        difAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        difficultySpinner.setAdapter(difAdapter);
+        difficultySpinner.setOnItemSelectedListener(
+                new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                        String option = parentView.getItemAtPosition(position).toString();
+                        if(option.equals(getResources().getString(R.string.spinner_diff_ascend))){
+                            orderList(Field.DIFFICULTY, Order.ASCENDING);
+                        }
+
+                        else if(option.equals(getResources().getString(R.string.spinner_diff_descend))){
+                            orderList(Field.DIFFICULTY, Order.DESCENDING);
+                        }
+                        difficultySpinner.setSelected(false);
+
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parentView) {
+                        difficultySpinner.setSelected(false);
+                    }
         });
+
+        ArrayAdapter<CharSequence> dateAdapter = ArrayAdapter.createFromResource(getContext(), R.array.date_array, android.R.layout.simple_spinner_item);
+        Spinner dateCreatedSpinner = vista.findViewById(R.id.datecreated_order_spinner);
+        dateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dateCreatedSpinner.setAdapter(dateAdapter);
+        dateCreatedSpinner.setOnItemSelectedListener(
+                new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                        String option = parentView.getItemAtPosition(position).toString();
+                        if(option.equals(getResources().getString(R.string.spinner_date_ascend))){
+                            orderList(Field.DATECREATED, Order.ASCENDING);
+                        }
+
+                        else if (option.equals(getResources().getString(R.string.spinner_date_descend))){
+                            orderList(Field.DATECREATED, Order.DESCENDING);
+                        }
+                        dateCreatedSpinner.setSelected(false);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parentView) {
+                        difficultySpinner.setSelected(false);
+                    }
+                });
+
+        recyclerRoutines = vista.findViewById(R.id.recyclerSearchRoutines);
+        recyclerRoutines.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        ArrayAdapter<CharSequence> ratingAdapter = ArrayAdapter.createFromResource(getContext(), R.array.rating_array, android.R.layout.simple_spinner_item);
+        Spinner ratingSpinner = vista.findViewById(R.id.rating_order_spinner);
+        ratingAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ratingSpinner.setAdapter(ratingAdapter);
+        ratingSpinner.setOnItemSelectedListener(
+                new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                        String option = parentView.getItemAtPosition(position).toString();
+                        if(option.equals(getResources().getString(R.string.spinner_rating_ascend))){
+                            orderList(Field.RATING, Order.ASCENDING);
+                        }
+
+                        else if (option.equals(getResources().getString(R.string.spinner_rating_descend))){
+                            orderList(Field.RATING, Order.DESCENDING);
+                        }
+                        ratingSpinner.setSelected(false);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parentView) {
+                        difficultySpinner.setSelected(false);
+                    }
+                });
 
         recyclerRoutines = vista.findViewById(R.id.recyclerSearchRoutines);
         recyclerRoutines.setLayoutManager(new LinearLayoutManager(getContext()));
