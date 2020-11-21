@@ -1,10 +1,7 @@
 package com.example.getkracking.API.model;
 
-<<<<<<< Updated upstream
 import com.example.getkracking.room.entities.RoutineTable;
-=======
 import com.example.getkracking.entities.CategoryVO;
->>>>>>> Stashed changes
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

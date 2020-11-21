@@ -4,6 +4,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.example.getkracking.entities.CategoryVO;
+
 @Entity(tableName = "categoryTable")
 public class CategoryTable {
     @PrimaryKey
@@ -19,6 +21,10 @@ public class CategoryTable {
         this.id = id;
         this.name = name;
         this.detail = detail;
+    }
+
+    public CategoryVO toVO(){
+        return new CategoryVO(id, name, detail);
     }
 
     public int getId() {
