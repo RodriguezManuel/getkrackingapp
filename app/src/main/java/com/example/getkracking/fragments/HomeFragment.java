@@ -95,7 +95,6 @@ public class HomeFragment extends Fragment implements RoutinesAdapter.OnRoutineL
         recyclerCategories.setAdapter(adapterCategories);
         recyclerRecentRoutines.setNestedScrollingEnabled(false);
 
-        fillHighlightedList();
         fillFavouriteList();
         fillCategoriesList();
 
@@ -128,7 +127,11 @@ public class HomeFragment extends Fragment implements RoutinesAdapter.OnRoutineL
                                                 if (rout.getCategory() == cat.getId())
                                                     aux.add(rout);
                                             }
-                                            categoriesList.add(new Pair<>(new CategoryVO(cat.getId(), cat.getName(), cat.getDetail()), aux));
+                                            if (aux.size() != 0) {
+                                                categoriesList.add(new Pair<>(new CategoryVO(cat.getId(), cat.getName(), cat.getDetail()), aux));
+                                            }
+                                            //no se muestran categorias vacias
+                                            fillHighlightedList();
                                         }
                                         adapterCategories.notifyDataSetChanged();
                                         break;
@@ -148,9 +151,13 @@ public class HomeFragment extends Fragment implements RoutinesAdapter.OnRoutineL
     }
 
     private void fillHighlightedList() {
-        //solo un item necesitamos
-        //highlightedRoutinesList.add(new RoutineVO("LA MEJOR RUTINA DE TODAS", "NDEAHHHHHHHHHHHH LA VECINDAD PADRE", "Roosevelt", 2 , 0, 1, 0, 0, false, (float) 4.5,(long) 2434));
-    }
+        //solo un item necesitamos, tomamos el primero disponible
+        if (highlightedRoutinesList.size() == 0 && categoriesList.size() != 0 && categoriesList.get(0).second.size() != 0){
+            highlightedRoutinesList.add(categoriesList.get(0).second.get(0));
+            adapterHighlighted.notifyDataSetChanged();
+        }
+
+}
 
     private void fillFavouriteList() {
         if (!viewModel.getFavouriteRoutines().hasActiveObservers()) {
