@@ -78,15 +78,15 @@ public class WelcomeRegisterFragment extends Fragment {
                             case SUCCESS:
                                 Log.d("UI", "id: " + r.data.getId() + "name: " + r.data.getFullName());
                                 Intent homeIntent = new Intent(getActivity(), HomeActivity.class);
-
+                                openConfirmationDialog(email.getText().toString());
 
                                 break;
                             case ERROR:
-                                Log.d("UI", "error");
+                                Log.d("UI", "error " + r.message);
+                                Toast.makeText(getContext() , "Usuario o email ya registrado" ,Toast.LENGTH_LONG ).show();
                                 break;
                         }
                     });
-            openConfirmationDialog(email.getText().toString());
         });
 
         passwordToggle = v.findViewById(R.id.password_toggle_register);

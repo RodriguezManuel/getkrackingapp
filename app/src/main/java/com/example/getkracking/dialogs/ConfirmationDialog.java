@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,7 +47,19 @@ public class ConfirmationDialog extends AppCompatDialogFragment {
         repository = new ViewModelProvider(this, viewModelFactory).get(UserViewModel.class);
 
         bt.setOnClickListener(v -> {
-            repository.verifyEmail(etEmail.getText().toString() , etCode.getText().toString());
+            repository.resendVerification(etEmail.getText().toString()).observe(this, resource -> {
+                switch (resource.status) {
+                    case LOADING:
+                        Log.d("UI", "awaiting for verification");
+                        break;
+                    case SUCCESS:
+                        dismiss();
+                        break;
+                    case ERROR:
+                        dismiss();
+                        break;
+                }
+            });;
             bt.setClickable(false);
             bt.setVisibility(View.INVISIBLE);   //solo se puede llamar una vez a la API
         });
@@ -66,23 +79,35 @@ public class ConfirmationDialog extends AppCompatDialogFragment {
         AlertDialog dialog = builder.create();
         dialog.show();
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
-            if(etEmail.getText().length() == 0 || !Patterns.EMAIL_ADDRESS.matcher(etEmail.getText()).matches()) {
+            if (etEmail.getText().length() == 0 || !Patterns.EMAIL_ADDRESS.matcher(etEmail.getText()).matches()) {
                 Toast.makeText(getContext(), R.string.invalid_email_format, Toast.LENGTH_LONG).show();
                 return;
             }
-            if(etCode.getText().length() != 10) {
+            if (etCode.getText().length() != 6) {
                 Toast.makeText(getContext(), R.string.invalid_confirmationcode_format, Toast.LENGTH_LONG).show();
                 return;
             }
 
             //validar codigo y mail
 
-            if(false)
-                dismiss();
-            else
-                errorMsg.setVisibility(View.VISIBLE);
-        });
 
+            repository.verifyEmail(etEmail.getText().toString(), etCode.getText().toString()).observe(this, resource -> {
+                switch (resource.status) {
+                    case LOADING:
+                        Log.d("UI", "awaiting for verification");
+                        break;
+                    case SUCCESS:
+                        dismiss();
+                        break;
+                    case ERROR:
+                        errorMsg.setVisibility(View.VISIBLE);
+                        break;
+                }
+            });
+
+    });
         return dialog;
     }
+
+
 }
