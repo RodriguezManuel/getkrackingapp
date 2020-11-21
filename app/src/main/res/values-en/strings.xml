@@ -92,4 +92,6 @@
     <string name="resend_email_verification">Resend code</string>
     <string name="share_label">See routine</string>
     <string name="verify_register_code">Verify</string>
+    <string name="register_failed">Username or email already in use</string>
+
 </resources>

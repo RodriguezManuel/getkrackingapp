@@ -187,8 +187,6 @@ public class RoutineRepository {
             @NonNull
             @Override
             protected LiveData<List<RoutineTable>> loadFromDb() {
-                Log.d("UI" , "loading from db");
-                Log.d("UI" , "\'" + string + "%\'" );
                 return database.routineDao().searchRoutine(  string + "%");
             }
 
