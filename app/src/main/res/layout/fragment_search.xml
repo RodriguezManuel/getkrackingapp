@@ -76,6 +76,44 @@
                         app:chipBackgroundColor="@drawable/selectedchip"
                         style="@style/CustomChipNoCheck"/>
 
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/filterchip_difficulty"
+                            android:layout_width="110dp"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:textAppearance="@style/customTextNoSpecificCaseLayout"
+                            android:checkable="true"
+                            android:clickable="true"
+                            android:focusable="true"
+                            app:chipBackgroundColor="@drawable/selectedchip"
+                            style="@style/CustomChipNoCheck" >
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                            <TextView
+                                android:id="@+id/difficultyOrderIcon"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/ic_arrow_down"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="@string/dificultad" />
+
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        </com.google.android.material.chip.Chip>
+
+
+
+
+
+
+
                     <com.google.android.material.chip.Chip
                         android:id="@+id/filterchip_lowdifficulty"
                         android:layout_width="110dp"
