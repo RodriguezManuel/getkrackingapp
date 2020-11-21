@@ -27,15 +27,18 @@ import com.example.getkracking.app.MyApplication;
 import com.example.getkracking.app.MyPreferences;
 import com.example.getkracking.dialogs.ErrorDialog;
 import com.example.getkracking.repository.UserRepository;
+import com.example.getkracking.viewmodels.RepositoryViewModelFactory;
+import com.example.getkracking.viewmodels.UserViewModel;
 import com.example.getkracking.viewmodels.WelcomeViewModel;
 
 public class WelcomeLoginFragment extends Fragment {
-    EditText username, password;
+    private EditText username, password;
     private TextView passwordToggle;
     private boolean passwordFlag = false;
     private MyApplication application;
     private UserRepository userRepository;
     private String argument;
+    private UserViewModel userViewModel;
 
     public WelcomeLoginFragment() {
         //constructor vacio necesario
@@ -55,9 +58,13 @@ public class WelcomeLoginFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_welcome_login, container, false);
-        WelcomeViewModel viewModel = new ViewModelProvider(this).get(WelcomeViewModel.class);
+        WelcomeViewModel argumentViewModel = new ViewModelProvider(this).get(WelcomeViewModel.class);
+
+        RepositoryViewModelFactory viewModelFactory = new RepositoryViewModelFactory(UserRepository.class, ((MyApplication) getActivity().getApplication()).getUserRepository());
+        userViewModel = new ViewModelProvider(this, viewModelFactory).get(UserViewModel.class);
+
         if(argument != null)
-            viewModel.setArgument(argument);
+            argumentViewModel.setArgument(argument);
 
         username = v.findViewById(R.id.etUsername_login);  //cambiar id a username xd
         password = v.findViewById(R.id.etPassword_login);
@@ -89,7 +96,7 @@ public class WelcomeLoginFragment extends Fragment {
                             Log.d("UI", "ALL GOOD :) -- token = " + application.getPreferences().getAuthToken());
                             Intent homeIntent = new Intent(getActivity(), HomeActivity.class);
 
-                            homeIntent.putExtra("routineId", viewModel.getArgument());
+                            homeIntent.putExtra("routineId", argumentViewModel.getArgument());
                             startActivity(homeIntent);
                             getActivity().finish();
 

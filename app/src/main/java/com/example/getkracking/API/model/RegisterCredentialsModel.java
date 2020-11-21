@@ -21,7 +21,7 @@ public class RegisterCredentialsModel {
     private String gender;
     @SerializedName("birthdate")
     @Expose
-    private int birthdate;
+    private long birthdate;
     @SerializedName("email")
     @Expose
     private String email;
@@ -50,7 +50,7 @@ public class RegisterCredentialsModel {
      * @param email
      * @param username
      */
-    public RegisterCredentialsModel(String username, String password, String fullName, String gender, int birthdate, String email, String phone, String avatarUrl) {
+    public RegisterCredentialsModel(String username, String password, String fullName, String gender, long birthdate, String email, String phone, String avatarUrl) {
         super();
         this.username = username;
         this.password = password;
@@ -94,7 +94,7 @@ public class RegisterCredentialsModel {
         this.gender = gender;
     }
 
-    public int getBirthdate() {
+    public long getBirthdate() {
         return birthdate;
     }
 

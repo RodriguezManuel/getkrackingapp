@@ -11,9 +11,9 @@ import com.example.getkracking.vo.Resource;
 
 import java.util.List;
 
-public class SearchViewModel extends RepositoryViewModel<RoutineRepository> {
+public class RoutinesViewModel extends RepositoryViewModel<RoutineRepository> {
 
-    public SearchViewModel(RoutineRepository repository) {
+    public RoutinesViewModel(RoutineRepository repository) {
         super(repository);
     }
 

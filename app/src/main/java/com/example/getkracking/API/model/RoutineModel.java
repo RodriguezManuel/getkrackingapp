@@ -1,9 +1,14 @@
 package com.example.getkracking.API.model;
 
+import com.example.getkracking.entities.RoutineVO;
+import com.example.getkracking.repository.RateLimiter;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class RoutineModel {
 
@@ -65,6 +70,20 @@ public class RoutineModel {
         this.difficulty = difficulty;
         this.creatorModel = creatorModel;
         this.categoryModel = categoryModel;
+    }
+    private RateLimiter<String> rateLimit = new RateLimiter<>(10, TimeUnit.SECONDS);
+    String[] difficultyVector = {"rookie", "beginner", "intermediate", "advanced", "expert"};
+
+    private int castDifficulty(String difficulty) {
+        return difficultyList.indexOf(difficulty);
+    }
+
+    private List<String> difficultyList = Arrays.asList(difficultyVector);
+
+    public RoutineVO toVO(){
+        return new RoutineVO(getName(), getDetail(), getCreatorModel().getUsername(),
+                "placeholder", castDifficulty(getDifficulty()), 3,
+                69, id, false, getAverageRating());
     }
 
     public int getId() {

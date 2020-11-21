@@ -8,4 +8,5 @@ public class RepositoryViewModel<T> extends ViewModel {
     public RepositoryViewModel(T repository) {
         this.repository = repository;
     }
+
 }
