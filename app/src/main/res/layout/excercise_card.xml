@@ -94,47 +94,7 @@
 
 
     </com.google.android.material.card.MaterialCardView>
-
-
-    <com.google.android.material.chip.Chip
-        android:id="@+id/filterchip_difficulty"
-        style="@style/CustomChipNoCheck"
-        android:layout_width="152dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="32dp"
-        android:checkable="true"
-        android:clickable="true"
-        android:focusable="true"
-        android:textAlignment="center"
-        android:textAppearance="@style/customTextNoSpecificCaseLayout"
-        app:chipBackgroundColor="@drawable/selectedchip"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialCardView2">
-
-
-    </com.google.android.material.chip.Chip>
-
-    <TextView
-        android:id="@+id/difficultyOrderIcon"
-        android:layout_width="24dp"
-        android:layout_height="20dp"
-        android:background="@drawable/ic_arrow_down"
-        app:layout_constraintBottom_toBottomOf="@+id/textView"
-        app:layout_constraintEnd_toEndOf="@+id/filterchip_difficulty"
-        app:layout_constraintStart_toEndOf="@+id/textView" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/dificultad"
-        app:layout_constraintBottom_toBottomOf="@+id/filterchip_difficulty"
-        app:layout_constraintEnd_toEndOf="@+id/filterchip_difficulty"
-        app:layout_constraintHorizontal_bias="0.369"
-        app:layout_constraintStart_toStartOf="@+id/filterchip_difficulty"
-        app:layout_constraintTop_toTopOf="@+id/filterchip_difficulty" />
+    
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

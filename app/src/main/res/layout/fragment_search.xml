@@ -77,38 +77,34 @@
                         style="@style/CustomChipNoCheck"/>
 
 
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+
                         <com.google.android.material.chip.Chip
                             android:id="@+id/filterchip_difficulty"
-                            android:layout_width="110dp"
-                            android:layout_height="wrap_content"
-                            android:textAlignment="center"
-                            android:textAppearance="@style/customTextNoSpecificCaseLayout"
+                            style="@style/CustomChipNoCheck"
+                            android:layout_width="152dp"
+                            android:layout_height="50dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginTop="-1dp"
                             android:checkable="true"
                             android:clickable="true"
+                            android:text="@string/dificultad"
+                            app:chipIcon="@drawable/ic_arrow_down"
                             android:focusable="true"
+                            android:textAlignment="center"
+                            android:textAppearance="@style/customTextNoSpecificCaseLayout"
                             app:chipBackgroundColor="@drawable/selectedchip"
-                            style="@style/CustomChipNoCheck" >
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.498"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/materialCardView2">
 
-                            <androidx.appcompat.widget.LinearLayoutCompat
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent">
-
-                            <TextView
-                                android:id="@+id/difficultyOrderIcon"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:background="@drawable/ic_arrow_down"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:text="@string/dificultad" />
-
-                            </androidx.appcompat.widget.LinearLayoutCompat>
 
                         </com.google.android.material.chip.Chip>
-
-
 
 
 
@@ -154,6 +150,12 @@
                         style="@style/CustomChipNoCheck" />
                 </com.google.android.material.chip.ChipGroup>
             </HorizontalScrollView>
+
+            <TextView
+                android:id="@+id/difficultyOrderIcon"
+                android:layout_width="24dp"
+                android:layout_height="20dp"
+                android:background="@drawable/ic_arrow_down" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
