@@ -43,7 +43,7 @@ public class RoutinesAdapter extends RecyclerView.Adapter<RoutinesAdapter.Routin
         else
             holder.favourite.setImageResource(R.drawable.ic_favorite_border);
 
-        holder.category1.setRating(routinesList.get(position).getLevelCategory1());
+        holder.category1.setRating(routinesList.get(position).getDifficulty());
         holder.category2.setRating(routinesList.get(position).getLevelCategory2());
     }
 

@@ -44,7 +44,7 @@ public class SmallRoutinesAdapter extends RecyclerView.Adapter<SmallRoutinesAdap
         else
             holder.favourite.setImageResource(R.drawable.ic_favorite_border);
 
-        holder.category1.setRating(routinesList.get(position).getLevelCategory1());
+        holder.category1.setRating(routinesList.get(position).getDifficulty());
     }
 
     @Override
