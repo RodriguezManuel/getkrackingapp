@@ -38,10 +38,11 @@
                     android:paddingStart="35dp"
                     android:paddingTop="0dp"
                     android:paddingEnd="15dp"
-                    android:textAppearance="@style/CustomTextUppercaseLayout" />
+                    android:textAppearance="@style/CustomTextUppercaseLayout"
+                    android:imeOptions="actionSearch"/>
 
                 <TextView
-                    android:id="@+id/password_toggle_login"
+                    android:id="@+id/search_toggle"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_centerVertical="true"

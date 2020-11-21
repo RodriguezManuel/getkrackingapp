@@ -14,7 +14,10 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -42,6 +45,7 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
     RoutinesViewModel routinesViewModel;
     RoutinesAdapter adapter;
     AtomicBoolean zonaCritica = new AtomicBoolean(true);
+
     public SearchFragment() {
         // Required empty public constructor
     }
@@ -55,11 +59,9 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
     }
 
 
-
-
     private void fillListSearch(String search) {
-        if( search.length() < 3 ){
-            Toast.makeText(getContext() , "mínimo 3 carácteres" , Toast.LENGTH_SHORT);
+        if (search.length() < 3) {
+            Toast.makeText(getContext(), "mínimo 3 carácteres", Toast.LENGTH_SHORT);
             fillList();
             return;
         }
@@ -242,13 +244,17 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
         View vista = inflater.inflate(R.layout.fragment_search, container, false);
 
         EditText etSearch = vista.findViewById(R.id.etSearchRoutines);
-        etSearch.setOnKeyListener((v, keyCode, event) -> {
-            if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                fillListSearch(etSearch.getText().toString());
-                return true;
-            }
-            return false;
-        });
+        etSearch.setOnEditorActionListener((v, actionId, event) -> {
+                    if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                        fillListSearch(etSearch.getText().toString());
+                        return true;
+                    }
+                    return false;
+                }
+        );
+
+        ImageView ivSearch = vista.findViewById(R.id.search_toggle);
+        ivSearch.setOnClickListener(v -> fillListSearch(etSearch.getText().toString()));
 
         //chip de filtros
         ChipGroup filters = vista.findViewById(R.id.chipgroup_filterSearch);
@@ -262,7 +268,7 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
                 aux.addAll(routinesList.stream().filter(routine -> routine.getDifficulty() < 3).collect(Collectors.toList()));
             } else if (id == R.id.filterchip_lowdifficulty) {
                 aux.addAll(routinesList.stream().filter(routine -> routine.getDifficulty() < 6).collect(Collectors.toList()));
-            }else
+            } else
                 aux = routinesList;
 
             adapter = new RoutinesAdapter(aux, this, null);
@@ -277,14 +283,11 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
         difficultySpinner.setAdapter(difAdapter);
         difficultySpinner.setOnItemSelectedListener(this);
 
-
-
         ArrayAdapter<CharSequence> dateAdapter = ArrayAdapter.createFromResource(getContext(), R.array.date_array, android.R.layout.simple_spinner_item);
         Spinner dateCreatedSpinner = vista.findViewById(R.id.datecreated_order_spinner);
         dateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dateCreatedSpinner.setAdapter(dateAdapter);
         dateCreatedSpinner.setOnItemSelectedListener(this);
-
 
         recyclerRoutines = vista.findViewById(R.id.recyclerSearchRoutines);
         recyclerRoutines.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -294,7 +297,6 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
         ratingAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         ratingSpinner.setAdapter(ratingAdapter);
         ratingSpinner.setOnItemSelectedListener(this);
-                
 
         recyclerRoutines = vista.findViewById(R.id.recyclerSearchRoutines);
         recyclerRoutines.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -315,24 +317,17 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
     @Override
     public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
         String option = parentView.getItemAtPosition(position).toString();
-        if(option.equals(getResources().getString(R.string.spinner_diff_ascend))){
+        if (option.equals(getResources().getString(R.string.spinner_diff_ascend))) {
             orderList(Field.DIFFICULTY, Order.ASCENDING);
-        }
-        else if(option.equals(getResources().getString(R.string.spinner_diff_descend))){
+        } else if (option.equals(getResources().getString(R.string.spinner_diff_descend))) {
             orderList(Field.DIFFICULTY, Order.DESCENDING);
-        }
-        else if(option.equals(getResources().getString(R.string.spinner_date_ascend))){
+        } else if (option.equals(getResources().getString(R.string.spinner_date_ascend))) {
             orderList(Field.DATECREATED, Order.ASCENDING);
-        }
-
-        else if (option.equals(getResources().getString(R.string.spinner_date_descend))){
+        } else if (option.equals(getResources().getString(R.string.spinner_date_descend))) {
             orderList(Field.DATECREATED, Order.DESCENDING);
-        }
-        else if(option.equals(getResources().getString(R.string.spinner_rating_ascend))){
+        } else if (option.equals(getResources().getString(R.string.spinner_rating_ascend))) {
             orderList(Field.RATING, Order.ASCENDING);
-        }
-
-        else if (option.equals(getResources().getString(R.string.spinner_rating_descend))){
+        } else if (option.equals(getResources().getString(R.string.spinner_rating_descend))) {
             orderList(Field.RATING, Order.DESCENDING);
         }
 
