@@ -10,6 +10,8 @@ import com.example.getkracking.API.ApiResponse;
 import com.example.getkracking.API.ApiRoutineService;
 import com.example.getkracking.API.model.CategoryModel;
 import com.example.getkracking.API.model.CycleModel;
+import com.example.getkracking.API.model.ExecutionAnswerModel;
+import com.example.getkracking.API.model.ExecutionModel;
 import com.example.getkracking.API.model.ExerciseModel;
 import com.example.getkracking.API.model.PagedListModel;
 import com.example.getkracking.API.model.ReviewAnswerModel;
@@ -402,7 +404,6 @@ public class RoutineRepository {
             }.asLiveData();
         }
         //------------------------------------ CATEGORY REPO--------------------
-
         public LiveData<Resource<List<CategoryVO>>> getCategories(){
            return new NetworkBoundResource<List<CategoryVO> , List<CategoryTable> , PagedListModel<CategoryModel> >(executors ,
                     modelEntity ->{
@@ -442,6 +443,40 @@ public class RoutineRepository {
                    return routineService.getCategories();
                }
            }.asLiveData();
+        }
+
+        //---------------------- Execute REPO
+
+        public LiveData<Resource<ExecutionAnswerModel>> executeRoutine( int id ){
+            return new NetworkBoundResource<ExecutionAnswerModel , Void , ExecutionAnswerModel>( executors,null , null , model -> model){
+                @Override
+                protected void saveCallResult(@NonNull Void entities) {
+                }
+
+                @Override
+                protected boolean shouldFetch(@Nullable Void entities) {
+                    return true;
+                }
+
+                @Override
+                protected boolean shouldPersist(@Nullable ExecutionAnswerModel model) {
+                    return false;
+                }
+
+                @NonNull
+                @Override
+                protected LiveData<Void> loadFromDb() {
+                    return AbsentLiveData.create();
+                }
+
+                @NonNull
+                @Override
+                protected LiveData<ApiResponse<ExecutionAnswerModel>> createCall() {
+                    return routineService.executeRoutine(id , new ExecutionModel( 20 , false ));
+                }
+
+            }.asLiveData();
+
         }
 
 

@@ -45,6 +45,7 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
     }
 
     private void fillList() {
+
         adapter = new RoutinesAdapter(routinesList, this, null);
         recyclerRoutines.setAdapter(adapter);
         recyclerRoutines.setNestedScrollingEnabled(false);

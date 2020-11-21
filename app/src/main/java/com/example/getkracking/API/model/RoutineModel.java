@@ -28,7 +28,7 @@ public class RoutineModel {
     private Long dateCreated;
     @SerializedName("averageRating")
     @Expose
-    private int averageRating;
+    private float averageRating;
     @SerializedName("isPublic")
     @Expose
     private boolean isPublic;
@@ -61,7 +61,7 @@ public class RoutineModel {
      * @param detail
      * @param categoryModel
      */
-    public RoutineModel(int id, String name, String detail, Long dateCreated, int averageRating, boolean isPublic, String difficulty, CreatorModel creatorModel, CategoryModel categoryModel) {
+    public RoutineModel(int id, String name, String detail, Long dateCreated, float averageRating, boolean isPublic, String difficulty, CreatorModel creatorModel, CategoryModel categoryModel) {
         super();
         this.id = id;
         this.name = name;
@@ -128,11 +128,11 @@ public class RoutineModel {
         this.dateCreated = dateCreated;
     }
 
-    public int getAverageRating() {
+    public float getAverageRating() {
         return averageRating;
     }
 
-    public void setAverageRating(int averageRating) {
+    public void setAverageRating(float averageRating) {
         this.averageRating = averageRating;
     }
 

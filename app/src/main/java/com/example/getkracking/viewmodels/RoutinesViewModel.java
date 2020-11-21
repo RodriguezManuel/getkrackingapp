@@ -3,6 +3,7 @@ package com.example.getkracking.viewmodels;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.getkracking.API.model.ExecutionAnswerModel;
 import com.example.getkracking.API.model.ReviewAnswerModel;
 import com.example.getkracking.entities.CategoryVO;
 import com.example.getkracking.entities.CycleVO;
@@ -29,5 +30,7 @@ public class RoutinesViewModel extends RepositoryViewModel<RoutineRepository> {
     public LiveData<Resource<List<CategoryVO>>> getCategories(){ return repository.getCategories(); }
 
     public LiveData<Resource<ReviewAnswerModel>> postReview( int routineId , int score){ return repository.postReview(routineId,score);}
+
+    public LiveData<Resource<ExecutionAnswerModel>> executeRoutine(int routineId){return repository.executeRoutine(routineId); }
 
 }

@@ -58,8 +58,6 @@ public class MainActivity extends AppCompatActivity {
                                     break;
                                 case SUCCESS:
                                     application.getPreferences().setAuthToken(resource.data);
-                                    application.getPreferences().setUsername(username_string);
-                                    application.getPreferences().setPassword(password_string);
                                     Log.d("UI", "ALL GOOD :) -- token = " + application.getPreferences().getAuthToken());
                                     Intent homeIntent = new Intent(this, HomeActivity.class);
                                     if (data != null && isNumeric(data.getLastPathSegment())) {
