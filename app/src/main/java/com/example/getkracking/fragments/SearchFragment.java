@@ -55,69 +55,7 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
     }
 
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View vista = inflater.inflate(R.layout.fragment_search, container, false);
-
-        EditText etSearch = vista.findViewById(R.id.etSearchRoutines);
-        etSearch.setOnKeyListener((v, keyCode, event) -> {
-            if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    fillListSearch(etSearch.getText().toString());
-                    return true;
-            }
-            return false;
-        });
-
-        //chip de filtros
-        ChipGroup filters = vista.findViewById(R.id.chipgroup_filterSearch);
-        filters.setOnCheckedChangeListener((group, id) -> {
-            if (id == R.id.filterchip_favourites) {
-                //completar
-            } else if (id == R.id.filterchip_highdifficulty) {
-                //completar
-            } else if (id == R.id.filterchip_mediumdifficulty) {
-                //completar
-            } else if (id == R.id.filterchip_lowdifficulty) {
-                //completar
-            }
-        });
-
-        recyclerRoutines = vista.findViewById(R.id.recyclerSearchRoutines);
-        recyclerRoutines.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        RepositoryViewModelFactory viewModelFactory = new RepositoryViewModelFactory(RoutineRepository.class, ((MyApplication) getActivity().getApplication()).getRoutineRepository());
-        routinesViewModel = new ViewModelProvider(this, viewModelFactory).get(RoutinesViewModel.class);
-
-        //lista rutinas
-        routinesList = new ArrayList<>();
-        adapter = new RoutinesAdapter(routinesList, this, null);
-        recyclerRoutines.setAdapter(adapter);
-        recyclerRoutines.setNestedScrollingEnabled(false);
-
-        fillList();
-        return vista;
-    }
-
-    @Override
-    public void onRoutineClick(int position, String type) {
-        SearchFragmentDirections.ActionSearchFragmentToRoutineInfoFragment action = SearchFragmentDirections.actionSearchFragmentToRoutineInfoFragment
-                (routinesList.get(position).getId());
-
-        Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(action);
-    }
-
-    @Override
-    public void onStop() {
-        routinesViewModel.getFavouriteRoutines().removeObservers(getViewLifecycleOwner());
-        routinesViewModel.getRoutines().removeObservers(getViewLifecycleOwner());
-        super.onStop();
-    }
 
     private void fillListSearch(String search) {
         if( search.length() < 3 ){
@@ -303,6 +241,15 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
                              Bundle savedInstanceState) {
         View vista = inflater.inflate(R.layout.fragment_search, container, false);
 
+        EditText etSearch = vista.findViewById(R.id.etSearchRoutines);
+        etSearch.setOnKeyListener((v, keyCode, event) -> {
+            if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                fillListSearch(etSearch.getText().toString());
+                return true;
+            }
+            return false;
+        });
+
         //chip de filtros
         ChipGroup filters = vista.findViewById(R.id.chipgroup_filterSearch);
         filters.setOnCheckedChangeListener((group, id) -> {
@@ -357,6 +304,9 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
 
         //lista rutinas
         routinesList = new ArrayList<>();
+        adapter = new RoutinesAdapter(routinesList, this, null);
+        recyclerRoutines.setAdapter(adapter);
+        recyclerRoutines.setNestedScrollingEnabled(false);
 
         fillList();
         return vista;
