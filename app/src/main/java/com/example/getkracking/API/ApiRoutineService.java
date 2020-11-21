@@ -15,6 +15,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ApiRoutineService {
 
@@ -29,8 +30,8 @@ public interface ApiRoutineService {
     @GET("routines?size=999999")
     LiveData<ApiResponse<PagedListModel<RoutineModel>>> getRoutines();
 
-    @GET("routines?size=999999&search={string}")
-    LiveData<ApiResponse<PagedListModel<RoutineModel>>> searchRoutines(@Path("string") String string);
+    @GET("routines?size=999999")
+    LiveData<ApiResponse<PagedListModel<RoutineModel>>> searchRoutines(@Query("search") String string);
 
     @GET("user/current/routines/favourites?size=999999")
     LiveData<ApiResponse<PagedListModel<RoutineModel>>> getFavouriteRoutines();

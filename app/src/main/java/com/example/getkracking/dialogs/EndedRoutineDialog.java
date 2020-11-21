@@ -50,7 +50,7 @@ public class EndedRoutineDialog extends AppCompatDialogFragment {
         });
         builder.setView(view).setPositiveButton(R.string.confirm, (dialog, which) -> {
             if (rating != -1) {
-                viewModel.postReview(routineId, (int) rating).observe(this, resource -> {
+                viewModel.postReview(routineId, (int) rating * 2).observe(this, resource -> {
                     switch (resource.status) {
                         case LOADING:
                             Log.d("UI", "awaiting for rating post");

@@ -33,5 +33,8 @@ public interface  RoutineDao {
 
     @Query("DELETE FROM routineTable")
     void deleteAll();
+
+    @Query("select * from routineTable where name like :look ")
+    LiveData<List<RoutineTable>> searchRoutine( String look);
 }
 

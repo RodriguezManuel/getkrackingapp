@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.getkracking.HomeActivity;
 import com.example.getkracking.R;
@@ -27,13 +28,14 @@ import com.example.getkracking.viewmodels.RoutinesViewModel;
 import com.google.android.material.chip.ChipGroup;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutineListener {
     RecyclerView recyclerRoutines;
     ArrayList<RoutineVO> routinesList;
     RoutinesViewModel routinesViewModel;
     RoutinesAdapter adapter;
-
+    AtomicBoolean zonaCritica = new AtomicBoolean(true);
     public SearchFragment() {
         // Required empty public constructor
     }
@@ -60,8 +62,8 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
         EditText etSearch = vista.findViewById(R.id.etSearchRoutines);
         etSearch.setOnKeyListener((v, keyCode, event) -> {
             if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                //search
-                return true;
+                    fillListSearch(etSearch.getText().toString());
+                    return true;
             }
             return false;
         });
@@ -112,6 +114,13 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
     }
 
     private void fillListSearch(String search) {
+        if( search.length() < 3 ){
+            Toast.makeText(getContext() , "mínimo 3 carácteres" , Toast.LENGTH_SHORT);
+            fillList();
+            return;
+        }
+        routinesList.clear();
+        adapter.notifyDataSetChanged();
         if (!routinesViewModel.getRoutines().hasActiveObservers()) {
             routinesViewModel.searchRoutines(search).observe(getViewLifecycleOwner(), resource -> {
                 switch (resource.status) {
@@ -154,6 +163,9 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
                                 }
                             });
                         }
+
+                        adapter.notifyDataSetChanged();
+
                         break;
                     case ERROR:
                         Log.d("UI", "Error en get routines de search - " + resource.message);

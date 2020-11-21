@@ -1,5 +1,7 @@
 package com.example.getkracking.repository;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
@@ -170,13 +172,11 @@ public class RoutineRepository {
                 }) {
             @Override
             protected void saveCallResult(@NonNull List<RoutineTable> entities) {
-                database.routineDao().deleteAll();
-                database.routineDao().insert(entities);
             }
 
             @Override
             protected boolean shouldFetch(@Nullable List<RoutineTable> entities) {
-                return ((entities == null) || (entities.size() == 0) || rateLimit.shouldFetch(RATE_LIMITER_ALL_KEY));
+                return false;
             }
 
             @Override
@@ -187,7 +187,9 @@ public class RoutineRepository {
             @NonNull
             @Override
             protected LiveData<List<RoutineTable>> loadFromDb() {
-                return database.routineDao().getAllRutines();
+                Log.d("UI" , "loading from db");
+                Log.d("UI" , "\'" + string + "%\'" );
+                return database.routineDao().searchRoutine(  string + "%");
             }
 
             @NonNull
