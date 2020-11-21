@@ -32,7 +32,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
-public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutineListener {
+public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutineListener, AdapterView.OnItemSelectedListener {
     RecyclerView recyclerRoutines;
     ArrayList<RoutineVO> routinesList;
     RoutinesViewModel routinesViewModel;
@@ -121,7 +121,6 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
                     case ASCENDING:
                         Log.d("UI", "Entré ascendente");
                         Collections.sort(routinesList, Comparator.comparing(RoutineVO::getDifficulty));
-                        Log.d("UI", routinesList.toString());
                         adapter.notifyDataSetChanged();
                         break;
                     case DESCENDING:
@@ -203,52 +202,16 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
         Spinner difficultySpinner = vista.findViewById(R.id.difficulty_order_spinner);
         difAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         difficultySpinner.setAdapter(difAdapter);
-        difficultySpinner.setOnItemSelectedListener(
-                new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                        String option = parentView.getItemAtPosition(position).toString();
-                        if(option.equals(getResources().getString(R.string.spinner_diff_ascend))){
-                            orderList(Field.DIFFICULTY, Order.ASCENDING);
-                        }
+        difficultySpinner.setOnItemSelectedListener(this);
 
-                        else if(option.equals(getResources().getString(R.string.spinner_diff_descend))){
-                            orderList(Field.DIFFICULTY, Order.DESCENDING);
-                        }
-                        difficultySpinner.setSelected(false);
 
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parentView) {
-                        difficultySpinner.setSelected(false);
-                    }
-        });
 
         ArrayAdapter<CharSequence> dateAdapter = ArrayAdapter.createFromResource(getContext(), R.array.date_array, android.R.layout.simple_spinner_item);
         Spinner dateCreatedSpinner = vista.findViewById(R.id.datecreated_order_spinner);
         dateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dateCreatedSpinner.setAdapter(dateAdapter);
-        dateCreatedSpinner.setOnItemSelectedListener(
-                new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                        String option = parentView.getItemAtPosition(position).toString();
-                        if(option.equals(getResources().getString(R.string.spinner_date_ascend))){
-                            orderList(Field.DATECREATED, Order.ASCENDING);
-                        }
+        dateCreatedSpinner.setOnItemSelectedListener(this);
 
-                        else if (option.equals(getResources().getString(R.string.spinner_date_descend))){
-                            orderList(Field.DATECREATED, Order.DESCENDING);
-                        }
-                        dateCreatedSpinner.setSelected(false);
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parentView) {
-                        difficultySpinner.setSelected(false);
-                    }
-                });
 
         recyclerRoutines = vista.findViewById(R.id.recyclerSearchRoutines);
         recyclerRoutines.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -257,26 +220,8 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
         Spinner ratingSpinner = vista.findViewById(R.id.rating_order_spinner);
         ratingAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         ratingSpinner.setAdapter(ratingAdapter);
-        ratingSpinner.setOnItemSelectedListener(
-                new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                        String option = parentView.getItemAtPosition(position).toString();
-                        if(option.equals(getResources().getString(R.string.spinner_rating_ascend))){
-                            orderList(Field.RATING, Order.ASCENDING);
-                        }
-
-                        else if (option.equals(getResources().getString(R.string.spinner_rating_descend))){
-                            orderList(Field.RATING, Order.DESCENDING);
-                        }
-                        ratingSpinner.setSelected(false);
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parentView) {
-                        difficultySpinner.setSelected(false);
-                    }
-                });
+        ratingSpinner.setOnItemSelectedListener(this);
+                
 
         recyclerRoutines = vista.findViewById(R.id.recyclerSearchRoutines);
         recyclerRoutines.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -289,6 +234,37 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
 
         fillList();
         return vista;
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+        String option = parentView.getItemAtPosition(position).toString();
+        if(option.equals(getResources().getString(R.string.spinner_diff_ascend))){
+            orderList(Field.DIFFICULTY, Order.ASCENDING);
+        }
+        else if(option.equals(getResources().getString(R.string.spinner_diff_descend))){
+            orderList(Field.DIFFICULTY, Order.DESCENDING);
+        }
+        else if(option.equals(getResources().getString(R.string.spinner_date_ascend))){
+            orderList(Field.DATECREATED, Order.ASCENDING);
+        }
+
+        else if (option.equals(getResources().getString(R.string.spinner_date_descend))){
+            orderList(Field.DATECREATED, Order.DESCENDING);
+        }
+        else if(option.equals(getResources().getString(R.string.spinner_rating_ascend))){
+            orderList(Field.RATING, Order.ASCENDING);
+        }
+
+        else if (option.equals(getResources().getString(R.string.spinner_rating_descend))){
+            orderList(Field.RATING, Order.DESCENDING);
+        }
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parentView) {
+        Log.d("UI", "nothing selected!");
     }
 
     @Override
