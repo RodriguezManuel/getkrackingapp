@@ -11,8 +11,9 @@ import com.example.getkracking.API.ApiRoutineService;
 import com.example.getkracking.API.model.CycleModel;
 import com.example.getkracking.API.model.ExerciseModel;
 import com.example.getkracking.API.model.PagedListModel;
+import com.example.getkracking.API.model.ReviewAnswerModel;
+import com.example.getkracking.API.model.ReviewModel;
 import com.example.getkracking.API.model.RoutineModel;
-import com.example.getkracking.R;
 import com.example.getkracking.entities.CycleVO;
 import com.example.getkracking.entities.ExerciseVO;
 import com.example.getkracking.entities.RoutineVO;
@@ -384,6 +385,36 @@ public class RoutineRepository {
             }
         }.asLiveData();
     }
+    //---------------------------- REVIEW REPOSITORY --------------------
+    public LiveData<Resource<ReviewAnswerModel>> postReview( int routineId , int score){
+        return new NetworkBoundResource<ReviewAnswerModel,Void, ReviewAnswerModel >( executors ,
+                null , null , model -> model){
+                @Override
+                protected void saveCallResult(@NonNull Void entity) {
+                }
 
+                @Override
+                protected boolean shouldFetch(@Nullable Void entity) {
+                    return true;
+                }
+
+                @Override
+                protected boolean shouldPersist(@Nullable ReviewAnswerModel model) {
+                    return false;
+                }
+
+                @NonNull
+                @Override
+                protected LiveData<Void> loadFromDb() {
+                    return AbsentLiveData.create();
+                }
+
+                @NonNull
+                @Override
+                protected LiveData<ApiResponse<ReviewAnswerModel>> createCall() {
+                    return routineService.postReview( routineId , new ReviewModel(score , "Me dejo como el octa"));
+                }
+            }.asLiveData();
+        }
 
 }
