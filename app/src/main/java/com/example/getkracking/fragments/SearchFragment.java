@@ -244,8 +244,6 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
         RepositoryViewModelFactory viewModelFactory = new RepositoryViewModelFactory(RoutineRepository.class, ((MyApplication) getActivity().getApplication()).getRoutineRepository());
         routinesViewModel = new ViewModelProvider(this, viewModelFactory).get(RoutinesViewModel.class);
 
-        RepositoryViewModelFactory viewModelFactory = new RepositoryViewModelFactory(RoutineRepository.class, ((MyApplication) getActivity().getApplication()).getRoutineRepository());
-        routinesViewModel = new ViewModelProvider(this, viewModelFactory).get(RoutinesViewModel.class);
 
         EditText etSearch = vista.findViewById(R.id.etSearchRoutines);
         etSearch.setOnEditorActionListener((v, actionId, event) -> {
