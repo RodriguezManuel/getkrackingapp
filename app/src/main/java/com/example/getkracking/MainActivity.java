@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public int attemptLogin( MyApplication application){
+    public void attemptLogin( MyApplication application){
         String username_string = application.getPreferences().getUsername();
         String password_string = application.getPreferences().getPassword();
         application.getUserRepository().login(username_string, password_string)
@@ -83,4 +83,5 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
+
 }
