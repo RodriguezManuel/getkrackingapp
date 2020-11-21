@@ -9,19 +9,21 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.getkracking.HomeActivity;
 import com.example.getkracking.R;
+import com.example.getkracking.adapters.CategoriesAdapter;
 import com.example.getkracking.adapters.RoutinesAdapter;
 import com.example.getkracking.adapters.SmallRoutinesAdapter;
 import com.example.getkracking.app.MyApplication;
+import com.example.getkracking.entities.CategoryVO;
 import com.example.getkracking.entities.RoutineVO;
 import com.example.getkracking.repository.RoutineRepository;
 import com.example.getkracking.viewmodels.RepositoryViewModelFactory;
-import com.example.getkracking.viewmodels.RoutineInfoViewModel;
 import com.example.getkracking.viewmodels.RoutinesViewModel;
 
 import java.util.ArrayList;
@@ -37,6 +39,9 @@ public class HomeFragment extends Fragment implements RoutinesAdapter.OnRoutineL
     RoutinesAdapter adapterHighlighted;
     SmallRoutinesAdapter adapterFavourites;
     SmallRoutinesAdapter adapterRecents;
+    ArrayList<Pair<CategoryVO, ArrayList<RoutineVO>>> categoriesList;
+    CategoriesAdapter adapterCategories;
+    RecyclerView recyclerCategories;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -82,15 +87,69 @@ public class HomeFragment extends Fragment implements RoutinesAdapter.OnRoutineL
         recyclerRecentRoutines.setAdapter(adapterRecents);
         recyclerRecentRoutines.setNestedScrollingEnabled(false);
 
+        //categories
+        categoriesList = new ArrayList<>();
+        recyclerCategories = vista.findViewById(R.id.recyclerHomeCategories);
+        recyclerCategories.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapterCategories = new CategoriesAdapter(getActivity(), categoriesList, this);
+        recyclerCategories.setAdapter(adapterCategories);
+        recyclerRecentRoutines.setNestedScrollingEnabled(false);
+
         fillHighlightedList();
         fillFavouriteList();
+        fillCategoriesList();
 
         return vista;
     }
 
+    private void fillCategoriesList() {
+        if (!viewModel.getRoutines().hasActiveObservers()) {
+            viewModel.getRoutines().observe(getViewLifecycleOwner(), resource -> {
+                switch (resource.status) {
+                    case LOADING:
+                        Log.d("UI", "awaiting routines");
+                        break;
+                    case SUCCESS:
+                        Log.d("UI", "Éxito recuperando rutinas");
+
+                        if (!viewModel.getCategories().hasActiveObservers()) {
+                            viewModel.getCategories().observe(getViewLifecycleOwner(), resourceCat -> {
+                                switch (resourceCat.status) {
+                                    case LOADING:
+                                        Log.d("UI", "awaiting categories");
+                                        break;
+                                    case SUCCESS:
+                                        Log.d("UI", "exito recuperando categorias");
+                                        ArrayList<RoutineVO> aux;
+                                        for (CategoryVO cat : resourceCat.data) {
+                                            aux = new ArrayList<>();
+                                            //busco rutinas que matchean con la categoria actual
+                                            for (RoutineVO rout : resource.data) {
+                                                if (rout.getCategory() == cat.getId())
+                                                    aux.add(rout);
+                                            }
+                                            categoriesList.add(new Pair<>(new CategoryVO(cat.getId(), cat.getName(), cat.getDetail()), aux));
+                                        }
+                                        adapterCategories.notifyDataSetChanged();
+                                        break;
+                                    case ERROR:
+                                        Log.d("UI", "Error en get categories - " + resourceCat.message);
+                                        break;
+                                }
+                            });
+                        }
+                        break;
+                    case ERROR:
+                        Log.d("UI", "Error en get routines - " + resource.message);
+                        break;
+                }
+            });
+        }
+    }
+
     private void fillHighlightedList() {
         //solo un item necesitamos
-        highlightedRoutinesList.add(new RoutineVO("LA MEJOR RUTINA DE TODAS", "NDEAHHHHHHHHHHHH LA VECINDAD PADRE", "Roosevelt", "Pecho", 0, 1, 0, 0, false, (float) 4.5,(long) 2434));
+        highlightedRoutinesList.add(new RoutineVO("LA MEJOR RUTINA DE TODAS", "NDEAHHHHHHHHHHHH LA VECINDAD PADRE", "Roosevelt", "Pecho", 0, 1, 0, 0, false, (float) 4.5, (long) 2434));
     }
 
     private void fillFavouriteList() {

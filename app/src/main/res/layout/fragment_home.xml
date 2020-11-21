@@ -85,7 +85,8 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -98,45 +99,20 @@
                 android:text="@string/recomended_routines"
                 android:textSize="24sp" />
 
-            <TextView
-                style="@style/customTextNoSpecificCaseLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/first_category_recomended_routines"
-                android:textSize="20sp" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <include
-                android:id="@+id/include_first_category_routine"
-                layout="@layout/bigroutine_card" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerHomeCategories"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                style="@style/customTextNoSpecificCaseLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/second_category_recomended_routines"
-                android:textSize="20sp" />
-
-            <include
-                android:id="@+id/include_second_category_routine"
-                layout="@layout/bigroutine_card" />
-
-            <TextView
-                style="@style/customTextNoSpecificCaseLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/third_category_recomended_routines"
-                android:textSize="20sp" />
-
-            <include
-                android:id="@+id/include_third_category_routine"
-                layout="@layout/bigroutine_card" />
-
+            </androidx.constraintlayout.widget.ConstraintLayout>
             <!--            PLACEHOLDER PARA QUE NO SE TAPE LA ULTIMA RUTINA-->
             <TextView
                 android:layout_width="match_parent"
