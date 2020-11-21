@@ -109,16 +109,26 @@
                     android:gravity="center"
                     android:text="@string/execution_mode_value" />
 
-                <com.google.android.material.chip.Chip
+<!--                <com.google.android.material.chip.Chip-->
+<!--                    android:id="@+id/execution_mode_chip"-->
+<!--                    style="@style/customTextNoSpecificCaseLayout"-->
+<!--                    android:layout_width="374dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_marginStart="60dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:textAlignment="center"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    app:chipBackgroundColor="@drawable/selectedchip" />-->
+
+                <Switch
                     android:id="@+id/execution_mode_chip"
                     style="@style/customTextNoSpecificCaseLayout"
-                    android:layout_width="374dp"
+                    android:layout_width="460dp"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="60dp"
                     android:layout_weight="1"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
-                    app:chipBackgroundColor="@drawable/selectedchip" />
+                    android:text="Proximos ejercicios visibles" />
+
             </LinearLayout>
 
             <TextView

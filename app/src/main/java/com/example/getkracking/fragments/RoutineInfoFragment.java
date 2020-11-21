@@ -22,8 +22,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.getkracking.HomeActivity;
@@ -48,7 +50,7 @@ public class RoutineInfoFragment extends Fragment {
     private boolean favorited = false;  //HARDCODEADO OBTENIDO DE API
     private CyclesAdapter adapter;
     private RoutineInfoViewModel routineViewModel;
-    private Chip mode;
+    private Switch mode;
     private ImageView favIcon;
     private RoutineVO routine;
     private int routineId;
@@ -100,12 +102,17 @@ public class RoutineInfoFragment extends Fragment {
         routineViewModel = new ViewModelProvider(this, viewModelFactory).get(RoutineInfoViewModel.class);
 
 
-        mode = vista.findViewById(R.id.execution_mode_chip);
+        mode = (Switch) vista.findViewById(R.id.execution_mode_chip);
+
+        //CAMBIAR ACA, TEMA DEL VIEW MODEL
         routineViewModel.getChipText().observe(getViewLifecycleOwner(), bool -> {
             if (bool)
-                mode.setText(R.string.exercise_execution_list_mode);
-            else mode.setText(R.string.exercise_execution_exercise_mode);
+               mode.setChecked(true);
+                //mode.setText(R.string.exercise_execution_list_mode);
+            else //.setText(R.string.exercise_execution_exercise_mode);
+            mode.setChecked(false);
         });
+
         mode.setOnClickListener(v -> routineViewModel.changeChipText());
 
         RoutineInfoFragmentArgs args = RoutineInfoFragmentArgs.fromBundle(getArguments());
@@ -251,7 +258,7 @@ public class RoutineInfoFragment extends Fragment {
                     if (cyclesList.indexOf(cycle) == cyclesList.size() - 1)
                         //seteo de funcionalidades de botones
                         ((Button) getView().findViewById(R.id.ButtonEmpezarInRoutine)).setOnClickListener(v1 -> {
-                            if (mode.getText().equals(getString(R.string.exercise_execution_list_mode))) {
+                            if (mode.isChecked()) {
                                 RoutineInfoFragmentDirections.ActionRoutineInfoFragmentToRunRoutineListFragment action =
                                         RoutineInfoFragmentDirections.actionRoutineInfoFragmentToRunRoutineListFragment(cyclesList.toArray(new CycleVO[cyclesList.size()]), routine.getId());
                                 Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(action);
