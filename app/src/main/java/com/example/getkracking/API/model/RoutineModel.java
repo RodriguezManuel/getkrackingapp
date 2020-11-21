@@ -1,9 +1,16 @@
 package com.example.getkracking.API.model;
 
+import com.example.getkracking.entities.RoutineVO;
+import com.example.getkracking.repository.RateLimiter;
+import com.example.getkracking.room.entities.FavouriteRoutineTable;
+import com.example.getkracking.room.entities.RoutineTable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class RoutineModel {
 
@@ -66,6 +73,27 @@ public class RoutineModel {
         this.creatorModel = creatorModel;
         this.categoryModel = categoryModel;
     }
+
+    public RoutineVO toVO(){
+        return new RoutineVO(name, detail, creatorModel.getUsername(), categoryModel.getName(), castDifficulty(difficulty), 3, 69, id, false, averageRating, dateCreated);
+    }
+
+    public RoutineTable toTable(int favourited){
+        return new RoutineTable(id, name, detail, creatorModel.getUsername(),  favourited, averageRating, castDifficulty(difficulty), dateCreated);
+    }
+
+    public FavouriteRoutineTable toFavTable(){
+        return new FavouriteRoutineTable(id, name, detail, creatorModel.getUsername(),  1, averageRating, castDifficulty(difficulty), dateCreated);
+    }
+
+
+    private int castDifficulty(String difficulty) {
+        return difficultyList.indexOf(difficulty);
+    }
+
+    String[] difficultyVector = {"rookie", "beginner", "intermediate", "advanced", "expert"};
+    private List<String> difficultyList = Arrays.asList(difficultyVector);
+
 
     public int getId() {
         return id;

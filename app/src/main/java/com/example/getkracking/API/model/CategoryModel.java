@@ -1,5 +1,6 @@
 package com.example.getkracking.API.model;
 
+import com.example.getkracking.room.entities.RoutineTable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

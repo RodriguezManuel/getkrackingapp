@@ -58,19 +58,13 @@ public class RoutineRepository {
     public LiveData<Resource<RoutineVO>> getRoutineById(int id) {
         return new NetworkBoundResource<RoutineVO, RoutineTable, RoutineModel>(executors,
                 table -> {
-                    return new RoutineVO(table.name, table.detail, table.creator,
-                            "placeholder", table.difficulty, 3,
-                            69, id, false, table.rating);
+                    return table.toVo(false);
                 },
                 model -> {
-                    return new RoutineTable(id, model.getName(), model.getDetail(),
-                            model.getCreatorModel().getUsername(), 0, model.getAverageRating(),
-                            castDifficulty(model.getDifficulty()));
+                    return model.toTable(0);
                 },
-                routineModel -> {
-                    return new RoutineVO(routineModel.getName(), routineModel.getDetail(), routineModel.getCreatorModel().getUsername(),
-                            "placeholder", castDifficulty(routineModel.getDifficulty()), 3,
-                            69, id, false, routineModel.getAverageRating());
+                model -> {
+                    return model.toVO();
                 }
         ) {
             @Override
@@ -106,23 +100,19 @@ public class RoutineRepository {
     public LiveData<Resource<List<RoutineVO>>> getRoutines() {
 
         return new NetworkBoundResource<List<RoutineVO>, List<RoutineTable>, PagedListModel<RoutineModel>>(executors,
-                entities -> {
-                    return entities.stream()
-                            .map(routineEntity -> new RoutineVO(routineEntity.name, routineEntity.detail, routineEntity.creator,
-                                    "placeholder", routineEntity.difficulty, 3,
-                                    69, routineEntity.id, routineEntity.favourite != 0, routineEntity.rating))
+                tables -> {
+                    return tables.stream()
+                            .map(table -> table.toVo(false))
                             .collect(toList());
                 },
-                model -> {
-                    return model.getResults().stream()
-                            .map(routineModel -> new RoutineTable(routineModel.getId(), routineModel.getName(), routineModel.getDetail(), routineModel.getCreatorModel().getUsername(), 0, routineModel.getAverageRating(), castDifficulty(routineModel.getDifficulty()))
-                            ).collect(toList());
+                models -> {
+                    return models.getResults().stream()
+                            .map(model -> model.toTable(0))
+                            .collect(toList());
                 },
-                model -> {
-                    return model.getResults().stream()
-                            .map(routineModel -> new RoutineVO(routineModel.getName(), routineModel.getDetail(), routineModel.getCreatorModel().getUsername(),
-                                    "placeholder", castDifficulty(routineModel.getDifficulty()), 3,
-                                    69, routineModel.getId(), false /*TODO: no hardcodear*/, routineModel.getAverageRating()))
+                models -> {
+                    return models.getResults().stream()
+                            .map(model ->  model.toVO())
                             .collect(toList());
                 }) {
             @Override
@@ -158,25 +148,19 @@ public class RoutineRepository {
     public LiveData<Resource<List<RoutineVO>>> getFavouriteRoutines() {
 
         return new NetworkBoundResource<List<RoutineVO>, List<FavouriteRoutineTable>, PagedListModel<RoutineModel>>(executors,
-                entities -> {
-                    return entities.stream()
-                            .map(routineEntity -> new RoutineVO(routineEntity.name, routineEntity.detail, routineEntity.creator,
-                                    "placeholder", routineEntity.difficulty, 3,
-                                    69, routineEntity.id, true, routineEntity.rating))
+                tables -> {
+                    return tables.stream()
+                            .map(table -> table.toVo())
                             .collect(toList());
                 },
-                model -> {
-                    return model.getResults().stream()
-                            .map(routineModel -> new FavouriteRoutineTable(routineModel.getId(), routineModel.getName(),
-                                    routineModel.getDetail(), routineModel.getCreatorModel().getUsername(),
-                                    1, routineModel.getAverageRating(), castDifficulty(routineModel.getDifficulty()))
-                            ).collect(toList());
+                models -> {
+                    return models.getResults().stream()
+                            .map(model -> model.toFavTable())
+                            .collect(toList());
                 },
-                model -> {
-                    return model.getResults().stream()
-                            .map(routineModel -> new RoutineVO(routineModel.getName(), routineModel.getDetail(), routineModel.getCreatorModel().getUsername(),
-                                    "placeholder", castDifficulty(routineModel.getDifficulty()), 3,
-                                    69, routineModel.getId(), true, routineModel.getAverageRating()))
+                models -> {
+                    return models.getResults().stream()
+                            .map(model ->  model.toVO())
                             .collect(toList());
                 }) {
             @Override //no me preocupo por esto, el getAllRoutines lo hace por mi
@@ -218,8 +202,7 @@ public class RoutineRepository {
         ) {
             @Override
             protected void saveCallResult(@NonNull Void entity) {
-                database.favouriteRoutineDao().addFavouriteRoutine(new FavouriteRoutineTable(routine.getId(),
-                        routine.getName(), routine.getDescription(), routine.getCreator(), 1, (int) routine.getRating(), routine.getLevelCategory1()));
+                database.favouriteRoutineDao().addFavouriteRoutine(routine.toFavTable());
             }
 
             @Override
@@ -251,8 +234,7 @@ public class RoutineRepository {
 
             @Override
             protected void saveCallResult(@NonNull Void entity) {
-                database.favouriteRoutineDao().deleteFavouriteRoutine(new FavouriteRoutineTable(routine.getId(),
-                        routine.getName(), routine.getDescription(), routine.getCreator(), 1, (int) routine.getRating(), routine.getLevelCategory1()));
+                database.favouriteRoutineDao().deleteFavouriteRoutine(routine.toFavTable());
             }
 
             @Override
