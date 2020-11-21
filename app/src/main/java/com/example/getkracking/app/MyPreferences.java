@@ -10,9 +10,9 @@ import com.example.getkracking.utils.Constants;
 public class MyPreferences {
     private final String AUTH_TOKEN = "auth_token";
     private final SharedPreferences sharedPreferences;
-    private final String USERNAME = null ;
-    private final String PASSWORD = null;
-
+    private final String USERNAME = "username" ;
+    private final String PASSWORD = "password" ;
+    private final String LOGGED = "logged";
     public void setUsername(String username){
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(USERNAME, username);
@@ -23,6 +23,15 @@ public class MyPreferences {
         editor.putString(PASSWORD, password);
         editor.apply();
     }
+    public void setLogged(boolean logged){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(LOGGED , logged);
+        editor.apply();
+    }
+
+
+    public boolean getLogged(){ return sharedPreferences.getBoolean(LOGGED , false); }
+
     public String getUsername() {
         return sharedPreferences.getString(USERNAME, null);
     }

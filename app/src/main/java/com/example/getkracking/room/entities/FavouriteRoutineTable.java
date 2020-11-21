@@ -32,7 +32,11 @@ public class FavouriteRoutineTable {
     @ColumnInfo(name = "DateCreated")
     public long datecreated;
 
-    public FavouriteRoutineTable(int id, String name, String detail, String creator, int favourite, float rating, int difficulty, long datecreated) {
+    @ColumnInfo(name ="CategoryId")
+    public int categoryId;
+
+
+    public FavouriteRoutineTable(int id, String name, String detail, String creator, int favourite, float rating, int difficulty, long datecreated , int categoryId) {
         this.id = id;
         this.name = name;
         this.detail = detail;
@@ -41,9 +45,10 @@ public class FavouriteRoutineTable {
         this.rating = rating;
         this.difficulty = difficulty;
         this.datecreated = datecreated;
+        this.categoryId = categoryId;
     }
 
     public RoutineVO toVo(){
-        return new RoutineVO(name, detail, creator, "placeholder", difficulty, 3, 69, id, true, rating, datecreated);
+        return new RoutineVO(name, detail, creator, categoryId, difficulty, 3, 69, id, true, rating, datecreated);
     }
 }

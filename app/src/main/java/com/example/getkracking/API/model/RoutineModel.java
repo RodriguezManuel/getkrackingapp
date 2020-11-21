@@ -77,15 +77,15 @@ public class RoutineModel {
     String[] difficultyVector = {"rookie", "beginner", "intermediate", "advanced", "expert"};
 
     public RoutineVO toVO(){
-        return new RoutineVO(name, detail, creatorModel.getUsername(), categoryModel.getName(), castDifficulty(difficulty), 3, 69, id, false, averageRating, dateCreated);
+        return new RoutineVO(name, detail, creatorModel.getUsername(), categoryModel.getId(), castDifficulty(difficulty), 3, 69, id, false, averageRating, dateCreated);
     }
 
     public RoutineTable toTable(int favourited){
-        return new RoutineTable(id, name, detail, creatorModel.getUsername(),  favourited, averageRating, castDifficulty(difficulty), dateCreated);
+        return new RoutineTable(id, name, detail, creatorModel.getUsername(),  favourited, averageRating, castDifficulty(difficulty), dateCreated , categoryModel.getId());
     }
 
     public FavouriteRoutineTable toFavTable(){
-        return new FavouriteRoutineTable(id, name, detail, creatorModel.getUsername(),  1, averageRating, castDifficulty(difficulty), dateCreated);
+        return new FavouriteRoutineTable(id, name, detail, creatorModel.getUsername(),  1, averageRating, castDifficulty(difficulty), dateCreated , categoryModel.getId());
     }
 
 

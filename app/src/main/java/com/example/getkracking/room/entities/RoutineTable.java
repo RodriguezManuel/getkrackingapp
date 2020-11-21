@@ -37,7 +37,10 @@ public class RoutineTable {
     @ColumnInfo(name = "DateCreated")
     public long datecreated;
 
-    public RoutineTable(int id, String name, String detail, String creator, int favourite, float rating, int difficulty, long datecreated) {
+    @ColumnInfo(name ="CategoryId")
+    public int categoryId;
+
+    public RoutineTable(int id, String name, String detail, String creator, int favourite, float rating, int difficulty, long datecreated , int categoryId) {
         this.id = id;
         this.name = name;
         this.detail = detail;
@@ -46,9 +49,10 @@ public class RoutineTable {
         this.rating = rating;
         this.difficulty = difficulty;
         this.datecreated = datecreated;
+        this.categoryId = categoryId;
     }
 
     public RoutineVO toVo(boolean favourite){
-        return new RoutineVO(name, detail, creator, "placeholder", difficulty, 3, 69, id, favourite, rating, datecreated);
+        return new RoutineVO(name, detail, creator, categoryId, difficulty, 3, 69, id, favourite, rating, datecreated);
     }
 }

@@ -150,6 +150,54 @@ public class RoutineRepository {
             }
         }.asLiveData();
     }
+    public LiveData<Resource<List<RoutineVO>>> searchRoutines(String string) {
+
+        return new NetworkBoundResource<List<RoutineVO>, List<RoutineTable>, PagedListModel<RoutineModel>>(executors,
+                tables -> {
+                    return tables.stream()
+                            .map(table -> table.toVo(false))
+                            .collect(toList());
+                },
+                models -> {
+                    return models.getResults().stream()
+                            .map(model -> model.toTable(0))
+                            .collect(toList());
+                },
+                models -> {
+                    return models.getResults().stream()
+                            .map(model ->  model.toVO())
+                            .collect(toList());
+                }) {
+            @Override
+            protected void saveCallResult(@NonNull List<RoutineTable> entities) {
+                database.routineDao().deleteAll();
+                database.routineDao().insert(entities);
+            }
+
+            @Override
+            protected boolean shouldFetch(@Nullable List<RoutineTable> entities) {
+                return ((entities == null) || (entities.size() == 0) || rateLimit.shouldFetch(RATE_LIMITER_ALL_KEY));
+            }
+
+            @Override
+            protected boolean shouldPersist(@Nullable PagedListModel<RoutineModel> model) {
+                return true;
+            }
+
+            @NonNull
+            @Override
+            protected LiveData<List<RoutineTable>> loadFromDb() {
+                return database.routineDao().getAllRutines();
+            }
+
+            @NonNull
+            @Override
+            protected LiveData<ApiResponse<PagedListModel<RoutineModel>>> createCall() {
+                return routineService.searchRoutines(string);
+            }
+        }.asLiveData();
+    }
+
 
     public LiveData<Resource<List<RoutineVO>>> getFavouriteRoutines() {
 

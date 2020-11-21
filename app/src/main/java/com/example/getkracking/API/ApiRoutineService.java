@@ -18,7 +18,7 @@ import retrofit2.http.Path;
 
 public interface ApiRoutineService {
 
-    @GET("categories")
+    @GET("categories?size=999999")
     LiveData<ApiResponse<PagedListModel<CategoryModel>>> getCategories();
     @POST("routines/{routineId}/execute")
     LiveData<ApiResponse<ExecutionAnswerModel>> executeRoutine(@Path("routineId") int routineId , @Body ExecutionModel executionModel);
@@ -26,10 +26,13 @@ public interface ApiRoutineService {
     @POST("routines/{routineId}/ratings")
     LiveData<ApiResponse<ReviewAnswerModel>> postReview(@Path("routineId") int routineId , @Body ReviewModel reviewModel);
 
-    @GET("routines")
+    @GET("routines?size=999999")
     LiveData<ApiResponse<PagedListModel<RoutineModel>>> getRoutines();
 
-    @GET("user/current/routines/favourites")
+    @GET("routines?size=999999&search={string}")
+    LiveData<ApiResponse<PagedListModel<RoutineModel>>> searchRoutines(@Path("string") String string);
+
+    @GET("user/current/routines/favourites?size=999999")
     LiveData<ApiResponse<PagedListModel<RoutineModel>>> getFavouriteRoutines();
 
     @GET("routines/{routineId}")
