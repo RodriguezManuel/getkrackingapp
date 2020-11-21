@@ -93,5 +93,12 @@
     <string name="share_label">See routine</string>
     <string name="verify_register_code">Verify</string>
     <string name="register_failed">Username or email already in use</string>
+    <string name="dificultad">Difficulty</string>
+    <string name="spinner_diff_ascend">Ascending difficulty</string>
+    <string name="spinner_diff_descend">Descending difficulty</string>
+    <string name="spinner_date_ascend">Ascending creation date</string>
+    <string name="spinner_date_descend">Descending creation date</string>
+    <string name="spinner_rating_ascend">Ascending rating</string>
+    <string name="spinner_rating_descend">Descending rating</string>
 
 </resources>
