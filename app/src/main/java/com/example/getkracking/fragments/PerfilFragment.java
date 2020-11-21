@@ -62,7 +62,6 @@ public class PerfilFragment extends Fragment {
         View vista = inflater.inflate(R.layout.fragment_perfil, container, false);
         tvName = vista.findViewById(R.id.name_perfil);
 
-
         RepositoryViewModelFactory viewModelFactory = new RepositoryViewModelFactory(UserRepository.class, ((MyApplication) getActivity().getApplication()).getUserRepository());
         userViewModel = new ViewModelProvider(this, viewModelFactory).get(UserViewModel.class);
 

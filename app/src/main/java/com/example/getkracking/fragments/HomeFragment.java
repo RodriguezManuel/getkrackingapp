@@ -3,10 +3,12 @@ package com.example.getkracking.fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +17,12 @@ import com.example.getkracking.HomeActivity;
 import com.example.getkracking.R;
 import com.example.getkracking.adapters.RoutinesAdapter;
 import com.example.getkracking.adapters.SmallRoutinesAdapter;
+import com.example.getkracking.app.MyApplication;
 import com.example.getkracking.entities.RoutineVO;
+import com.example.getkracking.repository.RoutineRepository;
+import com.example.getkracking.viewmodels.RepositoryViewModelFactory;
 import com.example.getkracking.viewmodels.RoutineInfoViewModel;
+import com.example.getkracking.viewmodels.RoutinesViewModel;
 
 import java.util.ArrayList;
 
@@ -27,6 +33,10 @@ public class HomeFragment extends Fragment implements RoutinesAdapter.OnRoutineL
     ArrayList<RoutineVO> favouriteRoutinesList;
     RecyclerView recyclerRecentRoutines;
     ArrayList<RoutineVO> recentRoutinesList;
+    RoutinesViewModel viewModel;
+    RoutinesAdapter adapterHighlighted;
+    SmallRoutinesAdapter adapterFavourites;
+    SmallRoutinesAdapter adapterRecents;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -44,34 +54,36 @@ public class HomeFragment extends Fragment implements RoutinesAdapter.OnRoutineL
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View vista = inflater.inflate(R.layout.fragment_home, container, false);
+
+        RepositoryViewModelFactory viewModelFactory = new RepositoryViewModelFactory(RoutineRepository.class, ((MyApplication) getActivity().getApplication()).getRoutineRepository());
+        viewModel = new ViewModelProvider(this, viewModelFactory).get(RoutinesViewModel.class);
+
         //highlighted routines
         highlightedRoutinesList = new ArrayList<>();
         recyclerHighlightedRoutines = vista.findViewById(R.id.recyclerHighlightedRoutines);
         recyclerHighlightedRoutines.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapterHighlighted = new RoutinesAdapter(highlightedRoutinesList, this, "Highlighted");
+        recyclerHighlightedRoutines.setAdapter(adapterHighlighted);
+        recyclerHighlightedRoutines.setNestedScrollingEnabled(false);
+
         //favourites routines
         favouriteRoutinesList = new ArrayList<>();
         recyclerFavouriteRoutines = vista.findViewById(R.id.recyclerHomeFavouritesRoutines);
         recyclerFavouriteRoutines.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        adapterFavourites = new SmallRoutinesAdapter(favouriteRoutinesList, this, "Favourites");
+        recyclerFavouriteRoutines.setAdapter(adapterFavourites);
+        recyclerFavouriteRoutines.setNestedScrollingEnabled(false);
+
         //recent routines
         recentRoutinesList = new ArrayList<>();
         recyclerRecentRoutines = vista.findViewById(R.id.recyclerHomeRecentRoutines);
         recyclerRecentRoutines.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        adapterRecents = new SmallRoutinesAdapter(recentRoutinesList, this, "Recents");
+        recyclerRecentRoutines.setAdapter(adapterRecents);
+        recyclerRecentRoutines.setNestedScrollingEnabled(false);
 
         fillHighlightedList();
         fillFavouriteList();
-        fillRecentList();
-
-        RoutinesAdapter adapterHighlighted = new RoutinesAdapter(highlightedRoutinesList, this, "Highlighted");
-        recyclerHighlightedRoutines.setAdapter(adapterHighlighted);
-        recyclerHighlightedRoutines.setNestedScrollingEnabled(false);
-
-        SmallRoutinesAdapter adapterFavourites = new SmallRoutinesAdapter(favouriteRoutinesList, this, "Favourites");
-        recyclerFavouriteRoutines.setAdapter(adapterFavourites);
-        recyclerFavouriteRoutines.setNestedScrollingEnabled(false);
-
-        SmallRoutinesAdapter adapterRecents = new SmallRoutinesAdapter(recentRoutinesList, this, "Recents");
-        recyclerRecentRoutines.setAdapter(adapterRecents);
-        recyclerRecentRoutines.setNestedScrollingEnabled(false);
 
         return vista;
     }
@@ -82,17 +94,33 @@ public class HomeFragment extends Fragment implements RoutinesAdapter.OnRoutineL
     }
 
     private void fillFavouriteList() {
-        //HARDCODEADO ADAPTAR A API
-        favouriteRoutinesList.add(new RoutineVO("IRONMAN", "HMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMMHMH", "Octa1", "Piernas", 5, 5, 18, 1, true, 2));
-        favouriteRoutinesList.add(new RoutineVO("CAPTAIN AMERICA", "VALCHARRRR SACA LA MANO DE AHI CARAJO", "Octa2", "Brazos", 1, 0, 180, 2, true, 3));
-        favouriteRoutinesList.add(new RoutineVO("THOR NOT AGUSTIN", "wasaaaaaaaaaaaaaaaaaaaaaaaaaa", "Octa3", "Piernas", 2, 0, 11, 3, true, 3.3f));
-    }
+        if (!viewModel.getFavouriteRoutines().hasActiveObservers()) {
+            viewModel.getFavouriteRoutines().observe(getViewLifecycleOwner(), favresource -> {
+                        switch (favresource.status) {
+                            case LOADING:
+                                Log.d("UI", "awaiting favourite routines");
+                                break;
+                            case SUCCESS:
+                                Log.d("UI", "Éxito recuperando rutinas favoritas");
+                                favouriteRoutinesList.addAll(favresource.data);
+                                adapterFavourites.notifyDataSetChanged();
 
-    private void fillRecentList() {
-        //HARDCODEADO ADAPTAR A API
-        recentRoutinesList.add(new RoutineVO("OCTA", "horacio", "Octa4", "Piernas", 5, 5, 18, 1, true,1.5f));
-        recentRoutinesList.add(new RoutineVO("CAPTAIN AMERICA", "VALCHARRRR SACA LA MANO DE AHI CARAJO", "Octa2", "Brazos", 1, 0, 180, 2, true, 0));
-        recentRoutinesList.add(new RoutineVO("THOR NOT AGUSTIN", "wasaaaaaaaaaaaaaaaaaaaaaaaaaa", "Octa3", "Piernas", 2, 0, 11, 3, true, 1));
+                                //-----------------------------------------------------
+                                //CAMBIO TEMPORAL POR CAPACIDADES DE LA API
+                                recentRoutinesList.addAll(favresource.data);
+                                adapterRecents.notifyDataSetChanged();
+                                //CAMBIO TEMPORAL POR CAPACIDADES DE LA API
+                                //-----------------------------------------------------
+
+
+                                break;
+                            case ERROR:
+                                Log.d("UI", "Error recuperando rutinas favoritas - " + favresource.message);
+                                break;
+                        }
+                    }
+            );
+        }
     }
 
     @Override
@@ -110,5 +138,13 @@ public class HomeFragment extends Fragment implements RoutinesAdapter.OnRoutineL
         HomeFragmentDirections.ActionHomeFragmentToRoutineInfoFragment action = HomeFragmentDirections.actionHomeFragmentToRoutineInfoFragment
                 (array.get(position).getId());
         Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(action);
+    }
+
+
+    @Override
+    public void onStop() {
+        viewModel.getFavouriteRoutines().removeObservers(getViewLifecycleOwner());
+        viewModel.getRoutines().removeObservers(getViewLifecycleOwner());
+        super.onStop();
     }
 }

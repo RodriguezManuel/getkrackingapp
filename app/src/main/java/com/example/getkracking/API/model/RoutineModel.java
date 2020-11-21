@@ -73,6 +73,8 @@ public class RoutineModel {
         this.creatorModel = creatorModel;
         this.categoryModel = categoryModel;
     }
+    private RateLimiter<String> rateLimit = new RateLimiter<>(10, TimeUnit.SECONDS);
+    String[] difficultyVector = {"rookie", "beginner", "intermediate", "advanced", "expert"};
 
     public RoutineVO toVO(){
         return new RoutineVO(name, detail, creatorModel.getUsername(), categoryModel.getName(), castDifficulty(difficulty), 3, 69, id, false, averageRating, dateCreated);
