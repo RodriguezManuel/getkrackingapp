@@ -90,11 +90,12 @@
         android:id="@+id/iconFB"
         android:layout_width="30dp"
         android:layout_height="32dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/ic_facebook"
         android:backgroundTint="@color/mainbackground"
-        app:layout_constraintStart_toEndOf="@+id/iconGP"
+        app:layout_constraintEnd_toEndOf="@+id/welcomeButton_login"
+        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintStart_toStartOf="@+id/welcomeButton_login"
         app:layout_constraintTop_toBottomOf="@+id/welcomeButton_login" />
 
     <TextView
@@ -102,22 +103,20 @@
         android:layout_width="30dp"
         android:layout_height="32dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="18dp"
         android:background="@drawable/ic_instagram2"
         android:backgroundTint="@color/mainbackground"
         app:layout_constraintStart_toEndOf="@+id/iconFB"
-        app:layout_constraintTop_toBottomOf="@+id/welcomeButton_login" />
+        app:layout_constraintTop_toTopOf="@+id/iconFB" />
 
     <TextView
         android:id="@+id/iconGP"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginStart="108dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginEnd="32dp"
         android:background="@drawable/ic_google_plus"
         android:backgroundTint="@color/mainbackground"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcomeButton_login" />
+        app:layout_constraintEnd_toStartOf="@+id/iconFB"
+        app:layout_constraintTop_toTopOf="@+id/iconFB" />
 
     <TextView
         android:id="@+id/welcomeLink"
@@ -137,6 +136,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="365dp" />
+        app:layout_constraintGuide_begin="301dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
