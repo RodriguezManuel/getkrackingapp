@@ -245,16 +245,22 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
 
         EditText etSearch = vista.findViewById(R.id.etSearchRoutines);
         etSearch.setOnEditorActionListener((v, actionId, event) -> {
-                    if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                        fillListSearch(etSearch.getText().toString());
-                        return true;
+                    if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                        switch (event.getKeyCode()) {
+                            case KeyEvent.KEYCODE_DPAD_CENTER:
+                            case KeyEvent.KEYCODE_ENTER:
+                                fillListSearch(etSearch.getText().toString());
+                                return true;
+                            default:
+                                break;
+                        }
                     }
                     return false;
                 }
         );
-
-        ImageView ivSearch = vista.findViewById(R.id.search_toggle);
-        ivSearch.setOnClickListener(v -> fillListSearch(etSearch.getText().toString()));
+        fillListSearch(etSearch.getText().toString());
+        EditText etSearchIcon = vista.findViewById(R.id.search_toggle);
+        etSearchIcon.setOnClickListener(v -> fillListSearch(etSearch.getText().toString()));
 
         //chip de filtros
         ChipGroup filters = vista.findViewById(R.id.chipgroup_filterSearch);
