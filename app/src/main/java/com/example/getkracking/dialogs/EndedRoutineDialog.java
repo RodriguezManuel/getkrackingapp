@@ -22,6 +22,7 @@ import com.example.getkracking.viewmodels.RepositoryViewModelFactory;
 import com.example.getkracking.viewmodels.RoutinesViewModel;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class EndedRoutineDialog extends AppCompatDialogFragment {
     float rating = -1;
@@ -80,7 +81,7 @@ public class EndedRoutineDialog extends AppCompatDialogFragment {
         //saco la barra de navegacion
         BottomAppBar bottomAppBar = getActivity().findViewById(R.id.bottomAppBar);
         BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottomNavigationView);
-        Button homeButton = getActivity().findViewById(R.id.fabBottomAppBar);
+        FloatingActionButton homeButton = getActivity().findViewById(R.id.fabBottomAppBar);
 
         //vuelve a aparecer la interfaz de navegacion
         bottomAppBar.setVisibility(View.VISIBLE);

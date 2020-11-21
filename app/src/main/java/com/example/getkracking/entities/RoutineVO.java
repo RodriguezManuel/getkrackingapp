@@ -28,7 +28,7 @@ public class RoutineVO {
     }
 
     public FavouriteRoutineTable toFavTable(){
-        return new FavouriteRoutineTable(id,name,description,creator, 1, rating, levelCategory1, dateCreated);
+        return new FavouriteRoutineTable(id, name, description, creator, 1, rating, levelCategory1, dateCreated);
     }
 
     public float getRating() {
