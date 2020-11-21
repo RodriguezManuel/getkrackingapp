@@ -190,7 +190,7 @@ public class RoutineInfoFragment extends Fragment {
         ((TextView) vista.findViewById(R.id.RoutineNameInRoutine)).setText(routine.getName());
         ((TextView) vista.findViewById(R.id.CreatorNameInRoutine)).setText(routine.getCreator());
         ((TextView) vista.findViewById(R.id.RoutineDescriptionInRoutine)).setText(routine.getDescription());
-        ((RatingBar) vista.findViewById(R.id.rbCategory1InRoutine)).setRating(routine.getLevelCategory1());
+        ((RatingBar) vista.findViewById(R.id.rbCategory1InRoutine)).setRating(routine.getDifficulty());
         favorited = routine.isFavorited();
         TextView puntuacion = vista.findViewById(R.id.rating_value_info_routine);
         puntuacion.setText(String.valueOf(routine.getRating()));
