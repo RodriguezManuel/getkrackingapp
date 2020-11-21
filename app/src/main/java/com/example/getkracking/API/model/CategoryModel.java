@@ -1,6 +1,10 @@
 package com.example.getkracking.API.model;
 
+<<<<<<< Updated upstream
 import com.example.getkracking.room.entities.RoutineTable;
+=======
+import com.example.getkracking.entities.CategoryVO;
+>>>>>>> Stashed changes
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -33,7 +37,9 @@ public class CategoryModel {
         this.name = name;
         this.detail = detail;
     }
-
+    public CategoryVO toVo(){
+        return new CategoryVO(this.id , this.name , this.detail);
+    }
     public int getId() {
         return id;
     }

@@ -2,6 +2,9 @@ package com.example.getkracking.API;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.getkracking.API.model.CategoryModel;
+import com.example.getkracking.API.model.ExecutionAnswerModel;
+import com.example.getkracking.API.model.ExecutionModel;
 import com.example.getkracking.API.model.PagedListModel;
 import com.example.getkracking.API.model.ReviewAnswerModel;
 import com.example.getkracking.API.model.ReviewModel;
@@ -14,6 +17,12 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface ApiRoutineService {
+
+    @GET("categories")
+    LiveData<PagedListModel<CategoryModel>> getCategories();
+    @POST("routines/{routineId}/execute")
+    LiveData<ApiResponse<ExecutionAnswerModel>> executeRoutine(@Path("routineId") int routineId , @Body ExecutionModel executionModel);
+
     @POST("routines/{routineId}/ratings")
     LiveData<ApiResponse<ReviewAnswerModel>> postReview(@Path("routineId") int routineId , @Body ReviewModel reviewModel);
 

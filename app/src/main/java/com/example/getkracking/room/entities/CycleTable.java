@@ -20,6 +20,7 @@ public class CycleTable {
 
     @ColumnInfo(name = "Name")
     public String name;
+
     @ColumnInfo(name = "Detail")
     public String detail;
 
