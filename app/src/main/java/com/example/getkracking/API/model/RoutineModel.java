@@ -93,7 +93,6 @@ public class RoutineModel {
         return difficultyList.indexOf(difficulty);
     }
 
-    String[] difficultyVector = {"rookie", "beginner", "intermediate", "advanced", "expert"};
     private List<String> difficultyList = Arrays.asList(difficultyVector);
 
 

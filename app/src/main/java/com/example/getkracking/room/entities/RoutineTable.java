@@ -37,7 +37,7 @@ public class RoutineTable {
     @ColumnInfo(name = "DateCreated")
     public long datecreated;
 
-    public RoutineTable(int id, String name, String detail, String creator, int favourite, int rating, int difficulty, long datecreated) {
+    public RoutineTable(int id, String name, String detail, String creator, int favourite, float rating, int difficulty, long datecreated) {
         this.id = id;
         this.name = name;
         this.detail = detail;

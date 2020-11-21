@@ -46,12 +46,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-<<<<<<< HEAD
-    public void attemptLogin( MyApplication application){
-=======
     public void attemptLogin(Uri data) {
         MyApplication application = (MyApplication) getApplication();
->>>>>>> main
         String username_string = application.getPreferences().getUsername();
         String password_string = application.getPreferences().getPassword();
         userViewModel.login(username_string, password_string)

@@ -90,7 +90,7 @@ public class HomeFragment extends Fragment implements RoutinesAdapter.OnRoutineL
 
     private void fillHighlightedList() {
         //solo un item necesitamos
-        highlightedRoutinesList.add(new RoutineVO("LA MEJOR RUTINA DE TODAS", "NDEAHHHHHHHHHHHH LA VECINDAD PADRE", "Roosevelt", "Pecho", 0, 1, 0, 0, false, 1));
+        highlightedRoutinesList.add(new RoutineVO("LA MEJOR RUTINA DE TODAS", "NDEAHHHHHHHHHHHH LA VECINDAD PADRE", "Roosevelt", "Pecho", 0, 1, 0, 0, false, (float) 4.5,(long) 2434));
     }
 
     private void fillFavouriteList() {

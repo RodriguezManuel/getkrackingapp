@@ -1,8 +1,5 @@
 package com.example.getkracking.entities;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 public class CategoryVO {
     private int id;
     private String name;

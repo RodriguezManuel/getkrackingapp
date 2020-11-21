@@ -23,6 +23,7 @@ public interface CycleDao {
 
     @Delete
     void deleteCycle(CycleTable cycle);
+
     @Query("DELETE FROM cycleTable")
     void deleteAll();
 }

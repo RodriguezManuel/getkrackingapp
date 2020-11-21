@@ -19,7 +19,7 @@ import retrofit2.http.Path;
 public interface ApiRoutineService {
 
     @GET("categories")
-    LiveData<PagedListModel<CategoryModel>> getCategories();
+    LiveData<ApiResponse<PagedListModel<CategoryModel>>> getCategories();
     @POST("routines/{routineId}/execute")
     LiveData<ApiResponse<ExecutionAnswerModel>> executeRoutine(@Path("routineId") int routineId , @Body ExecutionModel executionModel);
 

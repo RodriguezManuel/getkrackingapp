@@ -8,16 +8,19 @@ import com.example.getkracking.API.ApiCycleService;
 import com.example.getkracking.API.ApiExerciseService;
 import com.example.getkracking.API.ApiResponse;
 import com.example.getkracking.API.ApiRoutineService;
+import com.example.getkracking.API.model.CategoryModel;
 import com.example.getkracking.API.model.CycleModel;
 import com.example.getkracking.API.model.ExerciseModel;
 import com.example.getkracking.API.model.PagedListModel;
 import com.example.getkracking.API.model.ReviewAnswerModel;
 import com.example.getkracking.API.model.ReviewModel;
 import com.example.getkracking.API.model.RoutineModel;
+import com.example.getkracking.entities.CategoryVO;
 import com.example.getkracking.entities.CycleVO;
 import com.example.getkracking.entities.ExerciseVO;
 import com.example.getkracking.entities.RoutineVO;
 import com.example.getkracking.room.AppDatabase;
+import com.example.getkracking.room.entities.CategoryTable;
 import com.example.getkracking.room.entities.CycleTable;
 import com.example.getkracking.room.entities.ExerciseTable;
 import com.example.getkracking.room.entities.FavouriteRoutineTable;
@@ -398,5 +401,48 @@ public class RoutineRepository {
                 }
             }.asLiveData();
         }
+        //------------------------------------ CATEGORY REPO--------------------
+
+        public LiveData<Resource<List<CategoryVO>>> getCategories(){
+           return new NetworkBoundResource<List<CategoryVO> , List<CategoryTable> , PagedListModel<CategoryModel> >(executors ,
+                    modelEntity ->{
+                        return modelEntity.stream().map( entity -> entity.toVO()).collect(toList());
+                    }      ,
+                   modelList -> {
+                       return  modelList.getResults().stream().map(model -> model.toTable()).collect(toList());
+                   } , modelList -> {
+                     return modelList.getResults().stream().map( model -> model.toVo() ).collect(toList());
+                    }    ){
+
+               @Override
+               protected void saveCallResult(@NonNull List<CategoryTable> entities) {
+                   database.categoryDao().deleteAll();
+                   database.categoryDao().insert(entities);
+               }
+
+               @Override
+               protected boolean shouldFetch(@Nullable List<CategoryTable> entities) {
+                   return ((entities == null) || (entities.size() == 0) || rateLimit.shouldFetch(RATE_LIMITER_ALL_KEY));
+               }
+
+               @Override
+               protected boolean shouldPersist(@Nullable PagedListModel<CategoryModel> model) {
+                   return true;
+               }
+
+               @NonNull
+               @Override
+               protected LiveData<List<CategoryTable>> loadFromDb() {
+                   return database.categoryDao().getAll();
+               }
+
+               @NonNull
+               @Override
+               protected LiveData<ApiResponse<PagedListModel<CategoryModel>>> createCall() {
+                   return routineService.getCategories();
+               }
+           }.asLiveData();
+        }
+
 
 }

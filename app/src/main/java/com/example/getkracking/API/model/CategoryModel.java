@@ -1,7 +1,10 @@
 package com.example.getkracking.API.model;
 
 import com.example.getkracking.room.entities.RoutineTable;
+import com.example.getkracking.room.entities.CategoryTable;
+
 import com.example.getkracking.entities.CategoryVO;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -34,6 +37,11 @@ public class CategoryModel {
         this.name = name;
         this.detail = detail;
     }
+
+    public CategoryTable toTable(){
+        return new CategoryTable(this.id , this.name , this.detail);
+    }
+
     public CategoryVO toVo(){
         return new CategoryVO(this.id , this.name , this.detail);
     }
