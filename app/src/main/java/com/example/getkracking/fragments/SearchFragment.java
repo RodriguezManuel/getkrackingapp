@@ -13,6 +13,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import com.example.getkracking.HomeActivity;
 import com.example.getkracking.R;
@@ -102,18 +105,18 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
         }
     }
 
-    private enum Order{
+    private enum Order {
         ASCENDING, DESCENDING;
     }
 
-    private enum Field{
+    private enum Field {
         DIFFICULTY, DATECREATED, RATING;
     }
 
-    private void orderList(Field field, Order order){
-        switch (field){
+    private void orderList(Field field, Order order) {
+        switch (field) {
             case DIFFICULTY:
-                switch (order){
+                switch (order) {
                     case ASCENDING:
                         Collections.sort(routinesList, Comparator.comparing(RoutineVO::getDifficulty));
                         adapter.notifyDataSetChanged();
@@ -125,7 +128,7 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
                 }
                 break;
             case DATECREATED:
-                switch (order){
+                switch (order) {
                     case ASCENDING:
                         Collections.sort(routinesList, Comparator.comparing(RoutineVO::getDateCreated));
                         adapter.notifyDataSetChanged();
@@ -137,7 +140,7 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
                 }
                 break;
             case RATING:
-                switch (order){
+                switch (order) {
                     case ASCENDING:
                         Collections.sort(routinesList, Comparator.comparing(RoutineVO::getRating));
                         adapter.notifyDataSetChanged();
@@ -150,7 +153,6 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
                 break;
         }
     }
-
 
 
     @Override
@@ -174,6 +176,22 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
                 //completar
             } else if (id == R.id.filterchip_lowdifficulty) {
                 //completar
+            }
+        });
+
+        Spinner spinner = vista.findViewById(R.id.difficulty_order_spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.difficult_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemClickListener((parent, view, position, id) -> {
+            switch (position) {
+                case 0:
+                    //ascendente
+                    orderList(Field.DIFFICULTY, Order.ASCENDING);
+                    break;
+                case 1:
+                    orderList(Field.DIFFICULTY, Order.DESCENDING);
+                    break;
             }
         });
 

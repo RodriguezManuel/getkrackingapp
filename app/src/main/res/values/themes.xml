@@ -44,4 +44,9 @@
         <item name="checkedIcon">@null</item>
     </style>
 
+    <string-array name="difficult_array">
+        <item>Dificultad ascendente</item>
+        <item>Dificultad descendente</item>
+    </string-array>
+
 </resources>

@@ -52,9 +52,15 @@
             <HorizontalScrollView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:scrollbars="none"
                 android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp">
+                android:layout_marginEnd="10dp"
+                android:scrollbars="none">
+
+                <Spinner
+                    android:id="@+id/difficulty_order_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
 
                 <com.google.android.material.chip.ChipGroup
                     android:id="@+id/chipgroup_filterSearch"
@@ -65,92 +71,57 @@
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/filterchip_favourites"
+                        style="@style/CustomChipNoCheck"
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
+                        android:checkable="true"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:text="@string/chip_favourites"
                         android:textAlignment="center"
                         android:textAppearance="@style/customTextNoSpecificCaseLayout"
-                        android:checkable="true"
-                        android:clickable="true"
-                        android:focusable="true"
-                        app:chipBackgroundColor="@drawable/selectedchip"
-                        style="@style/CustomChipNoCheck"/>
-
-
-
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/filterchip_difficulty"
-                            style="@style/CustomChipNoCheck"
-                            android:layout_width="152dp"
-                            android:layout_height="50dp"
-                            android:layout_alignParentTop="true"
-                            android:layout_marginTop="-1dp"
-                            android:checkable="true"
-                            android:clickable="true"
-                            android:text="@string/dificultad"
-                            app:chipIcon="@drawable/ic_arrow_down"
-                            android:focusable="true"
-                            android:textAlignment="center"
-                            android:textAppearance="@style/customTextNoSpecificCaseLayout"
-                            app:chipBackgroundColor="@drawable/selectedchip"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.498"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/materialCardView2">
-
-
-                        </com.google.android.material.chip.Chip>
-
-
-
-
+                        app:chipBackgroundColor="@drawable/selectedchip" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/filterchip_lowdifficulty"
+                        style="@style/CustomChipNoCheck"
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
+                        android:checkable="true"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:text="@string/chip_lowdifficulty"
                         android:textAlignment="center"
                         android:textAppearance="@style/customTextNoSpecificCaseLayout"
-                        android:checkable="true"
-                        android:clickable="true"
-                        android:focusable="true"
-                        app:chipBackgroundColor="@drawable/selectedchip"
-                        style="@style/CustomChipNoCheck" />
+                        app:chipBackgroundColor="@drawable/selectedchip" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/filterchip_mediumdifficulty"
+                        style="@style/CustomChipNoCheck"
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
+                        android:checkable="true"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:text="@string/chip_mediumdifficulty"
                         android:textAlignment="center"
                         android:textAppearance="@style/customTextNoSpecificCaseLayout"
-                        android:checkable="true"
-                        android:clickable="true"
-                        android:focusable="true"
-                        app:chipBackgroundColor="@drawable/selectedchip"
-                        style="@style/CustomChipNoCheck" />
+                        app:chipBackgroundColor="@drawable/selectedchip" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/filterchip_highdifficulty"
+                        style="@style/CustomChipNoCheck"
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/chip_highdifficulty"
-                        android:textAlignment="center"
-                        android:textAppearance="@style/customTextNoSpecificCaseLayout"
                         android:checkable="true"
                         android:clickable="true"
                         android:focusable="true"
-                        app:chipBackgroundColor="@drawable/selectedchip"
-                        style="@style/CustomChipNoCheck" />
+                        android:text="@string/chip_highdifficulty"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/customTextNoSpecificCaseLayout"
+                        app:chipBackgroundColor="@drawable/selectedchip" />
                 </com.google.android.material.chip.ChipGroup>
             </HorizontalScrollView>
-
-            <TextView
-                android:id="@+id/difficultyOrderIcon"
-                android:layout_width="24dp"
-                android:layout_height="20dp"
-                android:background="@drawable/ic_arrow_down" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
