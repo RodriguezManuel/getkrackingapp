@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RatingBar;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,8 @@ import com.example.getkracking.app.MyApplication;
 import com.example.getkracking.repository.RoutineRepository;
 import com.example.getkracking.viewmodels.RepositoryViewModelFactory;
 import com.example.getkracking.viewmodels.RoutinesViewModel;
+import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class EndedRoutineDialog extends AppCompatDialogFragment {
     float rating = -1;
@@ -68,5 +71,20 @@ public class EndedRoutineDialog extends AppCompatDialogFragment {
         //para que no se cierre ante un toque fuera del dialogo
         dialog.setCancelable(false);
         return dialog;
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //saco la barra de navegacion
+        BottomAppBar bottomAppBar = getActivity().findViewById(R.id.bottomAppBar);
+        BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottomNavigationView);
+        Button homeButton = getActivity().findViewById(R.id.fabBottomAppBar);
+
+        //vuelve a aparecer la interfaz de navegacion
+        bottomAppBar.setVisibility(View.VISIBLE);
+        bottomNavigationView.setVisibility(View.VISIBLE);
+        homeButton.setVisibility(View.VISIBLE);
     }
 }
