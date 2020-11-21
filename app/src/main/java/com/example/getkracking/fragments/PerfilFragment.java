@@ -137,9 +137,10 @@ public class PerfilFragment extends Fragment {
                 case SUCCESS:
                     Log.d("UI", "Cierre de sesión exitoso" );
                     MyApplication app = (MyApplication) getActivity().getApplication();
-                    app.getPreferences().setAuthToken("auth_token");
+                    app.getPreferences().setAuthToken(null);
                     app.getPreferences().setPassword(null);
                     app.getPreferences().setUsername(null);
+                    app.getPreferences().setLogged(false);
                     Intent welcomeIntent = new Intent(getActivity(), WelcomeActivity.class);
                     startActivity(welcomeIntent);
                     getActivity().finish();

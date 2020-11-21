@@ -90,13 +90,16 @@ public class WelcomeLoginFragment extends Fragment {
                             Log.d("UI", "awaiting");
                             break;
                         case SUCCESS:
+                            application.getPreferences().setLogged(true);
                             application.getPreferences().setAuthToken(resource.data);
                             application.getPreferences().setUsername(username_string);
-                            application.getPreferences().setPassword(password_string);
+                            Log.d("UI", "User + " + username_string);
+                            Log.d("UI", "PASS = " + password_string);
                             Log.d("UI", "ALL GOOD :) -- token = " + application.getPreferences().getAuthToken());
                             Intent homeIntent = new Intent(getActivity(), HomeActivity.class);
 
                             homeIntent.putExtra("routineId", argumentViewModel.getArgument());
+                            application.getPreferences().setPassword(password_string);
                             startActivity(homeIntent);
                             getActivity().finish();
 

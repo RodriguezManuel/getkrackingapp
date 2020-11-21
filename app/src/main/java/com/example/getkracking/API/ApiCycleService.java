@@ -10,6 +10,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public interface ApiCycleService {
-    @GET("routines/{routineId}/cycles")
+    @GET("routines/{routineId}/cycles?size=999999")
     LiveData<ApiResponse<PagedListModel<CycleModel>>> getCycles(@Path("routineId") int id);
 }

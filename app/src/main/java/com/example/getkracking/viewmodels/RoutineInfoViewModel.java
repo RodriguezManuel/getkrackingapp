@@ -49,4 +49,7 @@ public class RoutineInfoViewModel extends RepositoryViewModel<RoutineRepository>
     public LiveData<Resource<List<RoutineVO>>> getFavouriteRoutines() {
         return repository.getFavouriteRoutines();
     }
+    public LiveData<Resource<List<RoutineVO>>> searchRoutines(String string ){
+        return repository.searchRoutines(string);
+    }
 }

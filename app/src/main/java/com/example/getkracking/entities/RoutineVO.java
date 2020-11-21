@@ -7,17 +7,18 @@ import com.example.getkracking.room.entities.FavouriteRoutineTable;
 import java.util.Date;
 
 public class RoutineVO {
-    private String name, description, creator, category;
+    private String name, description, creator;
+    private int categoryId;
     private int levelCategory1, levelCategory2, duration, id;
     private float rating;
     private boolean favorited;
     private Long dateCreated;
-    public RoutineVO(String name, String description, String creator, String category, int difficulty, int levelCategory2,
+    public RoutineVO(String name, String description, String creator, int category, int difficulty, int levelCategory2,
                      int duration, int id, boolean favorited, float rating, Long dateCreated) {
         this.name = name;
         this.description = description;
         this.creator = creator;
-        this.category = category;
+        this.categoryId = category;
         this.levelCategory1 = difficulty;
         this.levelCategory2 = levelCategory2;
         this.duration = duration;
@@ -28,7 +29,7 @@ public class RoutineVO {
     }
 
     public FavouriteRoutineTable toFavTable(){
-        return new FavouriteRoutineTable(id, name, description, creator, 1, rating, levelCategory1, dateCreated);
+        return new FavouriteRoutineTable(id,name,description,creator, 1, rating, levelCategory1, dateCreated , categoryId);
     }
 
     public float getRating() {
@@ -63,12 +64,12 @@ public class RoutineVO {
         this.creator = creator;
     }
 
-    public String getCategory() {
-        return category;
+    public int getCategory() {
+        return categoryId;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCategory(int category) {
+        this.categoryId = category;
     }
 
     public int getLevelCategory1() {
