@@ -243,6 +243,9 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
                              Bundle savedInstanceState) {
         View vista = inflater.inflate(R.layout.fragment_search, container, false);
 
+        RepositoryViewModelFactory viewModelFactory = new RepositoryViewModelFactory(RoutineRepository.class, ((MyApplication) getActivity().getApplication()).getRoutineRepository());
+        routinesViewModel = new ViewModelProvider(this, viewModelFactory).get(RoutinesViewModel.class);
+
         EditText etSearch = vista.findViewById(R.id.etSearchRoutines);
         etSearch.setOnEditorActionListener((v, actionId, event) -> {
                     if (event.getAction() == KeyEvent.ACTION_DOWN) {
@@ -258,9 +261,9 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
                     return false;
                 }
         );
-        fillListSearch(etSearch.getText().toString());
-        EditText etSearchIcon = vista.findViewById(R.id.search_toggle);
-        etSearchIcon.setOnClickListener(v -> fillListSearch(etSearch.getText().toString()));
+        
+        TextView tvSearchIcon = vista.findViewById(R.id.search_toggle);
+        tvSearchIcon.setOnClickListener(v -> fillListSearch(etSearch.getText().toString()));
 
         //chip de filtros
         ChipGroup filters = vista.findViewById(R.id.chipgroup_filterSearch);
@@ -306,9 +309,6 @@ public class SearchFragment extends Fragment implements RoutinesAdapter.OnRoutin
 
         recyclerRoutines = vista.findViewById(R.id.recyclerSearchRoutines);
         recyclerRoutines.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        RepositoryViewModelFactory viewModelFactory = new RepositoryViewModelFactory(RoutineRepository.class, ((MyApplication) getActivity().getApplication()).getRoutineRepository());
-        routinesViewModel = new ViewModelProvider(this, viewModelFactory).get(RoutinesViewModel.class);
 
         //lista rutinas
         routinesList = new ArrayList<>();
