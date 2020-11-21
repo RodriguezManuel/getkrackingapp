@@ -8,8 +8,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,7 +22,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.Switch;
@@ -35,11 +34,8 @@ import com.example.getkracking.app.MyApplication;
 import com.example.getkracking.entities.CycleVO;
 import com.example.getkracking.entities.RoutineVO;
 import com.example.getkracking.repository.RoutineRepository;
-import com.example.getkracking.repository.UserRepository;
 import com.example.getkracking.viewmodels.RepositoryViewModelFactory;
 import com.example.getkracking.viewmodels.RoutineInfoViewModel;
-import com.example.getkracking.vo.Resource;
-import com.google.android.material.chip.Chip;
 
 import java.util.ArrayList;
 
@@ -54,6 +50,7 @@ public class RoutineInfoFragment extends Fragment {
     private ImageView favIcon;
     private RoutineVO routine;
     private int routineId;
+    private NavController navController;
 
     @Override
     public void onResume() {
@@ -103,17 +100,19 @@ public class RoutineInfoFragment extends Fragment {
 
 
         mode = (Switch) vista.findViewById(R.id.execution_mode_chip);
+        navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
 
-        //CAMBIAR ACA, TEMA DEL VIEW MODEL
-        routineViewModel.getChipText().observe(getViewLifecycleOwner(), bool -> {
+        routineViewModel.getSwitchValue().observe(getViewLifecycleOwner(), bool -> {
             if (bool)
-               mode.setChecked(true);
-                //mode.setText(R.string.exercise_execution_list_mode);
-            else //.setText(R.string.exercise_execution_exercise_mode);
-            mode.setChecked(false);
+                mode.setChecked(true);
+            else
+                mode.setChecked(false);
         });
 
-        mode.setOnClickListener(v -> routineViewModel.changeChipText());
+        mode.setOnClickListener(v -> routineViewModel.changeSwitchValue());
+
+        if(getArguments() == null)
+            navController.navigate(R.id.homeFragment);
 
         RoutineInfoFragmentArgs args = RoutineInfoFragmentArgs.fromBundle(getArguments());
         routineId = args.getIdRoutine();
@@ -253,21 +252,24 @@ public class RoutineInfoFragment extends Fragment {
                 case SUCCESS:
                     Log.d("UI", "Éxito recuperando rutinas");
 
-                    cycle.getExercises().addAll(resource.data);
-                    adapter.notifyDataSetChanged();
-                    if (cyclesList.indexOf(cycle) == cyclesList.size() - 1)
-                        //seteo de funcionalidades de botones
-                        ((Button) getView().findViewById(R.id.ButtonEmpezarInRoutine)).setOnClickListener(v1 -> {
-                            if (mode.isChecked()) {
-                                RoutineInfoFragmentDirections.ActionRoutineInfoFragmentToRunRoutineListFragment action =
-                                        RoutineInfoFragmentDirections.actionRoutineInfoFragmentToRunRoutineListFragment(cyclesList.toArray(new CycleVO[cyclesList.size()]), routine.getId());
-                                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(action);
-                            } else {
-                                RoutineInfoFragmentDirections.ActionRoutineInfoFragmentToRunRoutineFragment action =
-                                        RoutineInfoFragmentDirections.actionRoutineInfoFragmentToRunRoutineFragment(cyclesList.toArray(new CycleVO[cyclesList.size()]), routine.getId());
-                                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(action);
-                            }
-                        });
+                    if (resource.data != null) {
+                        cycle.getExercises().addAll(resource.data);
+                        adapter.notifyDataSetChanged();
+
+                        if (cyclesList.indexOf(cycle) == cyclesList.size() - 1)
+                            //seteo de funcionalidades de botones
+                            ((Button) getView().findViewById(R.id.ButtonEmpezarInRoutine)).setOnClickListener(v1 -> {
+                                if (mode.isChecked()) {
+                                    RoutineInfoFragmentDirections.ActionRoutineInfoFragmentToRunRoutineListFragment action =
+                                            RoutineInfoFragmentDirections.actionRoutineInfoFragmentToRunRoutineListFragment(cyclesList.toArray(new CycleVO[cyclesList.size()]), routine.getId());
+                                    navController.navigate(action);
+                                } else {
+                                    RoutineInfoFragmentDirections.ActionRoutineInfoFragmentToRunRoutineFragment action =
+                                            RoutineInfoFragmentDirections.actionRoutineInfoFragmentToRunRoutineFragment(cyclesList.toArray(new CycleVO[cyclesList.size()]), routine.getId());
+                                    navController.navigate(action);
+                                }
+                            });
+                    }
                     break;
                 case ERROR:
                     Log.d("UI", "Error en get routines - " + resource.message);
@@ -285,11 +287,12 @@ public class RoutineInfoFragment extends Fragment {
                 case SUCCESS:
                     Log.d("UI", "Éxito recuperando rutinas");
 
-                    for (CycleVO cycle : resource.data) {
-                        cyclesList.add(cycle);
-                        fillExercises(cycle.getId(), cycle);
-                        adapter.notifyDataSetChanged();
-                    }
+                    if (resource.data != null)
+                        for (CycleVO cycle : resource.data) {
+                            cyclesList.add(cycle);
+                            fillExercises(cycle.getId(), cycle);
+                            adapter.notifyDataSetChanged();
+                        }
 
                     break;
                 case ERROR:

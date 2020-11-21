@@ -12,18 +12,18 @@ import com.example.getkracking.vo.Resource;
 import java.util.List;
 
 public class RoutineInfoViewModel extends RepositoryViewModel<RoutineRepository> {
-    MutableLiveData<Boolean> chipText = new MutableLiveData<>(false);
+    MutableLiveData<Boolean> switchValue = new MutableLiveData<>(false);
 
     public RoutineInfoViewModel(RoutineRepository repository) {
         super(repository);
     }
 
-    public MutableLiveData<Boolean> getChipText() {
-        return chipText;
+    public MutableLiveData<Boolean> getSwitchValue() {
+        return switchValue;
     }
 
-    public void changeChipText() {
-        chipText.setValue(!chipText.getValue());
+    public void changeSwitchValue() {
+        switchValue.setValue(!switchValue.getValue());
     }
 
     public LiveData<Resource<List<ExerciseVO>>> getExercises(int routineId, int cycleId) {

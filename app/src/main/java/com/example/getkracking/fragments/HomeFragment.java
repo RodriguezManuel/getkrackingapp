@@ -120,19 +120,21 @@ public class HomeFragment extends Fragment implements RoutinesAdapter.OnRoutineL
                                     case SUCCESS:
                                         Log.d("UI", "exito recuperando categorias");
                                         ArrayList<RoutineVO> aux;
-                                        for (CategoryVO cat : resourceCat.data) {
-                                            aux = new ArrayList<>();
-                                            //busco rutinas que matchean con la categoria actual
-                                            for (RoutineVO rout : resource.data) {
-                                                if (rout.getCategory() == cat.getId())
-                                                    aux.add(rout);
+                                        if (resourceCat.data != null)
+                                            for (CategoryVO cat : resourceCat.data) {
+                                                aux = new ArrayList<>();
+                                                //busco rutinas que matchean con la categoria actual
+                                                if (resource.data != null)
+                                                    for (RoutineVO rout : resource.data) {
+                                                        if (rout.getCategory() == cat.getId())
+                                                            aux.add(rout);
+                                                    }
+                                                if (aux.size() != 0) {
+                                                    categoriesList.add(new Pair<>(new CategoryVO(cat.getId(), cat.getName(), cat.getDetail()), aux));
+                                                }
+                                                //no se muestran categorias vacias
+                                                fillHighlightedList();
                                             }
-                                            if (aux.size() != 0) {
-                                                categoriesList.add(new Pair<>(new CategoryVO(cat.getId(), cat.getName(), cat.getDetail()), aux));
-                                            }
-                                            //no se muestran categorias vacias
-                                            fillHighlightedList();
-                                        }
                                         adapterCategories.notifyDataSetChanged();
                                         break;
                                     case ERROR:
@@ -152,12 +154,12 @@ public class HomeFragment extends Fragment implements RoutinesAdapter.OnRoutineL
 
     private void fillHighlightedList() {
         //solo un item necesitamos, tomamos el primero disponible
-        if (highlightedRoutinesList.size() == 0 && categoriesList.size() != 0 && categoriesList.get(0).second.size() != 0){
+        if (highlightedRoutinesList.size() == 0 && categoriesList.size() != 0 && categoriesList.get(0).second.size() != 0) {
             highlightedRoutinesList.add(categoriesList.get(0).second.get(0));
             adapterHighlighted.notifyDataSetChanged();
         }
 
-}
+    }
 
     private void fillFavouriteList() {
         if (!viewModel.getFavouriteRoutines().hasActiveObservers()) {
@@ -168,7 +170,8 @@ public class HomeFragment extends Fragment implements RoutinesAdapter.OnRoutineL
                                 break;
                             case SUCCESS:
                                 Log.d("UI", "Éxito recuperando rutinas favoritas");
-                                favouriteRoutinesList.addAll(favresource.data);
+                                if (favresource.data != null)
+                                    favouriteRoutinesList.addAll(favresource.data);
                                 adapterFavourites.notifyDataSetChanged();
 
                                 //-----------------------------------------------------

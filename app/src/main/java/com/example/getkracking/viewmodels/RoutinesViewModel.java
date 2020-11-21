@@ -20,6 +20,10 @@ public class RoutinesViewModel extends RepositoryViewModel<RoutineRepository> {
         super(repository);
     }
 
+    public LiveData<Resource<List<RoutineVO>>> searchRoutines(String string) {
+        return repository.searchRoutines(string);
+    }
+
     public LiveData<Resource<List<RoutineVO>>> getRoutines() {
         return repository.getRoutines();
     }
@@ -27,10 +31,17 @@ public class RoutinesViewModel extends RepositoryViewModel<RoutineRepository> {
     public LiveData<Resource<List<RoutineVO>>> getFavouriteRoutines() {
         return repository.getFavouriteRoutines();
     }
-    public LiveData<Resource<List<CategoryVO>>> getCategories(){ return repository.getCategories(); }
 
-    public LiveData<Resource<ReviewAnswerModel>> postReview( int routineId , int score){ return repository.postReview(routineId,score);}
+    public LiveData<Resource<List<CategoryVO>>> getCategories() {
+        return repository.getCategories();
+    }
 
-    public LiveData<Resource<ExecutionAnswerModel>> executeRoutine(int routineId){return repository.executeRoutine(routineId); }
+    public LiveData<Resource<ReviewAnswerModel>> postReview(int routineId, int score) {
+        return repository.postReview(routineId, score);
+    }
+
+    public LiveData<Resource<ExecutionAnswerModel>> executeRoutine(int routineId) {
+        return repository.executeRoutine(routineId);
+    }
 
 }
